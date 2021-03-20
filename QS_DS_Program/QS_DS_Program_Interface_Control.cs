@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,8 @@ namespace QS_DS_Program
         private List<Label> DS1Labels = new List<Label>();
         private List<NumericUpDown> DS1Numerics = new List<NumericUpDown>();
 
-        private LinkedList<CheckBox> CheckBoxData = new LinkedList<CheckBox>();
-        private LinkedList<NumericUpDown> NumericData = new LinkedList<NumericUpDown>();
+        private List<CheckBox> CheckBoxData = new List<CheckBox>();
+        private List<NumericUpDown> NumericData = new List<NumericUpDown>();
 
         private void AssignItems()
         {
@@ -122,34 +123,34 @@ namespace QS_DS_Program
             DS1Numerics.Add(MaxRPMDS);
 
 
-            CheckBoxData.AddLast(QSEnable_Check);
-            CheckBoxData.AddLast(Push_Check_QS);
-            CheckBoxData.AddLast(DSEnable_Check);
+            CheckBoxData.Add(QSEnable_Check);
+            CheckBoxData.Add(Push_Check_QS);
+            CheckBoxData.Add(DSEnable_Check);
 
-            NumericData.AddLast(Pulses);
-            NumericData.AddLast(PreDelayQS);
-            NumericData.AddLast(CutTime1);
-            NumericData.AddLast(CutTime2);
-            NumericData.AddLast(CutTime3);
-            NumericData.AddLast(CutTime4);
-            NumericData.AddLast(CutTime5);
-            NumericData.AddLast(CutTime6);
-            NumericData.AddLast(CutTime7);
-            NumericData.AddLast(CutTime8);
-            NumericData.AddLast(QSForce);
-            NumericData.AddLast(MinRPMQS);
-            NumericData.AddLast(PreDelayDS);
-            NumericData.AddLast(BlipTime1);
-            NumericData.AddLast(BlipTime2);
-            NumericData.AddLast(BlipTime3);
-            NumericData.AddLast(BlipTime4);
-            NumericData.AddLast(BlipTime5);
-            NumericData.AddLast(BlipTime6);
-            NumericData.AddLast(BlipTime7);
-            NumericData.AddLast(BlipTime8);
-            NumericData.AddLast(DSForce);
-            NumericData.AddLast(MinRPMDS);
-            NumericData.AddLast(MaxRPMDS);
+            NumericData.Add(Pulses);
+            NumericData.Add(PreDelayQS);
+            NumericData.Add(CutTime1);
+            NumericData.Add(CutTime2);
+            NumericData.Add(CutTime3);
+            NumericData.Add(CutTime4);
+            NumericData.Add(CutTime5);
+            NumericData.Add(CutTime6);
+            NumericData.Add(CutTime7);
+            NumericData.Add(CutTime8);
+            NumericData.Add(QSForce);
+            NumericData.Add(MinRPMQS);
+            NumericData.Add(PreDelayDS);
+            NumericData.Add(BlipTime1);
+            NumericData.Add(BlipTime2);
+            NumericData.Add(BlipTime3);
+            NumericData.Add(BlipTime4);
+            NumericData.Add(BlipTime5);
+            NumericData.Add(BlipTime6);
+            NumericData.Add(BlipTime7);
+            NumericData.Add(BlipTime8);
+            NumericData.Add(DSForce);
+            NumericData.Add(MinRPMDS);
+            NumericData.Add(MaxRPMDS);
         }
         private void DisableFunctionAll()
         {
@@ -248,9 +249,57 @@ namespace QS_DS_Program
             Tabs_All.Visible = true;
         }
 
-        private void FunctionsAssignGeneral()
+        private void FunctionsAssignValues(string[] splitData)
         {
+            
 
+            if (splitData[3] == "1")
+            {
+                FunctionsEnableQS1();
+            }
+            else if (splitData[3] == "2")
+            {
+                FunctionsEnableQS2();
+            }
+            if (splitData[4] == "1")
+            {
+                FunctionsEnableDS1();
+            }
+            if (splitData[5] == "0")
+            {
+                QSEnable_Check.Checked = false;
+            }
+            else if (splitData[5] == "1")
+            {
+                QSEnable_Check.Checked = true;
+            }
+            if (splitData[6] == "0")
+            {
+                DSEnable_Check.Checked = false;
+            }
+            else if (splitData[6] == "1")
+            {
+                DSEnable_Check.Checked = true;
+            }
+            if (splitData[7] == "0")
+            {
+                Pull_Check_QS.Checked = true;
+                Push_Check_QS.Checked = false;
+                Pull_Check_DS.Checked = false;
+                Push_Check_DS.Checked = true;
+            }
+            else if (splitData[7] == "1")
+            {
+                Push_Check_QS.Checked = true;
+                Pull_Check_QS.Checked = false;
+                Push_Check_DS.Checked = false;
+                Pull_Check_DS.Checked = true;
+            }
+            Pulses.Value = Decimal.Parse(splitData[8], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+            for (int i = 1; i < NumericData.Count; i++)
+            {
+                NumericData[i].Value = Int32.Parse(splitData[i + 9]);
+            }
         }
 
         private void FunctionsEnableQS1()
@@ -276,12 +325,44 @@ namespace QS_DS_Program
 
         private void FunctionsEnableQS2()
         {
-
+            Tabs_All.TabPages.Add(QSPage);
+            for (int i = 0; i < QSCheckbox.Count; i++)
+            {
+                QSCheckbox[i].Visible = true;
+            }
+            for (int i = 0; i < QSButton.Count; i++)
+            {
+                QSButton[i].Visible = true;
+            }
+            for (int i = 0; i < QS2Labels.Count; i++)
+            {
+                QS2Labels[i].Visible = true;
+            }
+            for (int i = 0; i < QS2Numerics.Count; i++)
+            {
+                QS2Numerics[i].Visible = true;
+            }
         }
 
         private void FunctionsEnableDS1()
         {
-
+            Tabs_All.TabPages.Add(DSPage);
+            for (int i = 0; i < DSCheckbox.Count; i++)
+            {
+                DSCheckbox[i].Visible = true;
+            }
+            for (int i = 0; i < DSButton.Count; i++)
+            {
+                DSButton[i].Visible = true;
+            }
+            for (int i = 0; i < DS1Labels.Count; i++)
+            {
+                DS1Labels[i].Visible = true;
+            }
+            for (int i = 0; i < DS1Numerics.Count; i++)
+            {
+                DS1Numerics[i].Visible = true;
+            }
         }
     }
 }

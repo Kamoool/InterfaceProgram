@@ -14,11 +14,7 @@ namespace QS_DS_Program
         private void SerialDataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             IncomingData = MainSerialPort.ReadLine();
-            this.Invoke(new EventHandler(ReceivedDataHandle));
+            Invoke(new EventHandler(ReceivedDataHandle));
         }
-
-
-
-
     }
 }
