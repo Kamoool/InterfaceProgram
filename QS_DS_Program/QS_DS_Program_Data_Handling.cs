@@ -25,5 +25,14 @@ namespace QS_DS_Program
                 FunctionsShowTable();
             }
         }
+        private string GenerateDataToSend()
+        {
+            string MSG = "S,";
+            MSG += GenerateCheckBoxData();
+            MSG += GenerateNumericData();
+            MSG.Remove(MSG.Length - 1);
+            return MSG;
+        }
+
     }
 }

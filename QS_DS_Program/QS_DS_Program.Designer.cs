@@ -146,6 +146,7 @@ namespace QS_DS_Program
             this.Refresh_BTN.TabIndex = 105;
             this.Refresh_BTN.Text = "R";
             this.Refresh_BTN.UseVisualStyleBackColor = true;
+            this.Refresh_BTN.Click += new System.EventHandler(this.Refresh_BTN_Click);
             // 
             // Label1
             // 
@@ -179,6 +180,7 @@ namespace QS_DS_Program
             this.Reset_BTN.TabIndex = 101;
             this.Reset_BTN.Text = "RESET";
             this.Reset_BTN.UseVisualStyleBackColor = true;
+            this.Reset_BTN.Click += new System.EventHandler(this.Reset_BTN_Click);
             // 
             // Save_BTN
             // 
@@ -189,6 +191,7 @@ namespace QS_DS_Program
             this.Save_BTN.TabIndex = 100;
             this.Save_BTN.Text = "Save";
             this.Save_BTN.UseVisualStyleBackColor = true;
+            this.Save_BTN.Click += new System.EventHandler(this.Save_BTN_Click);
             // 
             // Read_BTN
             // 
@@ -199,6 +202,7 @@ namespace QS_DS_Program
             this.Read_BTN.TabIndex = 99;
             this.Read_BTN.Text = "Read";
             this.Read_BTN.UseVisualStyleBackColor = true;
+            this.Read_BTN.Click += new System.EventHandler(this.Read_BTN_Click);
             // 
             // LabelRPMCur
             // 
@@ -221,6 +225,7 @@ namespace QS_DS_Program
             this.Connect_BTN.TabIndex = 98;
             this.Connect_BTN.Text = "Connect";
             this.Connect_BTN.UseVisualStyleBackColor = true;
+            this.Connect_BTN.Click += new System.EventHandler(this.Connect_BTN_Click);
             // 
             // comboBox1
             // 
@@ -280,6 +285,7 @@ namespace QS_DS_Program
             0,
             0,
             65536});
+            this.Pulses.ValueChanged += new System.EventHandler(this.Pulses_ValueChanged);
             // 
             // LabelGeneral1
             // 
@@ -356,6 +362,7 @@ namespace QS_DS_Program
             this.Push_Check_QS.Text = "Push";
             this.Tips.SetToolTip(this.Push_Check_QS, "Check when value at sensor stripe increase when engagning higher gear");
             this.Push_Check_QS.UseVisualStyleBackColor = false;
+            this.Push_Check_QS.CheckedChanged += new System.EventHandler(this.Push_Check_QS_CheckedChanged);
             // 
             // CutTest_BTN
             // 
@@ -367,6 +374,7 @@ namespace QS_DS_Program
             this.CutTest_BTN.Text = "C";
             this.Tips.SetToolTip(this.CutTest_BTN, "Press to check ignition cut");
             this.CutTest_BTN.UseVisualStyleBackColor = true;
+            this.CutTest_BTN.Click += new System.EventHandler(this.CutTest_BTN_Click);
             // 
             // LabelQS1
             // 
@@ -784,6 +792,7 @@ namespace QS_DS_Program
             this.Pull_Check_QS.Text = "Pull";
             this.Tips.SetToolTip(this.Pull_Check_QS, "Check when value at sensor stripe decrease when engagning higher gear");
             this.Pull_Check_QS.UseVisualStyleBackColor = false;
+            this.Pull_Check_QS.CheckedChanged += new System.EventHandler(this.Pull_Check_QS_CheckedChanged);
             // 
             // DSPage
             // 
@@ -834,6 +843,7 @@ namespace QS_DS_Program
             this.Pull_Check_DS.TabIndex = 83;
             this.Pull_Check_DS.Text = "Pull";
             this.Pull_Check_DS.UseVisualStyleBackColor = true;
+            this.Pull_Check_DS.CheckedChanged += new System.EventHandler(this.Pull_Check_DS_CheckedChanged);
             // 
             // Push_Check_DS
             // 
@@ -844,6 +854,7 @@ namespace QS_DS_Program
             this.Push_Check_DS.TabIndex = 82;
             this.Push_Check_DS.Text = "Push";
             this.Push_Check_DS.UseVisualStyleBackColor = true;
+            this.Push_Check_DS.CheckedChanged += new System.EventHandler(this.Push_Check_DS_CheckedChanged);
             // 
             // MaxRPMDS
             // 
@@ -867,6 +878,7 @@ namespace QS_DS_Program
             0,
             0,
             0});
+            this.MaxRPMDS.ValueChanged += new System.EventHandler(this.MaxRPMDS_ValueChanged);
             // 
             // LabelDS12
             // 
@@ -958,6 +970,7 @@ namespace QS_DS_Program
             0,
             0,
             0});
+            this.MinRPMDS.ValueChanged += new System.EventHandler(this.MinRPMDS_ValueChanged);
             // 
             // LabelDS1
             // 
@@ -1040,6 +1053,7 @@ namespace QS_DS_Program
             this.BlipTest_BTN.TabIndex = 36;
             this.BlipTest_BTN.Text = "B";
             this.BlipTest_BTN.UseVisualStyleBackColor = true;
+            this.BlipTest_BTN.Click += new System.EventHandler(this.BlipTest_BTN_Click);
             // 
             // BlipTime5
             // 

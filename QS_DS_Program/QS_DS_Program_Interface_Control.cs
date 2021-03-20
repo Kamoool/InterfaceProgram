@@ -124,8 +124,9 @@ namespace QS_DS_Program
 
 
             CheckBoxData.Add(QSEnable_Check);
-            CheckBoxData.Add(Push_Check_QS);
             CheckBoxData.Add(DSEnable_Check);
+            CheckBoxData.Add(Push_Check_QS);
+
 
             NumericData.Add(Pulses);
             NumericData.Add(PreDelayQS);
@@ -212,10 +213,49 @@ namespace QS_DS_Program
 
         }
 
+        private string GenerateCheckBoxData()
+        {
+            string message = "";
+            for (int i = 0; i < CheckBoxData.Count; i++)
+            {
+                message += CheckBoxData[i].Checked ? "1," : "0,";
+            }
+            return message;
+        }
+
+        private string GenerateNumericData()
+        {
+            string message = "";
+            if (NumericData[0].Value <= decimal.Parse("0,5"))
+            {
+                message += "0.5,";
+            }
+            else if (NumericData[0].Value == decimal.Parse("1,0"))
+            {
+                message += "1.0,";
+            }
+            else if (NumericData[0].Value == decimal.Parse("2,0"))
+            {
+                message += "2.0,";
+            }
+            else if (NumericData[0].Value == decimal.Parse("3,0"))
+            {
+                message += "3.0,";
+            }
+            else if (NumericData[0].Value == decimal.Parse("4,0"))
+            {
+                message += "4.0,";
+            }
+            for (int i = 1; i < NumericData.Count; i++)
+            {
+                message += NumericData[i] + ",";
+            }
+            return message;
+        }
         private void SetRPMSensor(string RPM, string sensor)
         {
             RPMRead.Text = RPM;
-            LabelSensorReading.Text = String.Empty + (Int32.Parse(sensor) - 2000);
+            LabelSensorReading.Text = "" + (Int32.Parse(sensor) - 2000);
             ProgressBarSensor.Value = Int32.Parse(sensor);
         }
         private void FunctionsEnableConnection()
@@ -225,6 +265,7 @@ namespace QS_DS_Program
                 TopButtons[i].Visible = true;
             }
             Connect_BTN.Text = "Disconnect";
+            comboBox1.Enabled = false;
         }
 
         private void FunctionsEnableGeneral()
@@ -249,38 +290,34 @@ namespace QS_DS_Program
             Tabs_All.Visible = true;
         }
 
+        private void FunctionsBase()
+        {
+            Connect_BTN.Text = "Connect";
+            DisableFunctionAll();
+            comboBox1.Enabled = true;
+        }
         private void FunctionsAssignValues(string[] splitData)
         {
-            
 
-            if (splitData[3] == "1")
+            FunctionsEnableGeneral();
+            if (splitData[3].Equals("1"))
             {
                 FunctionsEnableQS1();
             }
-            else if (splitData[3] == "2")
+            else if (splitData[3].Equals("2"))
             {
                 FunctionsEnableQS2();
             }
-            if (splitData[4] == "1")
+            if (splitData[4].Equals("1"))
             {
                 FunctionsEnableDS1();
             }
-            if (splitData[5] == "0")
+
+            for (int i = 0; i < CheckBoxData.Count - 1; i++)
             {
-                QSEnable_Check.Checked = false;
+                CheckBoxData[i].Checked = splitData[5 + i].Equals("1") ? true : false;
             }
-            else if (splitData[5] == "1")
-            {
-                QSEnable_Check.Checked = true;
-            }
-            if (splitData[6] == "0")
-            {
-                DSEnable_Check.Checked = false;
-            }
-            else if (splitData[6] == "1")
-            {
-                DSEnable_Check.Checked = true;
-            }
+
             if (splitData[7] == "0")
             {
                 Pull_Check_QS.Checked = true;
@@ -295,7 +332,9 @@ namespace QS_DS_Program
                 Push_Check_DS.Checked = false;
                 Pull_Check_DS.Checked = true;
             }
+
             Pulses.Value = Decimal.Parse(splitData[8], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+
             for (int i = 1; i < NumericData.Count; i++)
             {
                 NumericData[i].Value = Int32.Parse(splitData[i + 9]);
@@ -362,6 +401,111 @@ namespace QS_DS_Program
             for (int i = 0; i < DS1Numerics.Count; i++)
             {
                 DS1Numerics[i].Visible = true;
+            }
+        }
+
+        private void FillComboBox()
+        {
+            comboBox1.Items.Clear();
+            foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
+            {
+                comboBox1.Items.Add(s);
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void MinRPMDS_ValueChanged(object sender, EventArgs e)
+        {
+            if (MinRPMDS.Value > (MaxRPMDS.Value - Int32.Parse("500")))
+            {
+                MinRPMDS.Value = (MaxRPMDS.Value - Int32.Parse("500"));
+            }
+        }
+
+        private void MaxRPMDS_ValueChanged(object sender, EventArgs e)
+        {
+            if (MaxRPMDS.Value < (MinRPMDS.Value + Int32.Parse("500")))
+            {
+                MaxRPMDS.Value = (MinRPMDS.Value + Int32.Parse("500"));
+            }
+        }
+
+        private void Pulses_ValueChanged(object sender, EventArgs e)
+        {
+            if (Pulses.Value == 0)
+            {
+                Pulses.Value = decimal.Parse("0,5");
+            }
+            else if (Pulses.Value == decimal.Parse("1,5"))
+            {
+                Pulses.Value = 1;
+            }
+        }
+
+        private void Pull_Check_QS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Pull_Check_QS.Checked)
+            {
+                Push_Check_QS.Checked = false;
+                Pull_Check_DS.Checked = false;
+                Push_Check_DS.Checked = true;
+            }
+            else if (!Pull_Check_QS.Checked)
+            {
+                Push_Check_QS.Checked = true;
+                Pull_Check_DS.Checked = true;
+                Push_Check_DS.Checked = false;
+            }
+        }
+
+        private void Push_Check_QS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Push_Check_QS.Checked)
+            {
+                Pull_Check_QS.Checked = false;
+                Pull_Check_DS.Checked = true;
+                Push_Check_DS.Checked = false;
+            }
+            else if (!Push_Check_QS.Checked)
+            {
+                Pull_Check_QS.Checked = true;
+                Pull_Check_DS.Checked = false;
+                Push_Check_DS.Checked = true;
+            }
+        }
+
+        private void Pull_Check_DS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Pull_Check_DS.Checked)
+            {
+                Push_Check_DS.Checked = false;
+                Pull_Check_QS.Checked = false;
+                Push_Check_QS.Checked = true;
+            }
+            else if (!Pull_Check_DS.Checked)
+            {
+                Push_Check_DS.Checked = true;
+                Pull_Check_QS.Checked = true;
+                Push_Check_QS.Checked = false;
+            }
+        }
+
+        private void Push_Check_DS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Push_Check_DS.Checked)
+            {
+                Pull_Check_DS.Checked = false;
+                Pull_Check_QS.Checked = true;
+                Push_Check_QS.Checked = false;
+            }
+            else if (!Push_Check_DS.Checked)
+            {
+                Pull_Check_DS.Checked = true;
+                Pull_Check_QS.Checked = false;
+                Push_Check_QS.Checked = true;
             }
         }
     }

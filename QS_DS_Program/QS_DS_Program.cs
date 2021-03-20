@@ -17,6 +17,8 @@ namespace QS_DS_Program
             InitializeComponent();
             AssignItems();
             DisableFunctionAll();
+            MainSerialPort.DataReceived += SerialDataReceived;
+            FillComboBox();
         }
 
        
@@ -24,5 +26,6 @@ namespace QS_DS_Program
         {
         }
 
+       
     }
 }
