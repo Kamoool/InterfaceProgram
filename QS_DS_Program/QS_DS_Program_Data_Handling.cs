@@ -19,7 +19,6 @@ namespace QS_DS_Program
             }
             else if (SplitData[0].Equals("T"))
             {
-                //TODO - ADD Version label
                 DisableFunctionAll();
                 FunctionsAssignValues(SplitData);
                 FunctionsShowTable();

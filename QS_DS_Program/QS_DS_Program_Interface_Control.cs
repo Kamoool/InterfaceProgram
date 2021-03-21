@@ -52,6 +52,8 @@ namespace QS_DS_Program
             GeneralLabels.Add(RPMRead);
             GeneralLabels.Add(LabelSensorOutput);
             GeneralLabels.Add(LabelSensorReading);
+            GeneralLabels.Add(LabelVersion);
+            GeneralLabels.Add(LabelSensorDirection);
             GeneralBar.Add(ProgressBarSensor);
 
             QSCheckbox.Add(QSEnable_Check);
@@ -255,8 +257,10 @@ namespace QS_DS_Program
         private void SetRPMSensor(string RPM, string sensor)
         {
             RPMRead.Text = RPM;
-            LabelSensorReading.Text = "" + (Int32.Parse(sensor) - 2000);
-            ProgressBarSensor.Value = Int32.Parse(sensor);
+            int sensorValue = Int32.Parse(sensor);
+            LabelSensorReading.Text = "" + (sensorValue - 2000);
+            ProgressBarSensor.Value = sensorValue;
+            LabelSensorDirection.Text = sensorValue > 2000 ? "Pull" : sensorValue < 2000 ? "Push" : "---";
         }
         private void FunctionsEnableConnection()
         {
@@ -300,6 +304,8 @@ namespace QS_DS_Program
         {
 
             FunctionsEnableGeneral();
+            LabelVersion.Text = "v" + splitData[1] + "." + splitData[2];
+
             if (splitData[3].Equals("1"))
             {
                 FunctionsEnableQS1();

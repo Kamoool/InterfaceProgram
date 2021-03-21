@@ -108,6 +108,8 @@ namespace QS_DS_Program
             this.LabelSensorOutput = new System.Windows.Forms.Label();
             this.Tips = new System.Windows.Forms.ToolTip(this.components);
             this.MainSerialPort = new System.IO.Ports.SerialPort(this.components);
+            this.LabelVersion = new System.Windows.Forms.Label();
+            this.LabelSensorDirection = new System.Windows.Forms.Label();
             this.Tabs_All.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Pulses)).BeginInit();
@@ -164,7 +166,7 @@ namespace QS_DS_Program
             this.RPMRead.AutoSize = true;
             this.RPMRead.BackColor = System.Drawing.Color.Transparent;
             this.RPMRead.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RPMRead.Location = new System.Drawing.Point(716, 91);
+            this.RPMRead.Location = new System.Drawing.Point(710, 91);
             this.RPMRead.Name = "RPMRead";
             this.RPMRead.Size = new System.Drawing.Size(16, 18);
             this.RPMRead.TabIndex = 103;
@@ -209,7 +211,7 @@ namespace QS_DS_Program
             this.LabelRPMCur.AutoSize = true;
             this.LabelRPMCur.BackColor = System.Drawing.Color.Transparent;
             this.LabelRPMCur.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelRPMCur.Location = new System.Drawing.Point(577, 91);
+            this.LabelRPMCur.Location = new System.Drawing.Point(570, 91);
             this.LabelRPMCur.Name = "LabelRPMCur";
             this.LabelRPMCur.Size = new System.Drawing.Size(95, 18);
             this.LabelRPMCur.TabIndex = 104;
@@ -445,11 +447,11 @@ namespace QS_DS_Program
             this.LabelQS10.AutoSize = true;
             this.LabelQS10.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS10.Location = new System.Drawing.Point(280, 65);
+            this.LabelQS10.Location = new System.Drawing.Point(255, 65);
             this.LabelQS10.Name = "LabelQS10";
-            this.LabelQS10.Size = new System.Drawing.Size(73, 18);
+            this.LabelQS10.Size = new System.Drawing.Size(121, 18);
             this.LabelQS10.TabIndex = 17;
-            this.LabelQS10.Text = "Sensitivity";
+            this.LabelQS10.Text = "Sensor threshold";
             this.Tips.SetToolTip(this.LabelQS10, "Sensitivity - (0 - 2000), Check value next to Sensor output label and substract f" +
         "rom 2000");
             // 
@@ -906,11 +908,11 @@ namespace QS_DS_Program
             this.LabelDS10.AutoSize = true;
             this.LabelDS10.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS10.Location = new System.Drawing.Point(280, 65);
+            this.LabelDS10.Location = new System.Drawing.Point(255, 65);
             this.LabelDS10.Name = "LabelDS10";
-            this.LabelDS10.Size = new System.Drawing.Size(73, 18);
+            this.LabelDS10.Size = new System.Drawing.Size(121, 18);
             this.LabelDS10.TabIndex = 18;
-            this.LabelDS10.Text = "Sensitivity";
+            this.LabelDS10.Text = "Sensor threshold";
             // 
             // LabelDS11
             // 
@@ -1297,7 +1299,7 @@ namespace QS_DS_Program
             this.LabelSensorReading.AutoSize = true;
             this.LabelSensorReading.BackColor = System.Drawing.Color.Transparent;
             this.LabelSensorReading.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelSensorReading.Location = new System.Drawing.Point(716, 512);
+            this.LabelSensorReading.Location = new System.Drawing.Point(710, 510);
             this.LabelSensorReading.Name = "LabelSensorReading";
             this.LabelSensorReading.Size = new System.Drawing.Size(16, 18);
             this.LabelSensorReading.TabIndex = 108;
@@ -1321,7 +1323,7 @@ namespace QS_DS_Program
             this.LabelSensorOutput.AutoSize = true;
             this.LabelSensorOutput.BackColor = System.Drawing.Color.Transparent;
             this.LabelSensorOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelSensorOutput.Location = new System.Drawing.Point(577, 512);
+            this.LabelSensorOutput.Location = new System.Drawing.Point(570, 510);
             this.LabelSensorOutput.Name = "LabelSensorOutput";
             this.LabelSensorOutput.Size = new System.Drawing.Size(101, 18);
             this.LabelSensorOutput.TabIndex = 104;
@@ -1331,11 +1333,32 @@ namespace QS_DS_Program
             // 
             this.Tips.ShowAlways = true;
             // 
+            // LabelVersion
+            // 
+            this.LabelVersion.AutoSize = true;
+            this.LabelVersion.Location = new System.Drawing.Point(704, 7);
+            this.LabelVersion.Name = "LabelVersion";
+            this.LabelVersion.Size = new System.Drawing.Size(68, 13);
+            this.LabelVersion.TabIndex = 109;
+            this.LabelVersion.Text = "LabelVersion";
+            // 
+            // LabelSensorDirection
+            // 
+            this.LabelSensorDirection.AutoSize = true;
+            this.LabelSensorDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LabelSensorDirection.Location = new System.Drawing.Point(700, 480);
+            this.LabelSensorDirection.Name = "LabelSensorDirection";
+            this.LabelSensorDirection.Size = new System.Drawing.Size(13, 18);
+            this.LabelSensorDirection.TabIndex = 110;
+            this.LabelSensorDirection.Text = "-";
+            // 
             // QS_DS_Program
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.LabelSensorDirection);
+            this.Controls.Add(this.LabelVersion);
             this.Controls.Add(this.LabelSensorReading);
             this.Controls.Add(this.ProgressBarSensor);
             this.Controls.Add(this.Refresh_BTN);
@@ -1465,6 +1488,7 @@ namespace QS_DS_Program
         private System.Windows.Forms.Label LabelSensorOutput;
         private System.Windows.Forms.ToolTip Tips;
         private System.IO.Ports.SerialPort MainSerialPort;
-
+        private Label LabelVersion;
+        private Label LabelSensorDirection;
     }
 }
