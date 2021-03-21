@@ -107,8 +107,8 @@ namespace QS_DS_Program
             this.ProgressBarSensor = new System.Windows.Forms.ProgressBar();
             this.LabelSensorOutput = new System.Windows.Forms.Label();
             this.Tips = new System.Windows.Forms.ToolTip(this.components);
-            this.MainSerialPort = new System.IO.Ports.SerialPort(this.components);
             this.LabelVersion = new System.Windows.Forms.Label();
+            this.MainSerialPort = new System.IO.Ports.SerialPort(this.components);
             this.LabelSensorDirection = new System.Windows.Forms.Label();
             this.Tabs_All.SuspendLayout();
             this.GeneralPage.SuspendLayout();
@@ -142,11 +142,13 @@ namespace QS_DS_Program
             // 
             // Refresh_BTN
             // 
+            this.Refresh_BTN.BackgroundImage = global::QS_DS_Program.Properties.Resources.refresh;
+            this.Refresh_BTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Refresh_BTN.Location = new System.Drawing.Point(170, 30);
             this.Refresh_BTN.Name = "Refresh_BTN";
             this.Refresh_BTN.Size = new System.Drawing.Size(25, 25);
             this.Refresh_BTN.TabIndex = 105;
-            this.Refresh_BTN.Text = "R";
+            this.Tips.SetToolTip(this.Refresh_BTN, "Press to refresh available COM ports list.");
             this.Refresh_BTN.UseVisualStyleBackColor = true;
             this.Refresh_BTN.Click += new System.EventHandler(this.Refresh_BTN_Click);
             // 
@@ -160,6 +162,7 @@ namespace QS_DS_Program
             this.Label1.Size = new System.Drawing.Size(34, 17);
             this.Label1.TabIndex = 102;
             this.Label1.Text = "Port";
+            this.Tips.SetToolTip(this.Label1, "Available COM ports.");
             // 
             // RPMRead
             // 
@@ -181,6 +184,7 @@ namespace QS_DS_Program
             this.Reset_BTN.Size = new System.Drawing.Size(110, 40);
             this.Reset_BTN.TabIndex = 101;
             this.Reset_BTN.Text = "RESET";
+            this.Tips.SetToolTip(this.Reset_BTN, "Press to reset module data to defaults.");
             this.Reset_BTN.UseVisualStyleBackColor = true;
             this.Reset_BTN.Click += new System.EventHandler(this.Reset_BTN_Click);
             // 
@@ -192,6 +196,7 @@ namespace QS_DS_Program
             this.Save_BTN.Size = new System.Drawing.Size(110, 40);
             this.Save_BTN.TabIndex = 100;
             this.Save_BTN.Text = "Save";
+            this.Tips.SetToolTip(this.Save_BTN, "Press to save new data to module.");
             this.Save_BTN.UseVisualStyleBackColor = true;
             this.Save_BTN.Click += new System.EventHandler(this.Save_BTN_Click);
             // 
@@ -203,6 +208,7 @@ namespace QS_DS_Program
             this.Read_BTN.Size = new System.Drawing.Size(110, 40);
             this.Read_BTN.TabIndex = 99;
             this.Read_BTN.Text = "Read";
+            this.Tips.SetToolTip(this.Read_BTN, "Press to read data from module.");
             this.Read_BTN.UseVisualStyleBackColor = true;
             this.Read_BTN.Click += new System.EventHandler(this.Read_BTN_Click);
             // 
@@ -216,6 +222,7 @@ namespace QS_DS_Program
             this.LabelRPMCur.Size = new System.Drawing.Size(95, 18);
             this.LabelRPMCur.TabIndex = 104;
             this.LabelRPMCur.Text = "Current RPM";
+            this.Tips.SetToolTip(this.LabelRPMCur, "Current read RPM.");
             // 
             // Connect_BTN
             // 
@@ -226,6 +233,7 @@ namespace QS_DS_Program
             this.Connect_BTN.Size = new System.Drawing.Size(110, 40);
             this.Connect_BTN.TabIndex = 98;
             this.Connect_BTN.Text = "Connect";
+            this.Tips.SetToolTip(this.Connect_BTN, "Press to connect to selected COM port or disconnect if already connected.");
             this.Connect_BTN.UseVisualStyleBackColor = true;
             this.Connect_BTN.Click += new System.EventHandler(this.Connect_BTN_Click);
             // 
@@ -238,6 +246,7 @@ namespace QS_DS_Program
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(80, 26);
             this.comboBox1.TabIndex = 97;
+            this.Tips.SetToolTip(this.comboBox1, "Select COM port where module is connected.");
             // 
             // Tabs_All
             // 
@@ -299,6 +308,8 @@ namespace QS_DS_Program
             this.LabelGeneral1.Size = new System.Drawing.Size(91, 18);
             this.LabelGeneral1.TabIndex = 21;
             this.LabelGeneral1.Text = "Pulses/RPM";
+            this.Tips.SetToolTip(this.LabelGeneral1, "Pulses per revolution of crankshaft - check current RPM value with vehicle tachom" +
+        "eter.");
             // 
             // QSPage
             // 
@@ -342,7 +353,7 @@ namespace QS_DS_Program
             this.LabelCutTime.AutoSize = true;
             this.LabelCutTime.BackColor = System.Drawing.Color.Transparent;
             this.LabelCutTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelCutTime.Location = new System.Drawing.Point(53, 124);
+            this.LabelCutTime.Location = new System.Drawing.Point(40, 120);
             this.LabelCutTime.Name = "LabelCutTime";
             this.LabelCutTime.Size = new System.Drawing.Size(63, 18);
             this.LabelCutTime.TabIndex = 67;
@@ -362,7 +373,8 @@ namespace QS_DS_Program
             this.Push_Check_QS.Size = new System.Drawing.Size(61, 22);
             this.Push_Check_QS.TabIndex = 0;
             this.Push_Check_QS.Text = "Push";
-            this.Tips.SetToolTip(this.Push_Check_QS, "Check when value at sensor stripe increase when engagning higher gear");
+            this.Tips.SetToolTip(this.Push_Check_QS, "Check if sensor is pulled when engaging next gear (text above sensor output shows" +
+        " \"Push\").");
             this.Push_Check_QS.UseVisualStyleBackColor = false;
             this.Push_Check_QS.CheckedChanged += new System.EventHandler(this.Push_Check_QS_CheckedChanged);
             // 
@@ -371,10 +383,10 @@ namespace QS_DS_Program
             this.CutTest_BTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.CutTest_BTN.Location = new System.Drawing.Point(118, 12);
             this.CutTest_BTN.Name = "CutTest_BTN";
-            this.CutTest_BTN.Size = new System.Drawing.Size(33, 33);
+            this.CutTest_BTN.Size = new System.Drawing.Size(101, 33);
             this.CutTest_BTN.TabIndex = 0;
-            this.CutTest_BTN.Text = "C";
-            this.Tips.SetToolTip(this.CutTest_BTN, "Press to check ignition cut");
+            this.CutTest_BTN.Text = "Cut TEST";
+            this.Tips.SetToolTip(this.CutTest_BTN, "Press to check ignition cut.");
             this.CutTest_BTN.UseVisualStyleBackColor = true;
             this.CutTest_BTN.Click += new System.EventHandler(this.CutTest_BTN_Click);
             // 
@@ -389,7 +401,7 @@ namespace QS_DS_Program
             this.LabelQS1.TabIndex = 23;
             this.LabelQS1.Text = "Pre-delay";
             this.LabelQS1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Tips.SetToolTip(this.LabelQS1, "Time after action on sensor - before cutting");
+            this.Tips.SetToolTip(this.LabelQS1, "Time after action on sensor - before cutting.");
             // 
             // LabelQS2
             // 
@@ -402,7 +414,7 @@ namespace QS_DS_Program
             this.LabelQS2.TabIndex = 24;
             this.LabelQS2.Text = "2000";
             this.LabelQS2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Tips.SetToolTip(this.LabelQS2, "Cut time at 2000 RPM");
+            this.Tips.SetToolTip(this.LabelQS2, "Cut time at 2000 RPM.");
             // 
             // LabelQS3
             // 
@@ -415,7 +427,7 @@ namespace QS_DS_Program
             this.LabelQS3.TabIndex = 25;
             this.LabelQS3.Text = "4000";
             this.LabelQS3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Tips.SetToolTip(this.LabelQS3, "Cut time at 4000 RPM");
+            this.Tips.SetToolTip(this.LabelQS3, "Cut time at 4000 RPM.");
             // 
             // LabelQS4
             // 
@@ -428,7 +440,7 @@ namespace QS_DS_Program
             this.LabelQS4.TabIndex = 26;
             this.LabelQS4.Text = "6000";
             this.LabelQS4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Tips.SetToolTip(this.LabelQS4, "Cut time at 6000 RPM");
+            this.Tips.SetToolTip(this.LabelQS4, "Cut time at 6000 RPM.");
             // 
             // LabelQS11
             // 
@@ -440,7 +452,7 @@ namespace QS_DS_Program
             this.LabelQS11.Size = new System.Drawing.Size(100, 18);
             this.LabelQS11.TabIndex = 22;
             this.LabelQS11.Text = "Min. RPM QS";
-            this.Tips.SetToolTip(this.LabelQS11, "Minimum RPM for QS to work");
+            this.Tips.SetToolTip(this.LabelQS11, "Minimum RPM for QS to work.");
             // 
             // LabelQS10
             // 
@@ -452,8 +464,7 @@ namespace QS_DS_Program
             this.LabelQS10.Size = new System.Drawing.Size(121, 18);
             this.LabelQS10.TabIndex = 17;
             this.LabelQS10.Text = "Sensor threshold";
-            this.Tips.SetToolTip(this.LabelQS10, "Sensitivity - (0 - 2000), Check value next to Sensor output label and substract f" +
-        "rom 2000");
+            this.Tips.SetToolTip(this.LabelQS10, "Quickshifter activation threshold - check value at sensor output.");
             // 
             // LabelQS5
             // 
@@ -466,7 +477,7 @@ namespace QS_DS_Program
             this.LabelQS5.TabIndex = 27;
             this.LabelQS5.Text = "8000";
             this.LabelQS5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Tips.SetToolTip(this.LabelQS5, "Cut time at 8000 RPM");
+            this.Tips.SetToolTip(this.LabelQS5, "Cut time at 8000 RPM.");
             // 
             // MinRPMQS
             // 
@@ -527,7 +538,7 @@ namespace QS_DS_Program
             this.LabelQS6.TabIndex = 28;
             this.LabelQS6.Text = "10000";
             this.LabelQS6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Tips.SetToolTip(this.LabelQS6, "Cut time at 10000 RPM");
+            this.Tips.SetToolTip(this.LabelQS6, "Cut time at 10000 RPM.");
             // 
             // CutTime7
             // 
@@ -564,7 +575,7 @@ namespace QS_DS_Program
             this.LabelQS7.TabIndex = 29;
             this.LabelQS7.Text = "12000";
             this.LabelQS7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Tips.SetToolTip(this.LabelQS7, "Cut time at 12000 RPM");
+            this.Tips.SetToolTip(this.LabelQS7, "Cut time at 12000 RPM.");
             // 
             // CutTime6
             // 
@@ -601,14 +612,14 @@ namespace QS_DS_Program
             this.LabelQS8.TabIndex = 30;
             this.LabelQS8.Text = "14000";
             this.LabelQS8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Tips.SetToolTip(this.LabelQS8, "Cut time at 14000 RPM");
+            this.Tips.SetToolTip(this.LabelQS8, "Cut time at 14000 RPM.");
             // 
             // QSForce
             // 
             this.QSForce.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.QSForce.Location = new System.Drawing.Point(390, 62);
             this.QSForce.Maximum = new decimal(new int[] {
-            500,
+            2000,
             0,
             0,
             0});
@@ -662,7 +673,7 @@ namespace QS_DS_Program
             this.LabelQS9.TabIndex = 31;
             this.LabelQS9.Text = "> 16000";
             this.LabelQS9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Tips.SetToolTip(this.LabelQS9, "Cut time above 16000 RPM");
+            this.Tips.SetToolTip(this.LabelQS9, "Cut time above 16000 RPM.");
             // 
             // CutTime4
             // 
@@ -698,7 +709,7 @@ namespace QS_DS_Program
             this.QSEnable_Check.Size = new System.Drawing.Size(72, 22);
             this.QSEnable_Check.TabIndex = 34;
             this.QSEnable_Check.Text = "Enable";
-            this.Tips.SetToolTip(this.QSEnable_Check, "Check to enable QS");
+            this.Tips.SetToolTip(this.QSEnable_Check, "Check to enable QS.");
             this.QSEnable_Check.UseVisualStyleBackColor = false;
             // 
             // CutTime3
@@ -792,7 +803,8 @@ namespace QS_DS_Program
             this.Pull_Check_QS.Size = new System.Drawing.Size(51, 22);
             this.Pull_Check_QS.TabIndex = 48;
             this.Pull_Check_QS.Text = "Pull";
-            this.Tips.SetToolTip(this.Pull_Check_QS, "Check when value at sensor stripe decrease when engagning higher gear");
+            this.Tips.SetToolTip(this.Pull_Check_QS, "Check if sensor is pushed when engaging next gear (text above sensor output shows" +
+        " \"Pull\").");
             this.Pull_Check_QS.UseVisualStyleBackColor = false;
             this.Pull_Check_QS.CheckedChanged += new System.EventHandler(this.Pull_Check_QS_CheckedChanged);
             // 
@@ -844,6 +856,8 @@ namespace QS_DS_Program
             this.Pull_Check_DS.Size = new System.Drawing.Size(51, 22);
             this.Pull_Check_DS.TabIndex = 83;
             this.Pull_Check_DS.Text = "Pull";
+            this.Tips.SetToolTip(this.Pull_Check_DS, "Check if sensor is pushed when engaging lower gear (text above sensor output show" +
+        "s \"Pull\").");
             this.Pull_Check_DS.UseVisualStyleBackColor = true;
             this.Pull_Check_DS.CheckedChanged += new System.EventHandler(this.Pull_Check_DS_CheckedChanged);
             // 
@@ -855,6 +869,8 @@ namespace QS_DS_Program
             this.Push_Check_DS.Size = new System.Drawing.Size(61, 22);
             this.Push_Check_DS.TabIndex = 82;
             this.Push_Check_DS.Text = "Push";
+            this.Tips.SetToolTip(this.Push_Check_DS, "Check if sensor is pulled when engaging lower gear (text above sensor output show" +
+        "s \"Push\").");
             this.Push_Check_DS.UseVisualStyleBackColor = true;
             this.Push_Check_DS.CheckedChanged += new System.EventHandler(this.Push_Check_DS_CheckedChanged);
             // 
@@ -867,7 +883,12 @@ namespace QS_DS_Program
             0});
             this.MaxRPMDS.Location = new System.Drawing.Point(390, 142);
             this.MaxRPMDS.Maximum = new decimal(new int[] {
-            20000,
+            20500,
+            0,
+            0,
+            0});
+            this.MaxRPMDS.Minimum = new decimal(new int[] {
+            500,
             0,
             0,
             0});
@@ -876,7 +897,7 @@ namespace QS_DS_Program
             this.MaxRPMDS.TabIndex = 81;
             this.MaxRPMDS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.MaxRPMDS.Value = new decimal(new int[] {
-            2000,
+            2500,
             0,
             0,
             0});
@@ -890,18 +911,20 @@ namespace QS_DS_Program
             this.LabelDS12.Size = new System.Drawing.Size(103, 18);
             this.LabelDS12.TabIndex = 80;
             this.LabelDS12.Text = "Max. RPM DS";
+            this.Tips.SetToolTip(this.LabelDS12, "Maximum RPM for DS to work.");
             // 
             // LabelDS2
             // 
             this.LabelDS2.AutoSize = true;
             this.LabelDS2.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS2.Location = new System.Drawing.Point(21, 102);
+            this.LabelDS2.Location = new System.Drawing.Point(40, 102);
             this.LabelDS2.Name = "LabelDS2";
-            this.LabelDS2.Size = new System.Drawing.Size(85, 18);
+            this.LabelDS2.Size = new System.Drawing.Size(40, 18);
             this.LabelDS2.TabIndex = 32;
-            this.LabelDS2.Text = "2000 - 4000";
+            this.LabelDS2.Text = "2000";
             this.LabelDS2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS2, "Blip time at 2000RPM.");
             // 
             // LabelDS10
             // 
@@ -913,6 +936,7 @@ namespace QS_DS_Program
             this.LabelDS10.Size = new System.Drawing.Size(121, 18);
             this.LabelDS10.TabIndex = 18;
             this.LabelDS10.Text = "Sensor threshold";
+            this.Tips.SetToolTip(this.LabelDS10, "Downshifter activation threshold - check value at sensor output.");
             // 
             // LabelDS11
             // 
@@ -921,9 +945,10 @@ namespace QS_DS_Program
             this.LabelDS11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.LabelDS11.Location = new System.Drawing.Point(265, 105);
             this.LabelDS11.Name = "LabelDS11";
-            this.LabelDS11.Size = new System.Drawing.Size(97, 18);
+            this.LabelDS11.Size = new System.Drawing.Size(99, 18);
             this.LabelDS11.TabIndex = 50;
-            this.LabelDS11.Text = "Min. RPM AB";
+            this.LabelDS11.Text = "Min. RPM DS";
+            this.Tips.SetToolTip(this.LabelDS11, "Minimum RPM for DS to work.");
             // 
             // BlipTime7
             // 
@@ -985,6 +1010,7 @@ namespace QS_DS_Program
             this.LabelDS1.TabIndex = 33;
             this.LabelDS1.Text = "Pre-delay";
             this.LabelDS1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS1, "Time after action on sensor - before cutting.");
             // 
             // BlipTime8
             // 
@@ -1020,6 +1046,7 @@ namespace QS_DS_Program
             this.DSEnable_Check.Size = new System.Drawing.Size(72, 22);
             this.DSEnable_Check.TabIndex = 35;
             this.DSEnable_Check.Text = "Enable";
+            this.Tips.SetToolTip(this.DSEnable_Check, "Check to enable DS.");
             this.DSEnable_Check.UseVisualStyleBackColor = false;
             // 
             // BlipTime6
@@ -1051,9 +1078,10 @@ namespace QS_DS_Program
             this.BlipTest_BTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.BlipTest_BTN.Location = new System.Drawing.Point(118, 12);
             this.BlipTest_BTN.Name = "BlipTest_BTN";
-            this.BlipTest_BTN.Size = new System.Drawing.Size(33, 33);
+            this.BlipTest_BTN.Size = new System.Drawing.Size(101, 33);
             this.BlipTest_BTN.TabIndex = 36;
-            this.BlipTest_BTN.Text = "B";
+            this.BlipTest_BTN.Text = "Blip TEST";
+            this.Tips.SetToolTip(this.BlipTest_BTN, "Press to check blipping.");
             this.BlipTest_BTN.UseVisualStyleBackColor = true;
             this.BlipTest_BTN.Click += new System.EventHandler(this.BlipTest_BTN_Click);
             // 
@@ -1086,12 +1114,13 @@ namespace QS_DS_Program
             this.LabelDS3.AutoSize = true;
             this.LabelDS3.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS3.Location = new System.Drawing.Point(21, 142);
+            this.LabelDS3.Location = new System.Drawing.Point(40, 142);
             this.LabelDS3.Name = "LabelDS3";
-            this.LabelDS3.Size = new System.Drawing.Size(85, 18);
+            this.LabelDS3.Size = new System.Drawing.Size(40, 18);
             this.LabelDS3.TabIndex = 37;
-            this.LabelDS3.Text = "4000 - 6000";
+            this.LabelDS3.Text = "4000";
             this.LabelDS3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS3, "Blip time at 4000RPM.");
             // 
             // BlipTime4
             // 
@@ -1122,7 +1151,7 @@ namespace QS_DS_Program
             this.DSForce.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.DSForce.Location = new System.Drawing.Point(390, 62);
             this.DSForce.Maximum = new decimal(new int[] {
-            500,
+            2000,
             0,
             0,
             0});
@@ -1146,12 +1175,13 @@ namespace QS_DS_Program
             this.LabelDS4.AutoSize = true;
             this.LabelDS4.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS4.Location = new System.Drawing.Point(21, 182);
+            this.LabelDS4.Location = new System.Drawing.Point(40, 182);
             this.LabelDS4.Name = "LabelDS4";
-            this.LabelDS4.Size = new System.Drawing.Size(85, 18);
+            this.LabelDS4.Size = new System.Drawing.Size(40, 18);
             this.LabelDS4.TabIndex = 38;
-            this.LabelDS4.Text = "6000 - 8000";
+            this.LabelDS4.Text = "6000";
             this.LabelDS4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS4, "Blip time at 6000RPM.");
             // 
             // BlipTime3
             // 
@@ -1182,12 +1212,13 @@ namespace QS_DS_Program
             this.LabelDS5.AutoSize = true;
             this.LabelDS5.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS5.Location = new System.Drawing.Point(17, 222);
+            this.LabelDS5.Location = new System.Drawing.Point(40, 222);
             this.LabelDS5.Name = "LabelDS5";
-            this.LabelDS5.Size = new System.Drawing.Size(93, 18);
+            this.LabelDS5.Size = new System.Drawing.Size(40, 18);
             this.LabelDS5.TabIndex = 39;
-            this.LabelDS5.Text = "8000 - 10000";
+            this.LabelDS5.Text = "8000";
             this.LabelDS5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS5, "Blip time at 8000RPM.");
             // 
             // BlipTime2
             // 
@@ -1218,12 +1249,13 @@ namespace QS_DS_Program
             this.LabelDS6.AutoSize = true;
             this.LabelDS6.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS6.Location = new System.Drawing.Point(13, 262);
+            this.LabelDS6.Location = new System.Drawing.Point(35, 262);
             this.LabelDS6.Name = "LabelDS6";
-            this.LabelDS6.Size = new System.Drawing.Size(101, 18);
+            this.LabelDS6.Size = new System.Drawing.Size(48, 18);
             this.LabelDS6.TabIndex = 40;
-            this.LabelDS6.Text = "10000 - 12000";
+            this.LabelDS6.Text = "10000";
             this.LabelDS6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS6, "Blip time at 10000RPM.");
             // 
             // BlipTime1
             // 
@@ -1254,12 +1286,13 @@ namespace QS_DS_Program
             this.LabelDS7.AutoSize = true;
             this.LabelDS7.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS7.Location = new System.Drawing.Point(13, 302);
+            this.LabelDS7.Location = new System.Drawing.Point(35, 302);
             this.LabelDS7.Name = "LabelDS7";
-            this.LabelDS7.Size = new System.Drawing.Size(101, 18);
+            this.LabelDS7.Size = new System.Drawing.Size(48, 18);
             this.LabelDS7.TabIndex = 41;
-            this.LabelDS7.Text = "12000 - 14000";
+            this.LabelDS7.Text = "12000";
             this.LabelDS7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS7, "Blip time at 12000RPM.");
             // 
             // PreDelayDS
             // 
@@ -1275,24 +1308,26 @@ namespace QS_DS_Program
             this.LabelDS8.AutoSize = true;
             this.LabelDS8.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS8.Location = new System.Drawing.Point(13, 342);
+            this.LabelDS8.Location = new System.Drawing.Point(35, 342);
             this.LabelDS8.Name = "LabelDS8";
-            this.LabelDS8.Size = new System.Drawing.Size(101, 18);
+            this.LabelDS8.Size = new System.Drawing.Size(48, 18);
             this.LabelDS8.TabIndex = 42;
-            this.LabelDS8.Text = "14000 - 16000";
+            this.LabelDS8.Text = "14000";
             this.LabelDS8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS8, "Blip time at 14000RPM.");
             // 
             // LabelDS9
             // 
             this.LabelDS9.AutoSize = true;
             this.LabelDS9.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS9.Location = new System.Drawing.Point(33, 382);
+            this.LabelDS9.Location = new System.Drawing.Point(30, 382);
             this.LabelDS9.Name = "LabelDS9";
             this.LabelDS9.Size = new System.Drawing.Size(61, 18);
             this.LabelDS9.TabIndex = 43;
             this.LabelDS9.Text = "> 16000";
             this.LabelDS9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS9, "Blip time above 16000RPM.");
             // 
             // LabelSensorReading
             // 
@@ -1328,6 +1363,7 @@ namespace QS_DS_Program
             this.LabelSensorOutput.Size = new System.Drawing.Size(101, 18);
             this.LabelSensorOutput.TabIndex = 104;
             this.LabelSensorOutput.Text = "Sensor output";
+            this.Tips.SetToolTip(this.LabelSensorOutput, "Shift sensor output values. Shows if sensor is pulled or pushed.");
             // 
             // Tips
             // 
@@ -1341,6 +1377,7 @@ namespace QS_DS_Program
             this.LabelVersion.Size = new System.Drawing.Size(68, 13);
             this.LabelVersion.TabIndex = 109;
             this.LabelVersion.Text = "LabelVersion";
+            this.Tips.SetToolTip(this.LabelVersion, "Version of module.");
             // 
             // LabelSensorDirection
             // 

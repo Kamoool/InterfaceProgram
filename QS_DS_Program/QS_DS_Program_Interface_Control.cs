@@ -302,10 +302,8 @@ namespace QS_DS_Program
         }
         private void FunctionsAssignValues(string[] splitData)
         {
-
             FunctionsEnableGeneral();
             LabelVersion.Text = "v" + splitData[1] + "." + splitData[2];
-
             if (splitData[3].Equals("1"))
             {
                 FunctionsEnableQS1();
