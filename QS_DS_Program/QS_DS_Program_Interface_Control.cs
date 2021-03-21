@@ -195,6 +195,76 @@ namespace QS_DS_Program
             {
                 QS1Numerics[i].Visible = false;
             }
+            for (int i = 0; i < QS2Labels.Count; i++)
+            {
+                QS2Labels[i].Visible = false;
+            }
+            for (int i = 0; i < QS2Numerics.Count; i++)
+            {
+                QS2Numerics[i].Visible = false;
+            }
+            for (int i = 0; i < DSCheckbox.Count; i++)
+            {
+                DSCheckbox[i].Visible = false;
+            }
+            for (int i = 0; i < DSButton.Count; i++)
+            {
+                DSButton[i].Visible = false;
+            }
+            for (int i = 0; i < DS1Labels.Count; i++)
+            {
+                DS1Labels[i].Visible = false;
+            }
+            for (int i = 0; i < DS1Numerics.Count; i++)
+            {
+                DS1Numerics[i].Visible = false;
+            }
+        }
+
+        private void DisableFunctionsWorking()
+        {
+            Tabs_All.Visible = false;
+            Tabs_All.TabPages.Remove(GeneralPage);
+            Tabs_All.TabPages.Remove(QSPage);
+            Tabs_All.TabPages.Remove(DSPage);
+
+            for (int i = 0; i < GeneralLabels.Count; i++)
+            {
+                GeneralLabels[i].Visible = false;
+            }
+
+            for (int i = 0; i < GeneralNumerics.Count; i++)
+            {
+                GeneralNumerics[i].Visible = false;
+            }
+            for (int i = 0; i < GeneralBar.Count; i++)
+            {
+                GeneralBar[i].Visible = false;
+            }
+            for (int i = 0; i < QSCheckbox.Count; i++)
+            {
+                QSCheckbox[i].Visible = false;
+            }
+            for (int i = 0; i < QSButton.Count; i++)
+            {
+                QSButton[i].Visible = false;
+            }
+            for (int i = 0; i < QS1Labels.Count; i++)
+            {
+                QS1Labels[i].Visible = false;
+            }
+            for (int i = 0; i < QS1Numerics.Count; i++)
+            {
+                QS1Numerics[i].Visible = false;
+            }
+            for (int i = 0; i < QS2Labels.Count; i++)
+            {
+                QS2Labels[i].Visible = false;
+            }
+            for (int i = 0; i < QS2Numerics.Count; i++)
+            {
+                QS2Numerics[i].Visible = false;
+            }
             for (int i = 0; i < DSCheckbox.Count; i++)
             {
                 DSCheckbox[i].Visible = false;
@@ -250,7 +320,7 @@ namespace QS_DS_Program
             }
             for (int i = 1; i < NumericData.Count; i++)
             {
-                message += NumericData[i] + ",";
+                message += NumericData[i].Value + ",";
             }
             return message;
         }
@@ -270,6 +340,7 @@ namespace QS_DS_Program
             }
             Connect_BTN.Text = "Disconnect";
             comboBox1.Enabled = false;
+            Refresh_BTN.Enabled = false;
         }
 
         private void FunctionsEnableGeneral()
@@ -299,6 +370,7 @@ namespace QS_DS_Program
             Connect_BTN.Text = "Connect";
             DisableFunctionAll();
             comboBox1.Enabled = true;
+            Refresh_BTN.Enabled = true;
         }
         private void FunctionsAssignValues(string[] splitData)
         {
@@ -341,7 +413,7 @@ namespace QS_DS_Program
 
             for (int i = 1; i < NumericData.Count; i++)
             {
-                NumericData[i].Value = Int32.Parse(splitData[i + 9]);
+                NumericData[i].Value = Int32.Parse(splitData[i + 8]);
             }
         }
 

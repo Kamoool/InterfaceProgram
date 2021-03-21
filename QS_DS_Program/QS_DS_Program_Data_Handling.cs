@@ -19,7 +19,7 @@ namespace QS_DS_Program
             }
             else if (SplitData[0].Equals("T"))
             {
-                DisableFunctionAll();
+                DisableFunctionsWorking();
                 FunctionsAssignValues(SplitData);
                 FunctionsShowTable();
             }
