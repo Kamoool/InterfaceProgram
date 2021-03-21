@@ -318,14 +318,14 @@ namespace QS_DS_Program
                 CheckBoxData[i].Checked = splitData[5 + i].Equals("1") ? true : false;
             }
 
-            if (splitData[7] == "0")
+            if (splitData[7].Equals("0"))
             {
                 Pull_Check_QS.Checked = true;
                 Push_Check_QS.Checked = false;
                 Pull_Check_DS.Checked = false;
                 Push_Check_DS.Checked = true;
             }
-            else if (splitData[7] == "1")
+            else if (splitData[7].Equals("1"))
             {
                 Push_Check_QS.Checked = true;
                 Pull_Check_QS.Checked = false;

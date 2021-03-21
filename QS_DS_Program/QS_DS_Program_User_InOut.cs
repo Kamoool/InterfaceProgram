@@ -27,6 +27,7 @@ namespace QS_DS_Program
                     MainSerialPort.BaudRate = 9600;
                     MainSerialPort.PortName = comboBox1.Text;
                     MainSerialPort.NewLine = "\r\n";
+                    MainSerialPort.DtrEnable = true;
                     MainSerialPort.Open();
                     Thread.Sleep(1000);
                     MessageBox.Show("Connected");

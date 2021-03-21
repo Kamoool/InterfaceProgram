@@ -13,11 +13,11 @@ namespace QS_DS_Program
         {
             string[] SplitData = IncomingData.Split(',');
 
-            if (SplitData[0] == "V")
+            if (SplitData[0].Equals("V"))
             {
                 SetRPMSensor(SplitData[1], SplitData[2]);
             }
-            else if (SplitData[0] == "T")
+            else if (SplitData[0].Equals("T"))
             {
                 //TODO - ADD Version label
                 DisableFunctionAll();
