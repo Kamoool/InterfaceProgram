@@ -47,6 +47,8 @@ namespace QS_DS_Program
             this.Pulses = new System.Windows.Forms.NumericUpDown();
             this.LabelGeneral1 = new System.Windows.Forms.Label();
             this.QSPage = new System.Windows.Forms.TabPage();
+            this.PostDelayQS = new System.Windows.Forms.NumericUpDown();
+            this.LabelQS12 = new System.Windows.Forms.Label();
             this.LabelCutTime = new System.Windows.Forms.Label();
             this.Push_Check_QS = new System.Windows.Forms.CheckBox();
             this.CutTest_BTN = new System.Windows.Forms.Button();
@@ -75,6 +77,8 @@ namespace QS_DS_Program
             this.CutTime1 = new System.Windows.Forms.NumericUpDown();
             this.Pull_Check_QS = new System.Windows.Forms.CheckBox();
             this.DSPage = new System.Windows.Forms.TabPage();
+            this.LabelDS13 = new System.Windows.Forms.Label();
+            this.PostDelayDS = new System.Windows.Forms.NumericUpDown();
             this.Pull_Check_DS = new System.Windows.Forms.CheckBox();
             this.Push_Check_DS = new System.Windows.Forms.CheckBox();
             this.MaxRPMDS = new System.Windows.Forms.NumericUpDown();
@@ -114,6 +118,7 @@ namespace QS_DS_Program
             this.GeneralPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Pulses)).BeginInit();
             this.QSPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PostDelayQS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinRPMQS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CutTime8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CutTime7)).BeginInit();
@@ -126,6 +131,7 @@ namespace QS_DS_Program
             ((System.ComponentModel.ISupportInitialize)(this.CutTime2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CutTime1)).BeginInit();
             this.DSPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PostDelayDS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxRPMDS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BlipTime7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinRPMDS)).BeginInit();
@@ -313,6 +319,8 @@ namespace QS_DS_Program
             // 
             // QSPage
             // 
+            this.QSPage.Controls.Add(this.PostDelayQS);
+            this.QSPage.Controls.Add(this.LabelQS12);
             this.QSPage.Controls.Add(this.LabelCutTime);
             this.QSPage.Controls.Add(this.Push_Check_QS);
             this.QSPage.Controls.Add(this.CutTest_BTN);
@@ -348,12 +356,34 @@ namespace QS_DS_Program
             this.QSPage.Text = "QuickShifter";
             this.QSPage.UseVisualStyleBackColor = true;
             // 
+            // PostDelayQS
+            // 
+            this.PostDelayQS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.PostDelayQS.Location = new System.Drawing.Point(390, 182);
+            this.PostDelayQS.Name = "PostDelayQS";
+            this.PostDelayQS.Size = new System.Drawing.Size(60, 24);
+            this.PostDelayQS.TabIndex = 69;
+            this.PostDelayQS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // LabelQS12
+            // 
+            this.LabelQS12.AutoSize = true;
+            this.LabelQS12.BackColor = System.Drawing.Color.Transparent;
+            this.LabelQS12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LabelQS12.Location = new System.Drawing.Point(275, 185);
+            this.LabelQS12.Name = "LabelQS12";
+            this.LabelQS12.Size = new System.Drawing.Size(78, 18);
+            this.LabelQS12.TabIndex = 68;
+            this.LabelQS12.Text = "Post-delay";
+            this.LabelQS12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelQS12, "Time after cutting - before next allowed cut.");
+            // 
             // LabelCutTime
             // 
             this.LabelCutTime.AutoSize = true;
             this.LabelCutTime.BackColor = System.Drawing.Color.Transparent;
             this.LabelCutTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelCutTime.Location = new System.Drawing.Point(40, 120);
+            this.LabelCutTime.Location = new System.Drawing.Point(64, 67);
             this.LabelCutTime.Name = "LabelCutTime";
             this.LabelCutTime.Size = new System.Drawing.Size(63, 18);
             this.LabelCutTime.TabIndex = 67;
@@ -395,7 +425,7 @@ namespace QS_DS_Program
             this.LabelQS1.AutoSize = true;
             this.LabelQS1.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS1.Location = new System.Drawing.Point(28, 62);
+            this.LabelQS1.Location = new System.Drawing.Point(278, 145);
             this.LabelQS1.Name = "LabelQS1";
             this.LabelQS1.Size = new System.Drawing.Size(70, 18);
             this.LabelQS1.TabIndex = 23;
@@ -408,7 +438,7 @@ namespace QS_DS_Program
             this.LabelQS2.AutoSize = true;
             this.LabelQS2.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS2.Location = new System.Drawing.Point(40, 102);
+            this.LabelQS2.Location = new System.Drawing.Point(44, 68);
             this.LabelQS2.Name = "LabelQS2";
             this.LabelQS2.Size = new System.Drawing.Size(40, 18);
             this.LabelQS2.TabIndex = 24;
@@ -421,7 +451,7 @@ namespace QS_DS_Program
             this.LabelQS3.AutoSize = true;
             this.LabelQS3.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS3.Location = new System.Drawing.Point(40, 142);
+            this.LabelQS3.Location = new System.Drawing.Point(44, 108);
             this.LabelQS3.Name = "LabelQS3";
             this.LabelQS3.Size = new System.Drawing.Size(40, 18);
             this.LabelQS3.TabIndex = 25;
@@ -434,7 +464,7 @@ namespace QS_DS_Program
             this.LabelQS4.AutoSize = true;
             this.LabelQS4.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS4.Location = new System.Drawing.Point(40, 182);
+            this.LabelQS4.Location = new System.Drawing.Point(44, 148);
             this.LabelQS4.Name = "LabelQS4";
             this.LabelQS4.Size = new System.Drawing.Size(40, 18);
             this.LabelQS4.TabIndex = 26;
@@ -471,7 +501,7 @@ namespace QS_DS_Program
             this.LabelQS5.AutoSize = true;
             this.LabelQS5.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS5.Location = new System.Drawing.Point(40, 222);
+            this.LabelQS5.Location = new System.Drawing.Point(44, 188);
             this.LabelQS5.Name = "LabelQS5";
             this.LabelQS5.Size = new System.Drawing.Size(40, 18);
             this.LabelQS5.TabIndex = 27;
@@ -506,7 +536,7 @@ namespace QS_DS_Program
             // CutTime8
             // 
             this.CutTime8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CutTime8.Location = new System.Drawing.Point(138, 379);
+            this.CutTime8.Location = new System.Drawing.Point(142, 345);
             this.CutTime8.Maximum = new decimal(new int[] {
             150,
             0,
@@ -532,7 +562,7 @@ namespace QS_DS_Program
             this.LabelQS6.AutoSize = true;
             this.LabelQS6.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS6.Location = new System.Drawing.Point(35, 262);
+            this.LabelQS6.Location = new System.Drawing.Point(39, 228);
             this.LabelQS6.Name = "LabelQS6";
             this.LabelQS6.Size = new System.Drawing.Size(48, 18);
             this.LabelQS6.TabIndex = 28;
@@ -543,7 +573,7 @@ namespace QS_DS_Program
             // CutTime7
             // 
             this.CutTime7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CutTime7.Location = new System.Drawing.Point(138, 339);
+            this.CutTime7.Location = new System.Drawing.Point(142, 305);
             this.CutTime7.Maximum = new decimal(new int[] {
             150,
             0,
@@ -569,7 +599,7 @@ namespace QS_DS_Program
             this.LabelQS7.AutoSize = true;
             this.LabelQS7.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS7.Location = new System.Drawing.Point(35, 302);
+            this.LabelQS7.Location = new System.Drawing.Point(39, 268);
             this.LabelQS7.Name = "LabelQS7";
             this.LabelQS7.Size = new System.Drawing.Size(48, 18);
             this.LabelQS7.TabIndex = 29;
@@ -580,7 +610,7 @@ namespace QS_DS_Program
             // CutTime6
             // 
             this.CutTime6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CutTime6.Location = new System.Drawing.Point(138, 299);
+            this.CutTime6.Location = new System.Drawing.Point(142, 265);
             this.CutTime6.Maximum = new decimal(new int[] {
             150,
             0,
@@ -606,7 +636,7 @@ namespace QS_DS_Program
             this.LabelQS8.AutoSize = true;
             this.LabelQS8.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS8.Location = new System.Drawing.Point(35, 342);
+            this.LabelQS8.Location = new System.Drawing.Point(39, 308);
             this.LabelQS8.Name = "LabelQS8";
             this.LabelQS8.Size = new System.Drawing.Size(48, 18);
             this.LabelQS8.TabIndex = 30;
@@ -641,7 +671,7 @@ namespace QS_DS_Program
             // CutTime5
             // 
             this.CutTime5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CutTime5.Location = new System.Drawing.Point(138, 259);
+            this.CutTime5.Location = new System.Drawing.Point(142, 225);
             this.CutTime5.Maximum = new decimal(new int[] {
             150,
             0,
@@ -667,7 +697,7 @@ namespace QS_DS_Program
             this.LabelQS9.AutoSize = true;
             this.LabelQS9.BackColor = System.Drawing.Color.Transparent;
             this.LabelQS9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelQS9.Location = new System.Drawing.Point(30, 382);
+            this.LabelQS9.Location = new System.Drawing.Point(34, 348);
             this.LabelQS9.Name = "LabelQS9";
             this.LabelQS9.Size = new System.Drawing.Size(61, 18);
             this.LabelQS9.TabIndex = 31;
@@ -678,7 +708,7 @@ namespace QS_DS_Program
             // CutTime4
             // 
             this.CutTime4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CutTime4.Location = new System.Drawing.Point(138, 219);
+            this.CutTime4.Location = new System.Drawing.Point(142, 185);
             this.CutTime4.Maximum = new decimal(new int[] {
             150,
             0,
@@ -715,7 +745,7 @@ namespace QS_DS_Program
             // CutTime3
             // 
             this.CutTime3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CutTime3.Location = new System.Drawing.Point(138, 179);
+            this.CutTime3.Location = new System.Drawing.Point(142, 145);
             this.CutTime3.Maximum = new decimal(new int[] {
             150,
             0,
@@ -739,7 +769,7 @@ namespace QS_DS_Program
             // PreDelayQS
             // 
             this.PreDelayQS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.PreDelayQS.Location = new System.Drawing.Point(138, 59);
+            this.PreDelayQS.Location = new System.Drawing.Point(390, 142);
             this.PreDelayQS.Name = "PreDelayQS";
             this.PreDelayQS.Size = new System.Drawing.Size(60, 24);
             this.PreDelayQS.TabIndex = 58;
@@ -748,7 +778,7 @@ namespace QS_DS_Program
             // CutTime2
             // 
             this.CutTime2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CutTime2.Location = new System.Drawing.Point(138, 139);
+            this.CutTime2.Location = new System.Drawing.Point(142, 105);
             this.CutTime2.Maximum = new decimal(new int[] {
             150,
             0,
@@ -772,7 +802,7 @@ namespace QS_DS_Program
             // CutTime1
             // 
             this.CutTime1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CutTime1.Location = new System.Drawing.Point(138, 99);
+            this.CutTime1.Location = new System.Drawing.Point(142, 65);
             this.CutTime1.Maximum = new decimal(new int[] {
             150,
             0,
@@ -810,6 +840,8 @@ namespace QS_DS_Program
             // 
             // DSPage
             // 
+            this.DSPage.Controls.Add(this.LabelDS13);
+            this.DSPage.Controls.Add(this.PostDelayDS);
             this.DSPage.Controls.Add(this.Pull_Check_DS);
             this.DSPage.Controls.Add(this.Push_Check_DS);
             this.DSPage.Controls.Add(this.MaxRPMDS);
@@ -845,6 +877,28 @@ namespace QS_DS_Program
             this.DSPage.TabIndex = 2;
             this.DSPage.Text = "DownShifter";
             this.DSPage.UseVisualStyleBackColor = true;
+            // 
+            // LabelDS13
+            // 
+            this.LabelDS13.AutoSize = true;
+            this.LabelDS13.BackColor = System.Drawing.Color.Transparent;
+            this.LabelDS13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LabelDS13.Location = new System.Drawing.Point(275, 225);
+            this.LabelDS13.Name = "LabelDS13";
+            this.LabelDS13.Size = new System.Drawing.Size(78, 18);
+            this.LabelDS13.TabIndex = 84;
+            this.LabelDS13.Text = "Post-delay";
+            this.LabelDS13.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Tips.SetToolTip(this.LabelDS13, "Time after blipping - before next allowed blip.");
+            // 
+            // PostDelayDS
+            // 
+            this.PostDelayDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.PostDelayDS.Location = new System.Drawing.Point(390, 222);
+            this.PostDelayDS.Name = "PostDelayDS";
+            this.PostDelayDS.Size = new System.Drawing.Size(60, 24);
+            this.PostDelayDS.TabIndex = 85;
+            this.PostDelayDS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Pull_Check_DS
             // 
@@ -918,7 +972,7 @@ namespace QS_DS_Program
             this.LabelDS2.AutoSize = true;
             this.LabelDS2.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS2.Location = new System.Drawing.Point(40, 102);
+            this.LabelDS2.Location = new System.Drawing.Point(44, 68);
             this.LabelDS2.Name = "LabelDS2";
             this.LabelDS2.Size = new System.Drawing.Size(40, 18);
             this.LabelDS2.TabIndex = 32;
@@ -953,7 +1007,7 @@ namespace QS_DS_Program
             // BlipTime7
             // 
             this.BlipTime7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BlipTime7.Location = new System.Drawing.Point(138, 339);
+            this.BlipTime7.Location = new System.Drawing.Point(142, 305);
             this.BlipTime7.Maximum = new decimal(new int[] {
             200,
             0,
@@ -1004,7 +1058,7 @@ namespace QS_DS_Program
             this.LabelDS1.AutoSize = true;
             this.LabelDS1.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS1.Location = new System.Drawing.Point(28, 62);
+            this.LabelDS1.Location = new System.Drawing.Point(278, 185);
             this.LabelDS1.Name = "LabelDS1";
             this.LabelDS1.Size = new System.Drawing.Size(70, 18);
             this.LabelDS1.TabIndex = 33;
@@ -1015,7 +1069,7 @@ namespace QS_DS_Program
             // BlipTime8
             // 
             this.BlipTime8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BlipTime8.Location = new System.Drawing.Point(138, 379);
+            this.BlipTime8.Location = new System.Drawing.Point(142, 345);
             this.BlipTime8.Maximum = new decimal(new int[] {
             200,
             0,
@@ -1052,7 +1106,7 @@ namespace QS_DS_Program
             // BlipTime6
             // 
             this.BlipTime6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BlipTime6.Location = new System.Drawing.Point(138, 299);
+            this.BlipTime6.Location = new System.Drawing.Point(142, 265);
             this.BlipTime6.Maximum = new decimal(new int[] {
             200,
             0,
@@ -1088,7 +1142,7 @@ namespace QS_DS_Program
             // BlipTime5
             // 
             this.BlipTime5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BlipTime5.Location = new System.Drawing.Point(138, 259);
+            this.BlipTime5.Location = new System.Drawing.Point(142, 225);
             this.BlipTime5.Maximum = new decimal(new int[] {
             200,
             0,
@@ -1114,7 +1168,7 @@ namespace QS_DS_Program
             this.LabelDS3.AutoSize = true;
             this.LabelDS3.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS3.Location = new System.Drawing.Point(40, 142);
+            this.LabelDS3.Location = new System.Drawing.Point(44, 108);
             this.LabelDS3.Name = "LabelDS3";
             this.LabelDS3.Size = new System.Drawing.Size(40, 18);
             this.LabelDS3.TabIndex = 37;
@@ -1125,7 +1179,7 @@ namespace QS_DS_Program
             // BlipTime4
             // 
             this.BlipTime4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BlipTime4.Location = new System.Drawing.Point(138, 219);
+            this.BlipTime4.Location = new System.Drawing.Point(142, 185);
             this.BlipTime4.Maximum = new decimal(new int[] {
             200,
             0,
@@ -1175,7 +1229,7 @@ namespace QS_DS_Program
             this.LabelDS4.AutoSize = true;
             this.LabelDS4.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS4.Location = new System.Drawing.Point(40, 182);
+            this.LabelDS4.Location = new System.Drawing.Point(44, 148);
             this.LabelDS4.Name = "LabelDS4";
             this.LabelDS4.Size = new System.Drawing.Size(40, 18);
             this.LabelDS4.TabIndex = 38;
@@ -1186,7 +1240,7 @@ namespace QS_DS_Program
             // BlipTime3
             // 
             this.BlipTime3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BlipTime3.Location = new System.Drawing.Point(138, 179);
+            this.BlipTime3.Location = new System.Drawing.Point(142, 145);
             this.BlipTime3.Maximum = new decimal(new int[] {
             200,
             0,
@@ -1212,7 +1266,7 @@ namespace QS_DS_Program
             this.LabelDS5.AutoSize = true;
             this.LabelDS5.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS5.Location = new System.Drawing.Point(40, 222);
+            this.LabelDS5.Location = new System.Drawing.Point(44, 188);
             this.LabelDS5.Name = "LabelDS5";
             this.LabelDS5.Size = new System.Drawing.Size(40, 18);
             this.LabelDS5.TabIndex = 39;
@@ -1223,7 +1277,7 @@ namespace QS_DS_Program
             // BlipTime2
             // 
             this.BlipTime2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BlipTime2.Location = new System.Drawing.Point(138, 139);
+            this.BlipTime2.Location = new System.Drawing.Point(142, 105);
             this.BlipTime2.Maximum = new decimal(new int[] {
             200,
             0,
@@ -1249,7 +1303,7 @@ namespace QS_DS_Program
             this.LabelDS6.AutoSize = true;
             this.LabelDS6.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS6.Location = new System.Drawing.Point(35, 262);
+            this.LabelDS6.Location = new System.Drawing.Point(39, 228);
             this.LabelDS6.Name = "LabelDS6";
             this.LabelDS6.Size = new System.Drawing.Size(48, 18);
             this.LabelDS6.TabIndex = 40;
@@ -1260,7 +1314,7 @@ namespace QS_DS_Program
             // BlipTime1
             // 
             this.BlipTime1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BlipTime1.Location = new System.Drawing.Point(138, 99);
+            this.BlipTime1.Location = new System.Drawing.Point(142, 65);
             this.BlipTime1.Maximum = new decimal(new int[] {
             200,
             0,
@@ -1286,7 +1340,7 @@ namespace QS_DS_Program
             this.LabelDS7.AutoSize = true;
             this.LabelDS7.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS7.Location = new System.Drawing.Point(35, 302);
+            this.LabelDS7.Location = new System.Drawing.Point(39, 268);
             this.LabelDS7.Name = "LabelDS7";
             this.LabelDS7.Size = new System.Drawing.Size(48, 18);
             this.LabelDS7.TabIndex = 41;
@@ -1297,7 +1351,7 @@ namespace QS_DS_Program
             // PreDelayDS
             // 
             this.PreDelayDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.PreDelayDS.Location = new System.Drawing.Point(138, 59);
+            this.PreDelayDS.Location = new System.Drawing.Point(390, 182);
             this.PreDelayDS.Name = "PreDelayDS";
             this.PreDelayDS.Size = new System.Drawing.Size(60, 24);
             this.PreDelayDS.TabIndex = 67;
@@ -1308,7 +1362,7 @@ namespace QS_DS_Program
             this.LabelDS8.AutoSize = true;
             this.LabelDS8.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS8.Location = new System.Drawing.Point(35, 342);
+            this.LabelDS8.Location = new System.Drawing.Point(39, 308);
             this.LabelDS8.Name = "LabelDS8";
             this.LabelDS8.Size = new System.Drawing.Size(48, 18);
             this.LabelDS8.TabIndex = 42;
@@ -1321,7 +1375,7 @@ namespace QS_DS_Program
             this.LabelDS9.AutoSize = true;
             this.LabelDS9.BackColor = System.Drawing.Color.Transparent;
             this.LabelDS9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LabelDS9.Location = new System.Drawing.Point(30, 382);
+            this.LabelDS9.Location = new System.Drawing.Point(34, 348);
             this.LabelDS9.Name = "LabelDS9";
             this.LabelDS9.Size = new System.Drawing.Size(61, 18);
             this.LabelDS9.TabIndex = 43;
@@ -1418,6 +1472,7 @@ namespace QS_DS_Program
             ((System.ComponentModel.ISupportInitialize)(this.Pulses)).EndInit();
             this.QSPage.ResumeLayout(false);
             this.QSPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PostDelayQS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinRPMQS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CutTime8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CutTime7)).EndInit();
@@ -1431,6 +1486,7 @@ namespace QS_DS_Program
             ((System.ComponentModel.ISupportInitialize)(this.CutTime1)).EndInit();
             this.DSPage.ResumeLayout(false);
             this.DSPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PostDelayDS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxRPMDS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BlipTime7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinRPMDS)).EndInit();
@@ -1525,7 +1581,11 @@ namespace QS_DS_Program
         private System.Windows.Forms.Label LabelSensorOutput;
         private System.Windows.Forms.ToolTip Tips;
         private System.IO.Ports.SerialPort MainSerialPort;
-        private Label LabelVersion;
-        private Label LabelSensorDirection;
+        private System.Windows.Forms.Label LabelVersion;
+        private System.Windows.Forms.Label LabelSensorDirection;
+        private System.Windows.Forms.NumericUpDown PostDelayQS;
+        private System.Windows.Forms.Label LabelQS12;
+        private System.Windows.Forms.Label LabelDS13;
+        private System.Windows.Forms.NumericUpDown PostDelayDS;
     }
 }

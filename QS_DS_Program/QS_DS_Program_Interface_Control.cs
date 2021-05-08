@@ -72,8 +72,10 @@ namespace QS_DS_Program
             QS1Labels.Add(LabelQS9);
             QS1Labels.Add(LabelQS10);
             QS1Labels.Add(LabelQS11);
+            QS1Labels.Add(LabelQS12);
 
             QS1Numerics.Add(PreDelayQS);
+            QS1Numerics.Add(PostDelayQS);
             QS1Numerics.Add(CutTime1);
             QS1Numerics.Add(CutTime2);
             QS1Numerics.Add(CutTime3);
@@ -90,7 +92,9 @@ namespace QS_DS_Program
             QS2Labels.Add(LabelCutTime);
             QS2Labels.Add(LabelQS10);
             QS2Labels.Add(LabelQS11);
+            QS2Labels.Add(LabelQS12);
             QS2Numerics.Add(PreDelayQS);
+            QS2Numerics.Add(PostDelayQS);
             QS2Numerics.Add(CutTime1);
             QS2Numerics.Add(QSForce);
             QS2Numerics.Add(MinRPMQS);
@@ -111,7 +115,9 @@ namespace QS_DS_Program
             DS1Labels.Add(LabelDS10);
             DS1Labels.Add(LabelDS11);
             DS1Labels.Add(LabelDS12);
+            DS1Labels.Add(LabelDS13);
             DS1Numerics.Add(PreDelayDS);
+            DS1Numerics.Add(PostDelayDS);
             DS1Numerics.Add(BlipTime1);
             DS1Numerics.Add(BlipTime2);
             DS1Numerics.Add(BlipTime3);
@@ -154,6 +160,8 @@ namespace QS_DS_Program
             NumericData.Add(DSForce);
             NumericData.Add(MinRPMDS);
             NumericData.Add(MaxRPMDS);
+            NumericData.Add(PostDelayQS);
+            NumericData.Add(PostDelayDS);
         }
         private void DisableFunctionAll()
         {
