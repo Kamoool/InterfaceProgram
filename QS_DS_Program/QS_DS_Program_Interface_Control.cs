@@ -162,6 +162,8 @@ namespace QS_DS_Program
             NumericData.Add(MaxRPMDS);
             NumericData.Add(PostDelayQS);
             NumericData.Add(PostDelayDS);
+            //TODO ADD TPS ITEMS
+
         }
         private void DisableFunctionAll()
         {

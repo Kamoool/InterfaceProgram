@@ -33,7 +33,7 @@ namespace QS_DS_Program
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Refresh_BTN = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QS_DS_Program));
             this.Label1 = new System.Windows.Forms.Label();
             this.RPMRead = new System.Windows.Forms.Label();
             this.Reset_BTN = new System.Windows.Forms.Button();
@@ -112,8 +112,9 @@ namespace QS_DS_Program
             this.LabelSensorOutput = new System.Windows.Forms.Label();
             this.Tips = new System.Windows.Forms.ToolTip(this.components);
             this.LabelVersion = new System.Windows.Forms.Label();
-            this.MainSerialPort = new System.IO.Ports.SerialPort(this.components);
             this.LabelSensorDirection = new System.Windows.Forms.Label();
+            this.Refresh_BTN = new System.Windows.Forms.Button();
+            this.MainSerialPort = new System.IO.Ports.SerialPort(this.components);
             this.Tabs_All.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Pulses)).BeginInit();
@@ -146,18 +147,6 @@ namespace QS_DS_Program
             ((System.ComponentModel.ISupportInitialize)(this.PreDelayDS)).BeginInit();
             this.SuspendLayout();
             // 
-            // Refresh_BTN
-            // 
-            this.Refresh_BTN.BackgroundImage = global::QS_DS_Program.Properties.Resources.refresh;
-            this.Refresh_BTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Refresh_BTN.Location = new System.Drawing.Point(170, 30);
-            this.Refresh_BTN.Name = "Refresh_BTN";
-            this.Refresh_BTN.Size = new System.Drawing.Size(25, 25);
-            this.Refresh_BTN.TabIndex = 105;
-            this.Tips.SetToolTip(this.Refresh_BTN, "Press to refresh available COM ports list.");
-            this.Refresh_BTN.UseVisualStyleBackColor = true;
-            this.Refresh_BTN.Click += new System.EventHandler(this.Refresh_BTN_Click);
-            // 
             // Label1
             // 
             this.Label1.AutoSize = true;
@@ -184,6 +173,7 @@ namespace QS_DS_Program
             // 
             // Reset_BTN
             // 
+            this.Reset_BTN.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Reset_BTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Reset_BTN.Location = new System.Drawing.Point(650, 23);
             this.Reset_BTN.Name = "Reset_BTN";
@@ -196,6 +186,7 @@ namespace QS_DS_Program
             // 
             // Save_BTN
             // 
+            this.Save_BTN.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Save_BTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Save_BTN.Location = new System.Drawing.Point(509, 23);
             this.Save_BTN.Name = "Save_BTN";
@@ -208,6 +199,7 @@ namespace QS_DS_Program
             // 
             // Read_BTN
             // 
+            this.Read_BTN.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Read_BTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Read_BTN.Location = new System.Drawing.Point(371, 23);
             this.Read_BTN.Name = "Read_BTN";
@@ -233,6 +225,7 @@ namespace QS_DS_Program
             // Connect_BTN
             // 
             this.Connect_BTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Connect_BTN.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Connect_BTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Connect_BTN.Location = new System.Drawing.Point(233, 23);
             this.Connect_BTN.Name = "Connect_BTN";
@@ -240,6 +233,7 @@ namespace QS_DS_Program
             this.Connect_BTN.TabIndex = 98;
             this.Connect_BTN.Text = "Connect";
             this.Tips.SetToolTip(this.Connect_BTN, "Press to connect to selected COM port or disconnect if already connected.");
+            this.Connect_BTN.UseCompatibleTextRendering = true;
             this.Connect_BTN.UseVisualStyleBackColor = true;
             this.Connect_BTN.Click += new System.EventHandler(this.Connect_BTN_Click);
             // 
@@ -268,6 +262,8 @@ namespace QS_DS_Program
             // 
             // GeneralPage
             // 
+            this.GeneralPage.BackColor = System.Drawing.Color.Transparent;
+            this.GeneralPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.GeneralPage.Controls.Add(this.Pulses);
             this.GeneralPage.Controls.Add(this.LabelGeneral1);
             this.GeneralPage.Location = new System.Drawing.Point(4, 27);
@@ -319,6 +315,7 @@ namespace QS_DS_Program
             // 
             // QSPage
             // 
+            this.QSPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.QSPage.Controls.Add(this.PostDelayQS);
             this.QSPage.Controls.Add(this.LabelQS12);
             this.QSPage.Controls.Add(this.LabelCutTime);
@@ -360,10 +357,25 @@ namespace QS_DS_Program
             // 
             this.PostDelayQS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.PostDelayQS.Location = new System.Drawing.Point(390, 182);
+            this.PostDelayQS.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.PostDelayQS.Minimum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.PostDelayQS.Name = "PostDelayQS";
             this.PostDelayQS.Size = new System.Drawing.Size(60, 24);
             this.PostDelayQS.TabIndex = 69;
             this.PostDelayQS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.PostDelayQS.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             // 
             // LabelQS12
             // 
@@ -410,6 +422,7 @@ namespace QS_DS_Program
             // 
             // CutTest_BTN
             // 
+            this.CutTest_BTN.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CutTest_BTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.CutTest_BTN.Location = new System.Drawing.Point(118, 12);
             this.CutTest_BTN.Name = "CutTest_BTN";
@@ -840,6 +853,7 @@ namespace QS_DS_Program
             // 
             // DSPage
             // 
+            this.DSPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.DSPage.Controls.Add(this.LabelDS13);
             this.DSPage.Controls.Add(this.PostDelayDS);
             this.DSPage.Controls.Add(this.Pull_Check_DS);
@@ -895,10 +909,25 @@ namespace QS_DS_Program
             // 
             this.PostDelayDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.PostDelayDS.Location = new System.Drawing.Point(390, 222);
+            this.PostDelayDS.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.PostDelayDS.Minimum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.PostDelayDS.Name = "PostDelayDS";
             this.PostDelayDS.Size = new System.Drawing.Size(60, 24);
             this.PostDelayDS.TabIndex = 85;
             this.PostDelayDS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.PostDelayDS.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             // 
             // Pull_Check_DS
             // 
@@ -1129,6 +1158,7 @@ namespace QS_DS_Program
             // 
             // BlipTest_BTN
             // 
+            this.BlipTest_BTN.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BlipTest_BTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.BlipTest_BTN.Location = new System.Drawing.Point(118, 12);
             this.BlipTest_BTN.Name = "BlipTest_BTN";
@@ -1393,10 +1423,12 @@ namespace QS_DS_Program
             this.LabelSensorReading.Size = new System.Drawing.Size(16, 18);
             this.LabelSensorReading.TabIndex = 108;
             this.LabelSensorReading.Text = "0";
+            this.Tips.SetToolTip(this.LabelSensorReading, "Shift sensor output value.");
             // 
             // ProgressBarSensor
             // 
             this.ProgressBarSensor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ProgressBarSensor.Cursor = System.Windows.Forms.Cursors.No;
             this.ProgressBarSensor.ForeColor = System.Drawing.Color.Red;
             this.ProgressBarSensor.Location = new System.Drawing.Point(24, 539);
             this.ProgressBarSensor.Maximum = 4000;
@@ -1405,6 +1437,7 @@ namespace QS_DS_Program
             this.ProgressBarSensor.Step = 1;
             this.ProgressBarSensor.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.ProgressBarSensor.TabIndex = 107;
+            this.Tips.SetToolTip(this.ProgressBarSensor, "Sensor values on stripe.");
             this.ProgressBarSensor.Value = 2000;
             // 
             // LabelSensorOutput
@@ -1426,27 +1459,48 @@ namespace QS_DS_Program
             // LabelVersion
             // 
             this.LabelVersion.AutoSize = true;
+            this.LabelVersion.BackColor = System.Drawing.Color.Transparent;
             this.LabelVersion.Location = new System.Drawing.Point(704, 7);
             this.LabelVersion.Name = "LabelVersion";
             this.LabelVersion.Size = new System.Drawing.Size(68, 13);
             this.LabelVersion.TabIndex = 109;
             this.LabelVersion.Text = "LabelVersion";
             this.Tips.SetToolTip(this.LabelVersion, "Version of module.");
+            this.LabelVersion.Click += new System.EventHandler(this.LabelVersion_Click);
             // 
             // LabelSensorDirection
             // 
             this.LabelSensorDirection.AutoSize = true;
+            this.LabelSensorDirection.BackColor = System.Drawing.Color.Transparent;
             this.LabelSensorDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.LabelSensorDirection.Location = new System.Drawing.Point(700, 480);
             this.LabelSensorDirection.Name = "LabelSensorDirection";
             this.LabelSensorDirection.Size = new System.Drawing.Size(13, 18);
             this.LabelSensorDirection.TabIndex = 110;
             this.LabelSensorDirection.Text = "-";
+            this.Tips.SetToolTip(this.LabelSensorDirection, "Shows if sensor is pushed or pulled.");
+            // 
+            // Refresh_BTN
+            // 
+            this.Refresh_BTN.BackgroundImage = global::QS_DS_Program.Properties.Resources.refresh;
+            this.Refresh_BTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Refresh_BTN.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Refresh_BTN.Location = new System.Drawing.Point(170, 30);
+            this.Refresh_BTN.Name = "Refresh_BTN";
+            this.Refresh_BTN.Size = new System.Drawing.Size(25, 25);
+            this.Refresh_BTN.TabIndex = 105;
+            this.Tips.SetToolTip(this.Refresh_BTN, "Press to refresh available COM ports list.");
+            this.Refresh_BTN.UseVisualStyleBackColor = true;
+            this.Refresh_BTN.Click += new System.EventHandler(this.Refresh_BTN_Click);
             // 
             // QS_DS_Program
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.LabelSensorDirection);
             this.Controls.Add(this.LabelVersion);
@@ -1463,7 +1517,9 @@ namespace QS_DS_Program
             this.Controls.Add(this.Connect_BTN);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.Tabs_All);
+            this.DoubleBuffered = true;
             this.Name = "QS_DS_Program";
+            this.ShowIcon = false;
             this.Text = "QS_DS_Program";
             this.Load += new System.EventHandler(this.QS_DS_Program_Load);
             this.Tabs_All.ResumeLayout(false);
