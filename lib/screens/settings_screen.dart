@@ -1,9 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'dart:async';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:qs_ds_app/screens/downshifter_screen.dart';
 import 'package:qs_ds_app/screens/general_screen.dart';
@@ -68,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // print(stringList[i]);
             refresh();
           }
-          print('Pozostało: ${stringList[stringList.length - 1]}');
+          // print('Pozostało: ${stringList[stringList.length - 1]}');
         }
       }
     });
@@ -83,7 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
               colors: [
                 Color(0xFF676767),
@@ -92,8 +90,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Color(0xFF676767),
                 Color(0xFF676767)
               ],
-              begin: const FractionalOffset(0, 0),
-              end: const FractionalOffset(1, 1),
+              begin: FractionalOffset(0, 0),
+              end: FractionalOffset(1, 1),
               stops: [0, 0.25, 0.5, 0.75, 1],
               tileMode: TileMode.clamp),
         ),
@@ -124,7 +122,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   indicatorColor: Colors.red,
                   indicatorWeight: 3,
                   // // indicatorPadding: EdgeInsets.all(5),
-                  labelStyle: TextStyle(fontSize: 25),
+                  labelStyle: const TextStyle(fontSize: 25),
                   labelColor: Colors.black,
                   unselectedLabelColor: Colors.white70,
                   // overlayColor: Colors.yellow,
@@ -141,9 +139,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 animatedIcon: AnimatedIcons.menu_close,
                 children: [
                   SpeedDialChild(
-                    child: Icon(Icons.get_app),
+                    child: const Icon(Icons.get_app),
                     label: "Read",
-                    labelStyle: TextStyle(fontSize: 20),
+                    labelStyle: const TextStyle(fontSize: 20),
                     labelBackgroundColor: Colors.yellow,
                     backgroundColor: Colors.yellow,
                     onTap: () {
@@ -153,9 +151,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     },
                   ),
                   SpeedDialChild(
-                    child: Icon(Icons.save),
+                    child: const Icon(Icons.save),
                     label: "Save",
-                    labelStyle: TextStyle(fontSize: 20),
+                    labelStyle: const TextStyle(fontSize: 20),
                     labelBackgroundColor: Colors.green,
                     backgroundColor: Colors.green,
                     onTap: () {
@@ -167,9 +165,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     },
                   ),
                   SpeedDialChild(
-                      child: Icon(Icons.restart_alt),
+                      child: const Icon(Icons.restart_alt),
                       label: "Reset",
-                      labelStyle: TextStyle(fontSize: 20),
+                      labelStyle: const TextStyle(fontSize: 20),
                       labelBackgroundColor: Colors.blue,
                       backgroundColor: Colors.blue,
                       onTap: () {
@@ -178,9 +176,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             timeout: 100);
                       }),
                   SpeedDialChild(
-                      child: Icon(Icons.exit_to_app),
+                      child: const Icon(Icons.exit_to_app),
                       label: "Disconnect",
-                      labelStyle: TextStyle(fontSize: 20),
+                      labelStyle: const TextStyle(fontSize: 20),
                       labelBackgroundColor: Colors.red,
                       backgroundColor: Colors.red,
                       onTap: () {
@@ -192,216 +190,207 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       }),
                 ],
               ),
-              body: Container(
-                child: SingleChildScrollView(
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        // decoration: BoxDecoration(border: Border.all()),
-                        child: SizedBox(
-                          // child: Expanded(
-
-                          height: 540,
-                          child: TabBarView(
-                            children:
-                                settingsRepository.getTabs().map((Tab tab) {
-                              // children: tabs.map((Tab tab) {
-                              if (tab.text == 'General') {
-                                // return Center(
-                                //   child: Text('General'),
-                                // );
-                                return GeneralScreenWidget(
-                                    settingsRepository: settingsRepository,
-                                    notifyParent: refresh);
-                              }
-                              if (tab.text == 'Quickshifter') {
-                                return QuickshifterScreenWidget(
+              body: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        // child: Expanded(
+                        width: MediaQuery.of(context).size.width,
+                        height: 540,
+                        // height: MediaQuery.of(context).size.height*0.8,
+                        child: TabBarView(
+                          children: settingsRepository.getTabs().map((Tab tab) {
+                            // children: tabs.map((Tab tab) {
+                            if (tab.text == 'General') {
+                              // return Center(
+                              //   child: Text('General'),
+                              // );
+                              return GeneralScreenWidget(
+                                  settingsRepository: settingsRepository,
+                                  notifyParent: refresh);
+                            }
+                            if (tab.text == 'Quickshifter') {
+                              return QuickshifterScreenWidget(
+                                settingsRepository: settingsRepository,
+                                notifyParent: refresh,
+                                sendCutCommand: sendCutCommand,
+                              );
+                            }
+                            if (tab.text == 'Downshifter') {
+                              {
+                                return DownshifterScreenWidget(
                                   settingsRepository: settingsRepository,
                                   notifyParent: refresh,
-                                  sendCutCommand: sendCutCommand,
+                                  sendBlipCommand: sendBlipCommand,
                                 );
                               }
-                              if (tab.text == 'Downshifter') {
-                                {
-                                  return DownshifterScreenWidget(
-                                    settingsRepository: settingsRepository,
-                                    notifyParent: refresh,
-                                    sendBlipCommand: sendBlipCommand,
-                                  );
-                                }
-                              }
-                              return Center(
-                                child: Text(
-                                  'READ DATA FIRST',
-                                  style: TextStyle(
-                                      fontSize: 50, color: Colors.white),
-                                ),
-                              );
-                            }).toList(),
-                          ),
+                            }
+                            return const Center(
+                              child: Text(
+                                'READ DATA FIRST',
+                                style:
+                                    TextStyle(fontSize: 50, color: Colors.white),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
-                      Container(
-                        // decoration: BoxDecoration(border: Border.all()),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: SizedBox(
-                            height: 94,
-                            // width: 1000,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: 70,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              0, 0, 0, 0),
-                                          child: Text(
-                                            'RPM : ',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 25,
-                                                color: Colors.white),
-                                          ),
-                                        ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: 94,
+                        // width: 1000,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    width: 70,
+                                    child: Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                      child: Text(
+                                        'RPM : ',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 25, color: Colors.white),
                                       ),
-                                      SizedBox(
-                                        width: 80,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              0, 0, 0, 0),
-                                          child: Text(
-                                            (double.tryParse(settingsRepository
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 80,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                      child: Text(
+                                        (double.tryParse(settingsRepository
+                                                        .rpm.value) ??
+                                                    0.0) <
+                                                100000
+                                            ? (double.tryParse(
+                                                        settingsRepository
                                                             .rpm.value) ??
-                                                        0.0) <
-                                                    100000
-                                                ? (double.tryParse(
-                                                            settingsRepository
-                                                                .rpm.value) ??
-                                                        0.0)
-                                                    .toStringAsFixed(0)
-                                                : '0',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 25,
-                                                color: Colors.white),
+                                                    0.0)
+                                                .toStringAsFixed(0)
+                                            : '0',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            fontSize: 25, color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(100, 0, 100, 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.center,
+                                          child: RotatedBox(
+                                            quarterTurns: -2,
+                                            child: LinearProgressIndicator(
+                                              minHeight: 40,
+                                              // color: Colors.red,
+                                              // valueColor:
+                                              //     AlwaysStoppedAnimation<
+                                              //         Color>(Colors.yellow),
+                                              // color: Colors.yellow,
+                                              color: const Color(0xFF622D5D),
+                                              backgroundColor: Colors.black26,
+                                              value: -((double.tryParse(
+                                                              settingsRepository
+                                                                  .sensorReading
+                                                                  .value) ??
+                                                          2000) -
+                                                      2000) /
+                                                  2000,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      100, 0, 100, 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Stack(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              child: RotatedBox(
-                                                quarterTurns: -2,
-                                                child: LinearProgressIndicator(
-                                                  minHeight: 40,
-                                                  // color: Colors.red,
-                                                  // valueColor:
-                                                  //     AlwaysStoppedAnimation<
-                                                  //         Color>(Colors.yellow),
-                                                  // color: Colors.yellow,
-                                                  color: Color(0xFF622D5D),
-                                                  backgroundColor:
-                                                      Colors.black26,
-                                                  value: -((double.tryParse(
-                                                                  settingsRepository
-                                                                      .sensorReading
-                                                                      .value) ??
-                                                              2000) -
-                                                          2000) /
-                                                      2000,
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  (double.tryParse(settingsRepository
+                                        Container(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              (double.tryParse(
+                                                              settingsRepository
                                                                   .sensorReading
                                                                   .value) ??
-                                                              2000) <
-                                                          2000
-                                                      ? 'Push : ${(-((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000)).toStringAsFixed(0)}'
-                                                      : '',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 25),
-                                                )),
-                                          ],
+                                                          2000) <
+                                                      2000
+                                                  ? 'Push : ${(-((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000)).toStringAsFixed(0)}'
+                                                  : '',
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 25),
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.center,
+                                          child: LinearProgressIndicator(
+                                            minHeight: 40,
+                                            // valueColor:
+                                            //     AlwaysStoppedAnimation<
+                                            //         Color>(Colors.blue),
+                                            // color: Colors.blue,
+                                            color: const Color(0xFF2D3C62),
+                                            backgroundColor: Colors.black26,
+                                            value: ((double.tryParse(
+                                                            settingsRepository
+                                                                .sensorReading
+                                                                .value) ??
+                                                        2000) -
+                                                    2000) /
+                                                2000,
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        child: Stack(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              child: LinearProgressIndicator(
-                                                minHeight: 40,
-                                                // valueColor:
-                                                //     AlwaysStoppedAnimation<
-                                                //         Color>(Colors.blue),
-                                                // color: Colors.blue,
-                                                color: Color(0xFF2D3C62),
-                                                backgroundColor: Colors.black26,
-                                                value: ((double.tryParse(
-                                                                settingsRepository
-                                                                    .sensorReading
-                                                                    .value) ??
-                                                            2000) -
-                                                        2000) /
-                                                    2000,
-                                              ),
-                                            ),
-                                            Container(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  (double.tryParse(settingsRepository
+                                        Container(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              (double.tryParse(
+                                                              settingsRepository
                                                                   .sensorReading
                                                                   .value) ??
-                                                              2000) >
-                                                          2000
-                                                      ? 'Pull : ${((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000).toStringAsFixed(0)}'
-                                                      : '',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 25),
-                                                )),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                                          2000) >
+                                                      2000
+                                                  ? 'Pull : ${((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000).toStringAsFixed(0)}'
+                                                  : '',
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 25),
+                                            )),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             );

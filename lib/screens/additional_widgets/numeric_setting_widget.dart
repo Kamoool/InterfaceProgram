@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/rendering.dart';
 
 import 'package:flutter_spinbox/cupertino.dart';
 import '../../model/setting.dart';
@@ -12,7 +12,12 @@ class NumericSettingWidget extends StatefulWidget {
   final double step;
 
   const NumericSettingWidget(
-      {Key? key, required this.setting, required this.notifyParent, required this.minAllowed, required this.maxAllowed, required this.step })
+      {Key? key,
+      required this.setting,
+      required this.notifyParent,
+      required this.minAllowed,
+      required this.maxAllowed,
+      required this.step})
       : super(key: key);
 
   @override
@@ -31,9 +36,9 @@ class _NumericSettingWidgetState extends State<NumericSettingWidget> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
             child: Text(
-              widget.setting.label + ' - ',
+              '${widget.setting.label} - ',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 25, color: Colors.white),
+              style: const TextStyle(fontSize: 25, color: Colors.white),
             ),
           ),
         ),
@@ -43,16 +48,13 @@ class _NumericSettingWidgetState extends State<NumericSettingWidget> {
           child: CupertinoSpinBox(
             // showButtons: false,
             decoration: BoxDecoration(
-              color: Colors.white12,
-              borderRadius: BorderRadius.circular(5)
-            ),
-            textStyle: TextStyle(fontSize: 25, color: Colors.white),
+                color: Colors.white12, borderRadius: BorderRadius.circular(5)),
+            textStyle: const TextStyle(fontSize: 25, color: Colors.white),
             spacing: 3,
             min: widget.minAllowed,
             max: widget.maxAllowed,
             step: widget.step,
             decimals: determineDecimals(widget.step),
-
 
             value: double.tryParse(widget.setting.value) ?? widget.minAllowed,
 
@@ -64,13 +66,11 @@ class _NumericSettingWidgetState extends State<NumericSettingWidget> {
                 value = widget.maxAllowed;
               }
               setState(() {
-
-                if(widget.step % 1 == 0){
+                if (widget.step % 1 == 0) {
                   widget.setting.value = value.toStringAsFixed(0);
-                } else{
+                } else {
                   widget.setting.value = value.toStringAsFixed(2);
                 }
-
 
                 widget.notifyParent();
               });
@@ -82,10 +82,10 @@ class _NumericSettingWidgetState extends State<NumericSettingWidget> {
   }
 }
 
-int determineDecimals(double step){
-  if (step % 1 == 0){
+int determineDecimals(double step) {
+  if (step % 1 == 0) {
     return 0;
-  } else{
+  } else {
     return 1;
   }
 }

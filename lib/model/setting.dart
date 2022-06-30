@@ -4,7 +4,7 @@ class Setting {
   late final String label;
 
   Setting(this.type, this.value) {
-    this.label = generateLabel(this.type);
+    label = generateLabel(type);
   }
 }
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'dart:async';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/rendering.dart';
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:qs_ds_app/screens/settings_screen.dart';
 import 'package:tap_debouncer/tap_debouncer.dart';
@@ -19,7 +18,7 @@ class _PortScreenState extends State<PortScreen>
   // String dropdownValue = '';
   String? dropdownValue;
   List<String> availablePorts = [];
-  late var animationController;
+  late AnimationController animationController;
   bool refreshPressed = false;
 
   @override
@@ -28,8 +27,8 @@ class _PortScreenState extends State<PortScreen>
     initPorts();
     animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1000),
-      reverseDuration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 1000),
+      reverseDuration: const Duration(milliseconds: 300),
     );
   }
 
@@ -51,11 +50,17 @@ class _PortScreenState extends State<PortScreen>
     return Scaffold(
       // body: Container(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
-              colors: [Color(0xFF676767), Color(0xFF676767), Color(0xFFA05A5A), Color(0xFF676767), Color(0xFF676767)],
-              begin: const FractionalOffset(0, 0),
-              end: const FractionalOffset(1, 1),
+              colors: [
+                Color(0xFF676767),
+                Color(0xFF676767),
+                Color(0xFFA05A5A),
+                Color(0xFF676767),
+                Color(0xFF676767)
+              ],
+              begin: FractionalOffset(0, 0),
+              end: FractionalOffset(1, 1),
               stops: [0, 0.25, 0.5, 0.75, 1],
               tileMode: TileMode.clamp),
         ),
@@ -187,25 +192,14 @@ class _PortScreenState extends State<PortScreen>
                       //   print('On tap called');
                       // },
                       onPressed: onTap,
-                      child: onTap == null
-                          ? const Text(
-                              'Wait',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
-                            )
-                          : const Text(
-                              'Connect',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
-                            ),
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(150, 55),
+                        minimumSize: const Size(150, 55),
                         primary: Colors.grey.shade200,
                         onPrimary: Colors.black12,
                         onSurface: Colors.green,
                         shadowColor: Colors.black,
                         elevation: 3,
-                        side: BorderSide(
+                        side: const BorderSide(
                             color: Colors.transparent,
                             //change border color
                             width: 2,
@@ -217,6 +211,17 @@ class _PortScreenState extends State<PortScreen>
                         ),
                         tapTargetSize: MaterialTapTargetSize.padded,
                       ),
+                      child: onTap == null
+                          ? const Text(
+                              'Wait',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )
+                          : const Text(
+                              'Connect',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            ),
                     );
                   },
                 ),

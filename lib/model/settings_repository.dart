@@ -180,34 +180,39 @@ class SettingsRepository {
     }
   }
 
-  String generateSaveSettings(){
+  String generateSaveSettings() {
     String result = 'S,';
-    for(int i = 4; i < settingsList.length; i++){
+    for (int i = 4; i < settingsList.length; i++) {
       result += '${settingsList[i].value},';
     }
-    result = result.substring(0,result.length-1);
+    result = result.substring(0, result.length - 1);
     return result;
   }
 
-  List<Tab> getTabs(){
+  List<Tab> getTabs() {
     List<Tab> tabs = <Tab>[];
     // tabs.add(Tab(text: 'Quickshifter',));
     // tabs.add(Tab(text: 'Downshifter',));
     // return tabs;
-    if(qsType.value != '0' || dsType.value !='0'){
-      tabs.add(Tab(text: 'General',));
-      if(qsType.value != '0'){
-        tabs.add(Tab(text: 'Quickshifter',));
+    if (qsType.value != '0' || dsType.value != '0') {
+      tabs.add(const Tab(
+        text: 'General',
+      ));
+      if (qsType.value != '0') {
+        tabs.add(const Tab(
+          text: 'Quickshifter',
+        ));
       }
-      if(dsType.value != '0'){
-        tabs.add(Tab(text: 'Downshifter',));
+      if (dsType.value != '0') {
+        tabs.add(const Tab(
+          text: 'Downshifter',
+        ));
       }
-    } else{
-      tabs.add(Tab(text: 'READ DATA FIRST',));
+    } else {
+      tabs.add(const Tab(
+        text: 'READ DATA FIRST',
+      ));
     }
     return tabs;
   }
-
-
-
 }

@@ -12,53 +12,45 @@ class GeneralScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Row(
+    return Stack(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-              child: Container(
-                // decoration: BoxDecoration(border: Border.all()),
-                child: SizedBox(
-                  width: 600,
-                  child: Column(
-                    children: [
-                      NumericSettingWidget(
-                          setting: settingsRepository.pulses,
-                          notifyParent: notifyParent,
-                          minAllowed: settingsRepository.pulsesNumericMin,
-                          maxAllowed: settingsRepository.pulsesNumericMax,
-                          // step: settingsRepository.pulsesNumericStep),
-                          step: getPulsesStep(settingsRepository.pulses.value)),
-                    ],
-                  ),
+              child: SizedBox(
+                width: 450,
+                child: Column(
+                  children: [
+                    NumericSettingWidget(
+                        setting: settingsRepository.pulses,
+                        notifyParent: notifyParent,
+                        minAllowed: settingsRepository.pulsesNumericMin,
+                        maxAllowed: settingsRepository.pulsesNumericMax,
+                        // step: settingsRepository.pulsesNumericStep),
+                        step: getPulsesStep(settingsRepository.pulses.value)),
+                  ],
                 ),
               ),
             ),
-            Expanded(
-              // width: 400,
-              child: Align(
-                // left: 50,
-                child: Text('Ver. ' +
-                    settingsRepository.majorVersion.value +
-                    '.' +
-                    settingsRepository.minorVersion.value),
-                alignment: Alignment.topRight,
-                // right: 100,
-              ),
-            )
           ],
         ),
-      ),
+        Align(
+          alignment: Alignment.topRight,
+          child: Text(
+              'Ver. ${settingsRepository.majorVersion.value}.${settingsRepository.minorVersion.value}'),
+        ),
+      ],
     );
   }
-  double getPulsesStep(String pulses){
-    double pulsesValue = double.tryParse(pulses)?? 1;
-    if(pulsesValue == 0.5){
+
+  double getPulsesStep(String pulses) {
+    double pulsesValue = double.tryParse(pulses) ?? 1;
+    if (pulsesValue == 0.5) {
       return 0.5;
-    } else if (pulsesValue > 1){
+    } else if (pulsesValue > 1) {
       return 1;
     }
     return 0.5;
