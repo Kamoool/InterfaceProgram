@@ -30,7 +30,7 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 450,
+          width: 480,
           child: Column(
             children: [
               Row(
@@ -42,7 +42,7 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
                       current: widget.settingsRepository.qsEnable.value == '1',
                       first: false,
                       second: true,
-                      dif: 70.0,
+                      dif: 80.0,
                       borderColor: Colors.transparent,
                       borderWidth: 1.0,
                       height: 55,
@@ -90,7 +90,7 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
                           widget.settingsRepository.pushCheckQS.value == '1',
                       first: true,
                       second: false,
-                      dif: 70.0,
+                      dif: 80.0,
                       borderColor: Colors.transparent,
                       borderWidth: 1.0,
                       height: 55,
@@ -239,7 +239,7 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
           width: 30,
         ),
         SizedBox(
-          width: 450,
+          width: 480,
           child: Column(
             children: [
               Padding(

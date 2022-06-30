@@ -32,7 +32,7 @@ class _NumericSettingWidgetState extends State<NumericSettingWidget> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          width: 250,
+          width: 280,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
             child: Text(

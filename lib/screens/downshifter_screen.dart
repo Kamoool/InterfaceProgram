@@ -30,7 +30,7 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 450,
+          width: 480,
           child: Column(
             children: [
               Row(
@@ -42,7 +42,7 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
                       current: widget.settingsRepository.dsEnable.value == '1',
                       first: false,
                       second: true,
-                      dif: 70.0,
+                      dif: 80.0,
                       borderColor: Colors.transparent,
                       borderWidth: 1.0,
                       height: 55,
@@ -90,7 +90,7 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
                           widget.settingsRepository.pushCheckQS.value == '0',
                       first: true,
                       second: false,
-                      dif: 70.0,
+                      dif: 80.0,
                       borderColor: Colors.transparent,
                       borderWidth: 1.0,
                       height: 55,
@@ -254,7 +254,7 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
           width: 30,
         ),
         SizedBox(
-          width: 450,
+          width: 480,
           child: Column(
             children: [
               Padding(

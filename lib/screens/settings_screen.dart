@@ -232,8 +232,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             return const Center(
                               child: Text(
                                 'READ DATA FIRST',
-                                style:
-                                    TextStyle(fontSize: 50, color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 50, color: Colors.white),
                               ),
                             );
                           }).toList(),

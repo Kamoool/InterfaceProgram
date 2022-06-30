@@ -21,7 +21,7 @@ class GeneralScreenWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
               child: SizedBox(
-                width: 450,
+                width: 480,
                 child: Column(
                   children: [
                     NumericSettingWidget(

@@ -7,7 +7,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowTitle('Quick - Down - Shifter APP');
-    setWindowMinSize(const Size(1050, 400));
+    setWindowMinSize(const Size(1110, 400));
     // setWindowMaxSize(const Size(1200, 730));
   }
 
