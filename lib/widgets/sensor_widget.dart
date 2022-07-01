@@ -5,10 +5,7 @@ import 'package:qs_ds_app/widgets/building_blocks/half_sensor_bar_widget.dart';
 class SensorWidget extends StatelessWidget {
   const SensorWidget({
     Key? key,
-    required this.settingsRepository,
   }) : super(key: key);
-
-  final SettingsRepository settingsRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +32,9 @@ class SensorWidget extends StatelessWidget {
               SizedBox(
                 width: 80,
                 child: Text(
-                  (double.tryParse(settingsRepository.rpm.value) ?? 0.0) <
+                  (double.tryParse(SettingsRepository().rpm.value) ?? 0.0) <
                           100000
-                      ? (double.tryParse(settingsRepository.rpm.value) ?? 0.0)
+                      ? (double.tryParse(SettingsRepository().rpm.value) ?? 0.0)
                           .toStringAsFixed(0)
                       : '0',
                   textAlign: TextAlign.center,
@@ -52,18 +49,18 @@ class SensorWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+            children: const [
               HalfSensorBarWidget(
                 quarterTurns: -2,
                 reverse: true,
                 isPush: true,
-                color: const Color(0xFF622D5D),
+                color: Color(0xFF622D5D),
               ),
               HalfSensorBarWidget(
                 quarterTurns: 0,
                 reverse: false,
                 isPush: false,
-                color: const Color(0xFF2D3C62),
+                color: Color(0xFF2D3C62),
               ),
             ],
           ),
