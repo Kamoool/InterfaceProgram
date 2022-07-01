@@ -86,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     labelBackgroundColor: Colors.yellow,
                     backgroundColor: Colors.yellow,
                     onTap: () {
-                      SerialPortUtils().sendString('R');
+                      SerialPortUtils().readData();
                     },
                   ),
                   SpeedDialChild(
@@ -96,8 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     labelBackgroundColor: Colors.green,
                     backgroundColor: Colors.green,
                     onTap: () {
-                      SerialPortUtils().sendString(
-                          SettingsRepository().generateSaveSettings());
+                      SerialPortUtils().saveSettings();
                     },
                   ),
                   SpeedDialChild(
@@ -107,7 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       labelBackgroundColor: Colors.blue,
                       backgroundColor: Colors.blue,
                       onTap: () {
-                        SerialPortUtils().sendString('W');
+                        SerialPortUtils().resetSettings();
                       }),
                   SpeedDialChild(
                       child: const Icon(Icons.exit_to_app),
@@ -116,7 +115,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       labelBackgroundColor: Colors.red,
                       backgroundColor: Colors.red,
                       onTap: () {
-                        SerialPortUtils().closeConnection();
+                        SerialPortUtils().disconnect();
                         Navigator.pop(context);
                       }),
                 ],

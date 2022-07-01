@@ -34,12 +34,32 @@ class SerialPortUtils {
     this.notify = notify;
   }
 
-  void closeConnection() {
+  void disconnect() {
     stopListener = true;
     sendString('E');
     serialPort.close();
     serialPort.dispose();
     instance = null;
+  }
+
+  void cut(){
+    sendString('C');
+  }
+
+  void blip(){
+    sendString('B');
+  }
+
+  void readData(){
+    sendString('R');
+  }
+
+  void saveSettings(){
+    sendString(SettingsRepository().generateSaveSettings());
+  }
+
+  void resetSettings(){
+    sendString('W');
   }
 
   void sendString(String string) {

@@ -270,6 +270,6 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
   }
 
   Future<void> cutCommandCall() async {
-    SerialPortUtils().sendString('C');
+    SerialPortUtils().cut();
   }
 }

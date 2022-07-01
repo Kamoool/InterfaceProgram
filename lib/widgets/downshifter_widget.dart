@@ -282,6 +282,6 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
   }
 
   Future<void> blipCommandCall() async {
-    SerialPortUtils().sendString('B');
+    SerialPortUtils().blip();
   }
 }
