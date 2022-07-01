@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../model/setting.dart';
 
 class SettingsRepository {
@@ -83,51 +82,12 @@ class SettingsRepository {
   final Setting postDelayQS = Setting(SettingType.PostDelayQS, '500');
   final Setting postDelayDS = Setting(SettingType.PostDelayDS, '500');
 
-  factory SettingsRepository(){
+  factory SettingsRepository() {
     return instance;
   }
 
   SettingsRepository.internal() {
-    // settingsMap = {
-    //   SettingType.RPM: Setting(SettingType.RPM, '1234'),
-    //   SettingType.Sensor: Setting(SettingType.Sensor, '120'),
-    //   SettingType.MajorVersion: Setting(SettingType.MajorVersion, '1'),
-    //   SettingType.MinorVersion: Setting(SettingType.MinorVersion, '9'),
-    //   SettingType.QSType: Setting(SettingType.QSType, '1'),
-    //   SettingType.DSType: Setting(SettingType.DSType, '1'),
-    //   SettingType.QSEnable: Setting(SettingType.QSEnable, '1'),
-    //   SettingType.DSEnable: Setting(SettingType.DSEnable, '1'),
-    //   SettingType.PushCheckQS: Setting(SettingType.PushCheckQS, '1'),
-    //   SettingType.Pulses: Setting(SettingType.Pulses, '2'),
-    //   SettingType.PreDelayQS: Setting(SettingType.PreDelayQS, '5'),
-    //   SettingType.CutTime1: Setting(SettingType.CutTime1, '70'),
-    //   SettingType.CutTime2: Setting(SettingType.CutTime2, '70'),
-    //   SettingType.CutTime3: Setting(SettingType.CutTime3, '70'),
-    //   SettingType.CutTime4: Setting(SettingType.CutTime4, '70'),
-    //   SettingType.CutTime5: Setting(SettingType.CutTime5, '70'),
-    //   SettingType.CutTime6: Setting(SettingType.CutTime6, '70'),
-    //   SettingType.CutTime7: Setting(SettingType.CutTime7, '70'),
-    //   SettingType.CutTime8: Setting(SettingType.CutTime8, '70'),
-    //   SettingType.QSForce: Setting(SettingType.QSForce, '100'),
-    //   SettingType.MinRPMQS: Setting(SettingType.MinRPMQS, '4000'),
-    //   SettingType.PreDelayDS: Setting(SettingType.PreDelayDS, '5'),
-    //   SettingType.BlipTime1: Setting(SettingType.BlipTime1, '80'),
-    //   SettingType.BlipTime2: Setting(SettingType.BlipTime2, '80'),
-    //   SettingType.BlipTime3: Setting(SettingType.BlipTime3, '80'),
-    //   SettingType.BlipTime4: Setting(SettingType.BlipTime4, '80'),
-    //   SettingType.BlipTime5: Setting(SettingType.BlipTime5, '80'),
-    //   SettingType.BlipTime6: Setting(SettingType.BlipTime6, '80'),
-    //   SettingType.BlipTime7: Setting(SettingType.BlipTime7, '80'),
-    //   SettingType.BlipTime8: Setting(SettingType.BlipTime8, '80'),
-    //   SettingType.DSForce: Setting(SettingType.DSForce, '100'),
-    //   SettingType.MinRPMDS: Setting(SettingType.MinRPMDS, '4000'),
-    //   SettingType.MaxRPMDS: Setting(SettingType.MinRPMQS, '10000'),
-    //   SettingType.PostDelayQS: Setting(SettingType.PostDelayQS, '500'),
-    //   SettingType.PostDelayDS: Setting(SettingType.PostDelayDS, '500'),
-    // };
     settingsList = [
-      // rpm,
-      // sensorReading,
       majorVersion,
       minorVersion,
       qsType,

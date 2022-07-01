@@ -1,8 +1,6 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_libserialport/flutter_libserialport.dart';
-import 'dart:async';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:qs_ds_app/model/serial_utils.dart';
 import 'package:qs_ds_app/widgets/downshifter_widget.dart';
 import 'package:qs_ds_app/widgets/general_widget.dart';
 import 'package:qs_ds_app/widgets/quickshifter_widget.dart';
@@ -10,9 +8,7 @@ import 'package:qs_ds_app/model/settings_repository.dart';
 import 'package:qs_ds_app/widgets/sensor_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
-  final SerialPort? serialPort;
-
-  const SettingsScreen({Key? key, this.serialPort}) : super(key: key);
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -21,55 +17,12 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final ScrollController scrollControllerHorizontal = ScrollController();
   final ScrollController scrollControllerVertical = ScrollController();
-  double sliderValue = 20;
-  bool readData = true;
-
-  final SettingsRepository settingsRepository = SettingsRepository();
-  bool positive = false;
-  int value = 0;
-  String sensorValue = '3000';
 
   @override
   void initState() {
     super.initState();
-    _readFromPort();
-  }
-
-  void sendCutCommand() {
-    widget.serialPort!.write(Uint8List.fromList('C\n'.codeUnits), timeout: 100);
-  }
-
-  void sendBlipCommand() {
-    widget.serialPort!.write(Uint8List.fromList('B\n'.codeUnits), timeout: 100);
-  }
-
-  Future<void> _readFromPort() async {
-    if (widget.serialPort == null) {
-      return;
-    }
-    final reader = SerialPortReader(widget.serialPort!);
-    var b = BytesBuilder();
-    reader.stream.listen((Uint8List data) {
-      b.add(data);
-      if (String.fromCharCodes(b.toBytes()).contains('\r\n')) {
-        List<String> stringList =
-            String.fromCharCodes(b.toBytes()).split('\r\n');
-        b.clear();
-        if (stringList[stringList.length - 1] == '') {
-          for (int i = 0; i < stringList.length - 1; i++) {
-            settingsRepository.parseValues(stringList[i]);
-            refresh();
-          }
-        } else {
-          b.add(
-              Uint8List.fromList(stringList[stringList.length - 1].codeUnits));
-          for (int i = 0; i < stringList.length - 1; i++) {
-            settingsRepository.parseValues(stringList[i]);
-            refresh();
-          }
-        }
-      }
-    });
+    SettingsRepository();
+    SerialPortUtils().setNotify(() => refresh());
   }
 
   void refresh() {
@@ -96,7 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               tileMode: TileMode.clamp),
         ),
         child: DefaultTabController(
-          length: settingsRepository.getTabs().length,
+          length: SettingsRepository().getTabs().length,
           child: Builder(builder: (BuildContext context) {
             final TabController tabController =
                 DefaultTabController.of(context)!;
@@ -115,7 +68,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   labelStyle: const TextStyle(fontSize: 25),
                   labelColor: Colors.black,
                   unselectedLabelColor: Colors.white70,
-                  tabs: settingsRepository.getTabs(),
+                  tabs: SettingsRepository().getTabs(),
                 ),
               ),
               floatingActionButtonLocation:
@@ -133,9 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     labelBackgroundColor: Colors.yellow,
                     backgroundColor: Colors.yellow,
                     onTap: () {
-                      widget.serialPort!.write(
-                          Uint8List.fromList('R\n'.codeUnits),
-                          timeout: 100);
+                      SerialPortUtils().readData();
                     },
                   ),
                   SpeedDialChild(
@@ -145,11 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     labelBackgroundColor: Colors.green,
                     backgroundColor: Colors.green,
                     onTap: () {
-                      widget.serialPort!.write(
-                          Uint8List.fromList(
-                              '${settingsRepository.generateSaveSettings()}\n'
-                                  .codeUnits),
-                          timeout: 100);
+                      SerialPortUtils().saveSettings();
                     },
                   ),
                   SpeedDialChild(
@@ -159,9 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       labelBackgroundColor: Colors.blue,
                       backgroundColor: Colors.blue,
                       onTap: () {
-                        widget.serialPort!.write(
-                            Uint8List.fromList('W\n'.codeUnits),
-                            timeout: 100);
+                        SerialPortUtils().resetSettings();
                       }),
                   SpeedDialChild(
                       child: const Icon(Icons.exit_to_app),
@@ -170,10 +115,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       labelBackgroundColor: Colors.red,
                       backgroundColor: Colors.red,
                       onTap: () {
-                        widget.serialPort!
-                            .write(Uint8List.fromList('E\n'.codeUnits));
-                        widget.serialPort!.close();
-                        widget.serialPort!.dispose();
+                        SerialPortUtils().disconnect();
                         Navigator.pop(context);
                       }),
                 ],
@@ -209,22 +151,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       ? MediaQuery.of(context).size.height - 153
                                       : 540,
                               child: TabBarView(
-                                children:
-                                    settingsRepository.getTabs().map((Tab tab) {
+                                children: SettingsRepository()
+                                    .getTabs()
+                                    .map((Tab tab) {
                                   if (tab.text == 'General') {
                                     return GeneralWidget(notifyParent: refresh);
                                   }
                                   if (tab.text == 'Quickshifter') {
                                     return QuickshifterWidget(
                                       notifyParent: refresh,
-                                      sendCutCommand: sendCutCommand,
                                     );
                                   }
                                   if (tab.text == 'Downshifter') {
                                     {
                                       return DownshifterWidget(
                                         notifyParent: refresh,
-                                        sendBlipCommand: sendBlipCommand,
                                       );
                                     }
                                   }

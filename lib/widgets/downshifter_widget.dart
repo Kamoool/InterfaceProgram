@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qs_ds_app/model/serial_utils.dart';
 import 'package:qs_ds_app/model/settings_repository.dart';
 import 'package:qs_ds_app/widgets/building_blocks/numeric_setting_widget.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
@@ -7,10 +8,8 @@ import 'package:unicons/unicons.dart';
 
 class DownshifterWidget extends StatefulWidget {
   final Function() notifyParent;
-  final Function() sendBlipCommand;
 
-  const DownshifterWidget(
-      {Key? key, required this.notifyParent, required this.sendBlipCommand})
+  const DownshifterWidget({Key? key, required this.notifyParent})
       : super(key: key);
 
   @override
@@ -283,6 +282,6 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
   }
 
   Future<void> blipCommandCall() async {
-    widget.sendBlipCommand();
+    SerialPortUtils().blip();
   }
 }
