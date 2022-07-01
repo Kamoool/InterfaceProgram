@@ -212,13 +212,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 children:
                                     settingsRepository.getTabs().map((Tab tab) {
                                   if (tab.text == 'General') {
-                                    return GeneralWidget(
-                                        settingsRepository: settingsRepository,
-                                        notifyParent: refresh);
+                                    return GeneralWidget(notifyParent: refresh);
                                   }
                                   if (tab.text == 'Quickshifter') {
                                     return QuickshifterWidget(
-                                      settingsRepository: settingsRepository,
                                       notifyParent: refresh,
                                       sendCutCommand: sendCutCommand,
                                     );
@@ -226,7 +223,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   if (tab.text == 'Downshifter') {
                                     {
                                       return DownshifterWidget(
-                                        settingsRepository: settingsRepository,
                                         notifyParent: refresh,
                                         sendBlipCommand: sendBlipCommand,
                                       );
@@ -248,7 +244,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 width: MediaQuery.of(context).size.width,
                                 height: 94,
                                 // width: 1000,
-                                child: SensorWidget(settingsRepository: settingsRepository),
+                                child: SensorWidget(),
                               ),
                             ),
                           ],
@@ -265,5 +261,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-
-

@@ -7,19 +7,14 @@ import 'package:unicons/unicons.dart';
 
 class DownshifterWidget extends StatefulWidget {
   final Function() notifyParent;
-  final SettingsRepository settingsRepository;
   final Function() sendBlipCommand;
 
   const DownshifterWidget(
-      {Key? key,
-      required this.settingsRepository,
-      required this.notifyParent,
-      required this.sendBlipCommand})
+      {Key? key, required this.notifyParent, required this.sendBlipCommand})
       : super(key: key);
 
   @override
-  State<DownshifterWidget> createState() =>
-      _DownshifterWidgetState();
+  State<DownshifterWidget> createState() => _DownshifterWidgetState();
 }
 
 class _DownshifterWidgetState extends State<DownshifterWidget> {
@@ -39,7 +34,7 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     AnimatedToggleSwitch<bool>.dual(
-                      current: widget.settingsRepository.dsEnable.value == '1',
+                      current: SettingsRepository().dsEnable.value == '1',
                       first: false,
                       second: true,
                       dif: 80.0,
@@ -56,8 +51,8 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                         ),
                       ],
                       onChanged: (b) => setState(() => b
-                          ? widget.settingsRepository.dsEnable.value = '1'
-                          : widget.settingsRepository.dsEnable.value = '0'),
+                          ? SettingsRepository().dsEnable.value = '1'
+                          : SettingsRepository().dsEnable.value = '0'),
                       colorBuilder: (b) => b ? Colors.red : Colors.green,
                       iconBuilder: (value) => value
                           ? const Icon(
@@ -83,8 +78,7 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                             )),
                     ),
                     AnimatedToggleSwitch<bool>.dual(
-                      current:
-                          widget.settingsRepository.pushCheckQS.value == '0',
+                      current: SettingsRepository().pushCheckQS.value == '0',
                       first: true,
                       second: false,
                       dif: 80.0,
@@ -101,8 +95,8 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                         ),
                       ],
                       onChanged: (b) => setState(() => b
-                          ? widget.settingsRepository.pushCheckQS.value = '0'
-                          : widget.settingsRepository.pushCheckQS.value = '1'),
+                          ? SettingsRepository().pushCheckQS.value = '0'
+                          : SettingsRepository().pushCheckQS.value = '1'),
                       colorBuilder: (b) =>
                           b ? const Color(0xFF622D5D) : const Color(0xFF2D3C62),
                       iconBuilder: (value) => value
@@ -173,41 +167,41 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                   ),
                 ),
                 NumericSetting(
-                    setting: widget.settingsRepository.dsForce,
+                    setting: SettingsRepository().dsForce,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.sensorNumericMin,
-                    maxAllowed: widget.settingsRepository.sensorNumericMax,
-                    step: widget.settingsRepository.sensorNumericStep),
+                    minAllowed: SettingsRepository().sensorNumericMin,
+                    maxAllowed: SettingsRepository().sensorNumericMax,
+                    step: SettingsRepository().sensorNumericStep),
                 NumericSetting(
-                    setting: widget.settingsRepository.minRPMDS,
+                    setting: SettingsRepository().minRPMDS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.minRPMNumericMin,
-                    maxAllowed: (double.tryParse(
-                                widget.settingsRepository.maxRPMDS.value) ??
-                            widget.settingsRepository.maxRPMNumericMax) -
-                        500,
-                    step: widget.settingsRepository.minRPMNumericStep),
+                    minAllowed: SettingsRepository().minRPMNumericMin,
+                    maxAllowed:
+                        (double.tryParse(SettingsRepository().maxRPMDS.value) ??
+                                SettingsRepository().maxRPMNumericMax) -
+                            500,
+                    step: SettingsRepository().minRPMNumericStep),
                 NumericSetting(
-                    setting: widget.settingsRepository.maxRPMDS,
+                    setting: SettingsRepository().maxRPMDS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: (double.tryParse(
-                                widget.settingsRepository.minRPMDS.value) ??
-                            widget.settingsRepository.minRPMNumericMin) +
-                        500,
-                    maxAllowed: widget.settingsRepository.maxRPMNumericMax,
-                    step: widget.settingsRepository.maxRPMNumericStep),
+                    minAllowed:
+                        (double.tryParse(SettingsRepository().minRPMDS.value) ??
+                                SettingsRepository().minRPMNumericMin) +
+                            500,
+                    maxAllowed: SettingsRepository().maxRPMNumericMax,
+                    step: SettingsRepository().maxRPMNumericStep),
                 NumericSetting(
-                    setting: widget.settingsRepository.preDelayDS,
+                    setting: SettingsRepository().preDelayDS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.preDelayNumericMin,
-                    maxAllowed: widget.settingsRepository.preDelayNumericMax,
-                    step: widget.settingsRepository.preDelayNumericStep),
+                    minAllowed: SettingsRepository().preDelayNumericMin,
+                    maxAllowed: SettingsRepository().preDelayNumericMax,
+                    step: SettingsRepository().preDelayNumericStep),
                 NumericSetting(
-                    setting: widget.settingsRepository.postDelayDS,
+                    setting: SettingsRepository().postDelayDS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.postDelayNumericMin,
-                    maxAllowed: widget.settingsRepository.postDelayNumericMax,
-                    step: widget.settingsRepository.postDelayNumericStep),
+                    minAllowed: SettingsRepository().postDelayNumericMin,
+                    maxAllowed: SettingsRepository().postDelayNumericMax,
+                    step: SettingsRepository().postDelayNumericStep),
               ],
             ),
           ),
@@ -233,54 +227,54 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 34, 0, 0),
                 child: NumericSetting(
-                    setting: widget.settingsRepository.blipTime1,
+                    setting: SettingsRepository().blipTime1,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                    maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                    step: widget.settingsRepository.dsBlipNumericStep),
+                    minAllowed: SettingsRepository().dsBlipNumericMin,
+                    maxAllowed: SettingsRepository().dsBlipNumericMax,
+                    step: SettingsRepository().dsBlipNumericStep),
               ),
               NumericSetting(
-                  setting: widget.settingsRepository.blipTime2,
+                  setting: SettingsRepository().blipTime2,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                  step: widget.settingsRepository.dsBlipNumericStep),
+                  minAllowed: SettingsRepository().dsBlipNumericMin,
+                  maxAllowed: SettingsRepository().dsBlipNumericMax,
+                  step: SettingsRepository().dsBlipNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.blipTime3,
+                  setting: SettingsRepository().blipTime3,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                  step: widget.settingsRepository.dsBlipNumericStep),
+                  minAllowed: SettingsRepository().dsBlipNumericMin,
+                  maxAllowed: SettingsRepository().dsBlipNumericMax,
+                  step: SettingsRepository().dsBlipNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.blipTime4,
+                  setting: SettingsRepository().blipTime4,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                  step: widget.settingsRepository.dsBlipNumericStep),
+                  minAllowed: SettingsRepository().dsBlipNumericMin,
+                  maxAllowed: SettingsRepository().dsBlipNumericMax,
+                  step: SettingsRepository().dsBlipNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.blipTime5,
+                  setting: SettingsRepository().blipTime5,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                  step: widget.settingsRepository.dsBlipNumericStep),
+                  minAllowed: SettingsRepository().dsBlipNumericMin,
+                  maxAllowed: SettingsRepository().dsBlipNumericMax,
+                  step: SettingsRepository().dsBlipNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.blipTime6,
+                  setting: SettingsRepository().blipTime6,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                  step: widget.settingsRepository.dsBlipNumericStep),
+                  minAllowed: SettingsRepository().dsBlipNumericMin,
+                  maxAllowed: SettingsRepository().dsBlipNumericMax,
+                  step: SettingsRepository().dsBlipNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.blipTime7,
+                  setting: SettingsRepository().blipTime7,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                  step: widget.settingsRepository.dsBlipNumericStep),
+                  minAllowed: SettingsRepository().dsBlipNumericMin,
+                  maxAllowed: SettingsRepository().dsBlipNumericMax,
+                  step: SettingsRepository().dsBlipNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.blipTime8,
+                  setting: SettingsRepository().blipTime8,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                  step: widget.settingsRepository.dsBlipNumericStep),
+                  minAllowed: SettingsRepository().dsBlipNumericMin,
+                  maxAllowed: SettingsRepository().dsBlipNumericMax,
+                  step: SettingsRepository().dsBlipNumericStep),
             ],
           ),
         ),
