@@ -18,6 +18,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final ScrollController scrollControllerHorizontal = ScrollController();
+  final ScrollController scrollControllerVertical = ScrollController();
   double sliderValue = 20;
   bool readData = true;
 
@@ -55,7 +57,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         if (stringList[stringList.length - 1] == '') {
           for (int i = 0; i < stringList.length - 1; i++) {
             settingsRepository.parseValues(stringList[i]);
-            // print(stringList[i]);
             refresh();
           }
         } else {
@@ -63,10 +64,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Uint8List.fromList(stringList[stringList.length - 1].codeUnits));
           for (int i = 0; i < stringList.length - 1; i++) {
             settingsRepository.parseValues(stringList[i]);
-            // print(stringList[i]);
             refresh();
           }
-          // print('Pozostało: ${stringList[stringList.length - 1]}');
         }
       }
     });
@@ -95,22 +94,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               stops: [0, 0.25, 0.5, 0.75, 1],
               tileMode: TileMode.clamp),
         ),
-        // constraints: BoxConstraints(
-        //     minWidth: 1200, minHeight: 800, maxHeight: 800, maxWidth: 1200),
-        // color: Colors.red,
         child: DefaultTabController(
-          // length: tabs.length,
           length: settingsRepository.getTabs().length,
-          // The Builder widget is used to have a different BuildContext to access
-          // closest DefaultTabController.
           child: Builder(builder: (BuildContext context) {
             final TabController tabController =
                 DefaultTabController.of(context)!;
             tabController.addListener(() {
-              if (!tabController.indexIsChanging) {
-                // Your code goes here.
-                // To get index of current tab use tabController.index
-              }
+              if (!tabController.indexIsChanging) {}
             });
             return Scaffold(
               backgroundColor: Colors.transparent,
@@ -121,13 +111,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       borderRadius: BorderRadius.circular(20)),
                   indicatorColor: Colors.red,
                   indicatorWeight: 3,
-                  // // indicatorPadding: EdgeInsets.all(5),
                   labelStyle: const TextStyle(fontSize: 25),
                   labelColor: Colors.black,
                   unselectedLabelColor: Colors.white70,
-                  // overlayColor: Colors.yellow,
                   tabs: settingsRepository.getTabs(),
-                  // tabs: tabs,
                 ),
               ),
               floatingActionButtonLocation:
@@ -190,207 +177,245 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       }),
                 ],
               ),
-              body: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  // crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
+              body: Scrollbar(
+                controller: scrollControllerVertical,
+                thumbVisibility: true,
+                trackVisibility: true,
+                child: Scrollbar(
+                  controller: scrollControllerHorizontal,
+                  scrollbarOrientation: ScrollbarOrientation.bottom,
+                  thumbVisibility: true,
+                  thickness: 10,
+                  notificationPredicate: (notif) => notif.depth == 1,
+                  trackVisibility: true,
+                  child: SingleChildScrollView(
+                    controller: scrollControllerVertical,
+                    child: SingleChildScrollView(
+                      controller: scrollControllerHorizontal,
+                      scrollDirection: Axis.horizontal,
                       child: SizedBox(
-                        // child: Expanded(
-                        width: MediaQuery.of(context).size.width,
-                        height: 540,
-                        // height: MediaQuery.of(context).size.height*0.8,
-                        child: TabBarView(
-                          children: settingsRepository.getTabs().map((Tab tab) {
-                            // children: tabs.map((Tab tab) {
-                            if (tab.text == 'General') {
-                              // return Center(
-                              //   child: Text('General'),
-                              // );
-                              return GeneralScreenWidget(
-                                  settingsRepository: settingsRepository,
-                                  notifyParent: refresh);
-                            }
-                            if (tab.text == 'Quickshifter') {
-                              return QuickshifterScreenWidget(
-                                settingsRepository: settingsRepository,
-                                notifyParent: refresh,
-                                sendCutCommand: sendCutCommand,
-                              );
-                            }
-                            if (tab.text == 'Downshifter') {
-                              {
-                                return DownshifterScreenWidget(
-                                  settingsRepository: settingsRepository,
-                                  notifyParent: refresh,
-                                  sendBlipCommand: sendBlipCommand,
-                                );
-                              }
-                            }
-                            return const Center(
-                              child: Text(
-                                'READ DATA FIRST',
-                                style: TextStyle(
-                                    fontSize: 50, color: Colors.white),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: 94,
-                        // width: 1000,
+                        width: MediaQuery.of(context).size.width > 1110
+                            ? MediaQuery.of(context).size.width
+                            : 1110,
+                        // width: 1100,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    width: 70,
-                                    child: Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                      child: Text(
-                                        'RPM : ',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 25, color: Colors.white),
-                                      ),
+                            SizedBox(
+                              height:
+                                  (MediaQuery.of(context).size.height - 153) >
+                                          540
+                                      ? MediaQuery.of(context).size.height - 153
+                                      : 540,
+                              child: TabBarView(
+                                children:
+                                    settingsRepository.getTabs().map((Tab tab) {
+                                  if (tab.text == 'General') {
+                                    return GeneralScreenWidget(
+                                        settingsRepository: settingsRepository,
+                                        notifyParent: refresh);
+                                  }
+                                  if (tab.text == 'Quickshifter') {
+                                    return QuickshifterScreenWidget(
+                                      settingsRepository: settingsRepository,
+                                      notifyParent: refresh,
+                                      sendCutCommand: sendCutCommand,
+                                    );
+                                  }
+                                  if (tab.text == 'Downshifter') {
+                                    {
+                                      return DownshifterScreenWidget(
+                                        settingsRepository: settingsRepository,
+                                        notifyParent: refresh,
+                                        sendBlipCommand: sendBlipCommand,
+                                      );
+                                    }
+                                  }
+                                  return const Center(
+                                    child: Text(
+                                      'READ DATA FIRST',
+                                      style: TextStyle(
+                                          fontSize: 50, color: Colors.white),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 80,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                      child: Text(
-                                        (double.tryParse(settingsRepository
-                                                        .rpm.value) ??
-                                                    0.0) <
-                                                100000
-                                            ? (double.tryParse(
-                                                        settingsRepository
-                                                            .rpm.value) ??
-                                                    0.0)
-                                                .toStringAsFixed(0)
-                                            : '0',
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            fontSize: 25, color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  );
+                                }).toList(),
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(100, 0, 100, 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          child: RotatedBox(
-                                            quarterTurns: -2,
-                                            child: LinearProgressIndicator(
-                                              minHeight: 40,
-                                              // color: Colors.red,
-                                              // valueColor:
-                                              //     AlwaysStoppedAnimation<
-                                              //         Color>(Colors.yellow),
-                                              // color: Colors.yellow,
-                                              color: const Color(0xFF622D5D),
-                                              backgroundColor: Colors.black26,
-                                              value: -((double.tryParse(
-                                                              settingsRepository
-                                                                  .sensorReading
-                                                                  .value) ??
-                                                          2000) -
-                                                      2000) /
-                                                  2000,
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: 94,
+                                // width: 1000,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 0, 0, 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            width: 70,
+                                            child: Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0, 0, 0, 0),
+                                              child: Text(
+                                                'RPM : ',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 25,
+                                                    color: Colors.white),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Container(
-                                            alignment: Alignment.center,
+                                          SizedBox(
+                                            width: 80,
                                             child: Text(
                                               (double.tryParse(
                                                               settingsRepository
-                                                                  .sensorReading
-                                                                  .value) ??
-                                                          2000) <
-                                                      2000
-                                                  ? 'Push : ${(-((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000)).toStringAsFixed(0)}'
-                                                  : '',
+                                                                  .rpm.value) ??
+                                                          0.0) <
+                                                      100000
+                                                  ? (double.tryParse(
+                                                              settingsRepository
+                                                                  .rpm.value) ??
+                                                          0.0)
+                                                      .toStringAsFixed(0)
+                                                  : '0',
+                                              textAlign: TextAlign.center,
                                               style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25),
-                                            )),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          child: LinearProgressIndicator(
-                                            minHeight: 40,
-                                            // valueColor:
-                                            //     AlwaysStoppedAnimation<
-                                            //         Color>(Colors.blue),
-                                            // color: Colors.blue,
-                                            color: const Color(0xFF2D3C62),
-                                            backgroundColor: Colors.black26,
-                                            value: ((double.tryParse(
-                                                            settingsRepository
-                                                                .sensorReading
-                                                                .value) ??
-                                                        2000) -
-                                                    2000) /
-                                                2000,
+                                                  fontSize: 25,
+                                                  color: Colors.white),
+                                            ),
                                           ),
-                                        ),
-                                        Container(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              (double.tryParse(
-                                                              settingsRepository
-                                                                  .sensorReading
-                                                                  .value) ??
-                                                          2000) >
-                                                      2000
-                                                  ? 'Pull : ${((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000).toStringAsFixed(0)}'
-                                                  : '',
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25),
-                                            )),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          80, 0, 80, 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  child: RotatedBox(
+                                                    quarterTurns: -2,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                                  .only(
+                                                              topRight: Radius
+                                                                  .circular(20),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          20)),
+                                                      child:
+                                                          LinearProgressIndicator(
+                                                        minHeight: 40,
+                                                        color: const Color(
+                                                            0xFF622D5D),
+                                                        backgroundColor:
+                                                            Colors.black26,
+                                                        value: -((double.tryParse(settingsRepository
+                                                                        .sensorReading
+                                                                        .value) ??
+                                                                    2000) -
+                                                                2000) /
+                                                            2000,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      (double.tryParse(settingsRepository
+                                                                      .sensorReading
+                                                                      .value) ??
+                                                                  2000) <
+                                                              2000
+                                                          ? 'Push : ${(-((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000)).toStringAsFixed(0)}'
+                                                          : '',
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 25),
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topRight:
+                                                          Radius.circular(20),
+                                                      bottomRight:
+                                                          Radius.circular(20),
+                                                    ),
+                                                    child:
+                                                        LinearProgressIndicator(
+                                                      minHeight: 40,
+                                                      color: const Color(
+                                                          0xFF2D3C62),
+                                                      backgroundColor:
+                                                          Colors.black26,
+                                                      value: ((double.tryParse(
+                                                                      settingsRepository
+                                                                          .sensorReading
+                                                                          .value) ??
+                                                                  2000) -
+                                                              2000) /
+                                                          2000,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      (double.tryParse(settingsRepository
+                                                                      .sensorReading
+                                                                      .value) ??
+                                                                  2000) >
+                                                              2000
+                                                          ? 'Pull : ${((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000).toStringAsFixed(0)}'
+                                                          : '',
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 25),
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    )
-                  ],
+                    ),
+                  ),
                 ),
               ),
             );

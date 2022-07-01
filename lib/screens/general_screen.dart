@@ -29,7 +29,6 @@ class GeneralScreenWidget extends StatelessWidget {
                         notifyParent: notifyParent,
                         minAllowed: settingsRepository.pulsesNumericMin,
                         maxAllowed: settingsRepository.pulsesNumericMax,
-                        // step: settingsRepository.pulsesNumericStep),
                         step: getPulsesStep(settingsRepository.pulses.value)),
                   ],
                 ),

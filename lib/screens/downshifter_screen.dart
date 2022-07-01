@@ -29,16 +29,16 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 480,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                    child: AnimatedToggleSwitch<bool>.dual(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+          child: SizedBox(
+            width: 480,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AnimatedToggleSwitch<bool>.dual(
                       current: widget.settingsRepository.dsEnable.value == '1',
                       first: false,
                       second: true,
@@ -82,10 +82,7 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
                                   TextStyle(color: Colors.white, fontSize: 25),
                             )),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                    child: AnimatedToggleSwitch<bool>.dual(
+                    AnimatedToggleSwitch<bool>.dual(
                       current:
                           widget.settingsRepository.pushCheckQS.value == '0',
                       first: true,
@@ -131,70 +128,57 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
                                   TextStyle(color: Colors.white, fontSize: 25),
                             )),
                     ),
-                  ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
-                  child: TapDebouncer(
-                    cooldown: const Duration(milliseconds: 500),
-                    onTap: () async => await blipCommandCall(),
-                    builder: (BuildContext context, TapDebouncerFunc? onTap) {
-                      return ElevatedButton(
-                        // onPressed: () {
-                        //   print('On tap called');
-                        // },
-                        onPressed: onTap,
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(150, 55),
-                          primary: Colors.white38,
-                          // primary: Colors.grey.shade200,
-                          onPrimary: Colors.black12,
-                          onSurface: Colors.red,
-                          shadowColor: Colors.black,
-                          elevation: 3,
-                          side: const BorderSide(
-                              color: Colors.transparent,
-                              //change border color
-                              width: 2,
-                              //change border width
-                              style: BorderStyle.solid),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                20), //change border radius of this beautiful button thanks to BorderRadius.circular function
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 35),
+                    child: TapDebouncer(
+                      cooldown: const Duration(milliseconds: 500),
+                      onTap: () async => await blipCommandCall(),
+                      builder: (BuildContext context, TapDebouncerFunc? onTap) {
+                        return ElevatedButton(
+                          onPressed: onTap,
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(150, 55),
+                            primary: Colors.white38,
+                            onPrimary: Colors.black12,
+                            onSurface: Colors.red,
+                            shadowColor: Colors.black,
+                            elevation: 3,
+                            side: const BorderSide(
+                                color: Colors.transparent,
+                                width: 2,
+                                style: BorderStyle.solid),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            tapTargetSize: MaterialTapTargetSize.padded,
                           ),
-                          tapTargetSize: MaterialTapTargetSize.padded,
-                        ),
-                        child: onTap == null
-                            ? const Text(
-                                'Wait',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 25),
-                              )
-                            : const Text(
-                                'Blip',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 25),
-                              ),
-                      );
-                    },
+                          child: onTap == null
+                              ? const Text(
+                                  'Wait',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 25),
+                                )
+                              : const Text(
+                                  'Blip',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 25),
+                                ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: NumericSettingWidget(
+                NumericSettingWidget(
                     setting: widget.settingsRepository.dsForce,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.sensorNumericMin,
                     maxAllowed: widget.settingsRepository.sensorNumericMax,
                     step: widget.settingsRepository.sensorNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
+                NumericSettingWidget(
                     setting: widget.settingsRepository.minRPMDS,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.minRPMNumericMin,
@@ -203,40 +187,29 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
                             widget.settingsRepository.maxRPMNumericMax) -
                         500,
                     step: widget.settingsRepository.minRPMNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
+                NumericSettingWidget(
                     setting: widget.settingsRepository.maxRPMDS,
                     notifyParent: widget.notifyParent,
                     minAllowed: (double.tryParse(
                                 widget.settingsRepository.minRPMDS.value) ??
                             widget.settingsRepository.minRPMNumericMin) +
                         500,
-                    // minAllowed: widget.settingsRepository.maxRPMNumericMin,
                     maxAllowed: widget.settingsRepository.maxRPMNumericMax,
                     step: widget.settingsRepository.maxRPMNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
+                NumericSettingWidget(
                     setting: widget.settingsRepository.preDelayDS,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.preDelayNumericMin,
                     maxAllowed: widget.settingsRepository.preDelayNumericMax,
                     step: widget.settingsRepository.preDelayNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
+                NumericSettingWidget(
                     setting: widget.settingsRepository.postDelayDS,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.postDelayNumericMin,
                     maxAllowed: widget.settingsRepository.postDelayNumericMax,
                     step: widget.settingsRepository.postDelayNumericStep),
-              ),
-            ],
-            // children: List.from(settingsMap.values.map((e) => NumericSettingWidget(setting: e, notifyParent: notifyParent, minAllowed: 0.5, maxAllowed: 5, step: 0.5))),
+              ],
+            ),
           ),
         ),
         const SizedBox(
@@ -258,7 +231,7 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 39, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 34, 0, 0),
                 child: NumericSettingWidget(
                     setting: widget.settingsRepository.blipTime1,
                     notifyParent: widget.notifyParent,
@@ -266,71 +239,49 @@ class _DownshifterScreenWidgetState extends State<DownshifterScreenWidget> {
                     maxAllowed: widget.settingsRepository.dsBlipNumericMax,
                     step: widget.settingsRepository.dsBlipNumericStep),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.blipTime2,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                    maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                    step: widget.settingsRepository.dsBlipNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.blipTime3,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                    maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                    step: widget.settingsRepository.dsBlipNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.blipTime4,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                    maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                    step: widget.settingsRepository.dsBlipNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.blipTime5,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                    maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                    step: widget.settingsRepository.dsBlipNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.blipTime6,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                    maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                    step: widget.settingsRepository.dsBlipNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.blipTime7,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                    maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                    step: widget.settingsRepository.dsBlipNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.blipTime8,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.dsBlipNumericMin,
-                    maxAllowed: widget.settingsRepository.dsBlipNumericMax,
-                    step: widget.settingsRepository.dsBlipNumericStep),
-              ),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.blipTime2,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
+                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
+                  step: widget.settingsRepository.dsBlipNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.blipTime3,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
+                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
+                  step: widget.settingsRepository.dsBlipNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.blipTime4,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
+                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
+                  step: widget.settingsRepository.dsBlipNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.blipTime5,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
+                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
+                  step: widget.settingsRepository.dsBlipNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.blipTime6,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
+                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
+                  step: widget.settingsRepository.dsBlipNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.blipTime7,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
+                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
+                  step: widget.settingsRepository.dsBlipNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.blipTime8,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.dsBlipNumericMin,
+                  maxAllowed: widget.settingsRepository.dsBlipNumericMax,
+                  step: widget.settingsRepository.dsBlipNumericStep),
             ],
-            // children: List.from(settingsMap.values.map((e) => NumericSettingWidget(setting: e, notifyParent: notifyParent, minAllowed: 0.5, maxAllowed: 5, step: 0.5))),
           ),
         ),
       ],

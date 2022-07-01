@@ -15,7 +15,6 @@ class PortScreen extends StatefulWidget {
 
 class _PortScreenState extends State<PortScreen>
     with SingleTickerProviderStateMixin {
-  // String dropdownValue = '';
   String? dropdownValue;
   List<String> availablePorts = [];
   late AnimationController animationController;
@@ -40,7 +39,6 @@ class _PortScreenState extends State<PortScreen>
   }
 
   Future<void> revertRefresh() {
-    // Imagine that this function is fetching user info from another service or database.
     return Future.delayed(
         const Duration(seconds: 2), () => animationController.reverse());
   }
@@ -48,7 +46,6 @@ class _PortScreenState extends State<PortScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: Container(
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -64,15 +61,9 @@ class _PortScreenState extends State<PortScreen>
               stops: [0, 0.25, 0.5, 0.75, 1],
               tileMode: TileMode.clamp),
         ),
-        // constraints: BoxConstraints(
-        //     minWidth: 1200,
-        //     minHeight: 800),
-        // maxHeight: 800,
-        // maxWidth: 1200),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 3, 0),
@@ -86,7 +77,6 @@ class _PortScreenState extends State<PortScreen>
                     refreshPressed = true;
                     revertRefresh();
                   },
-                  // duration: const Duration(milliseconds: 500),
                   splashColor: Colors.blueAccent,
                   icons: const <AnimatedIconItem>[
                     AnimatedIconItem(
@@ -126,7 +116,6 @@ class _PortScreenState extends State<PortScreen>
                               item,
                               style: const TextStyle(
                                 fontSize: 20,
-                                // fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                               overflow: TextOverflow.ellipsis,
@@ -188,9 +177,6 @@ class _PortScreenState extends State<PortScreen>
                   onTap: () async => await establishConnection(),
                   builder: (BuildContext context, TapDebouncerFunc? onTap) {
                     return ElevatedButton(
-                      // onPressed: () {
-                      //   print('On tap called');
-                      // },
                       onPressed: onTap,
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(150, 55),
@@ -201,13 +187,10 @@ class _PortScreenState extends State<PortScreen>
                         elevation: 3,
                         side: const BorderSide(
                             color: Colors.transparent,
-                            //change border color
                             width: 2,
-                            //change border width
                             style: BorderStyle.solid),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              20), //change border radius of this beautiful button thanks to BorderRadius.circular function
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         tapTargetSize: MaterialTapTargetSize.padded,
                       ),

@@ -29,16 +29,16 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 480,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                    child: AnimatedToggleSwitch<bool>.dual(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+          child: SizedBox(
+            width: 480,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AnimatedToggleSwitch<bool>.dual(
                       current: widget.settingsRepository.qsEnable.value == '1',
                       first: false,
                       second: true,
@@ -82,10 +82,7 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
                                   TextStyle(color: Colors.white, fontSize: 25),
                             )),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                    child: AnimatedToggleSwitch<bool>.dual(
+                    AnimatedToggleSwitch<bool>.dual(
                       current:
                           widget.settingsRepository.pushCheckQS.value == '1',
                       first: true,
@@ -131,97 +128,76 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
                                   TextStyle(color: Colors.white, fontSize: 25),
                             )),
                     ),
-                  ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
-                  child: TapDebouncer(
-                    cooldown: const Duration(milliseconds: 500),
-                    onTap: () async => await cutCommandCall(),
-                    // onTap: cutCommandCall(),
-                    builder: (BuildContext context, TapDebouncerFunc? onTap) {
-                      return ElevatedButton(
-                        // onPressed: () {
-                        //   print('On tap called');
-                        // },
-                        onPressed: onTap,
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(150, 55),
-                          primary: Colors.white38,
-                          // primary: Colors.grey.shade200,
-                          onPrimary: Colors.black12,
-                          onSurface: Colors.red,
-                          shadowColor: Colors.black,
-                          elevation: 3,
-                          side: const BorderSide(
-                              color: Colors.transparent,
-                              //change border color
-                              width: 2,
-                              //change border width
-                              style: BorderStyle.solid),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                20), //change border radius of this beautiful button thanks to BorderRadius.circular function
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 35),
+                    child: TapDebouncer(
+                      cooldown: const Duration(milliseconds: 500),
+                      onTap: () async => await cutCommandCall(),
+                      builder: (BuildContext context, TapDebouncerFunc? onTap) {
+                        return ElevatedButton(
+                          onPressed: onTap,
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(150, 55),
+                            primary: Colors.white38,
+                            onPrimary: Colors.black12,
+                            onSurface: Colors.red,
+                            shadowColor: Colors.black,
+                            elevation: 3,
+                            side: const BorderSide(
+                                color: Colors.transparent,
+                                width: 2,
+                                style: BorderStyle.solid),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            tapTargetSize: MaterialTapTargetSize.padded,
                           ),
-                          tapTargetSize: MaterialTapTargetSize.padded,
-                        ),
-                        child: onTap == null
-                            ? const Text(
-                                'Wait',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 25),
-                              )
-                            : const Text(
-                                'Cut',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 25),
-                              ),
-                      );
-                    },
+                          child: onTap == null
+                              ? const Text(
+                                  'Wait',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 25),
+                                )
+                              : const Text(
+                                  'Cut',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 25),
+                                ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: NumericSettingWidget(
+                NumericSettingWidget(
                     setting: widget.settingsRepository.qsForce,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.sensorNumericMin,
                     maxAllowed: widget.settingsRepository.sensorNumericMax,
                     step: widget.settingsRepository.sensorNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
+                NumericSettingWidget(
                     setting: widget.settingsRepository.minRPMQS,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.minRPMNumericMin,
                     maxAllowed: widget.settingsRepository.minRPMNumericMax,
                     step: widget.settingsRepository.minRPMNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
+                NumericSettingWidget(
                     setting: widget.settingsRepository.preDelayQS,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.preDelayNumericMin,
                     maxAllowed: widget.settingsRepository.preDelayNumericMax,
                     step: widget.settingsRepository.preDelayNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
+                NumericSettingWidget(
                     setting: widget.settingsRepository.postDelayQS,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.postDelayNumericMin,
                     maxAllowed: widget.settingsRepository.postDelayNumericMax,
                     step: widget.settingsRepository.postDelayNumericStep),
-              ),
-            ],
-            // children: List.from(settingsMap.values.map((e) => NumericSettingWidget(setting: e, notifyParent: notifyParent, minAllowed: 0.5, maxAllowed: 5, step: 0.5))),
+              ],
+            ),
           ),
         ),
         const SizedBox(
@@ -243,7 +219,7 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 39, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 34, 0, 0),
                 child: NumericSettingWidget(
                     setting: widget.settingsRepository.cutTime1,
                     notifyParent: widget.notifyParent,
@@ -251,71 +227,49 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
                     maxAllowed: widget.settingsRepository.qsCutNumericMax,
                     step: widget.settingsRepository.qsCutNumericStep),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.cutTime2,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.qsCutNumericMin,
-                    maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                    step: widget.settingsRepository.qsCutNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.cutTime3,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.qsCutNumericMin,
-                    maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                    step: widget.settingsRepository.qsCutNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.cutTime4,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.qsCutNumericMin,
-                    maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                    step: widget.settingsRepository.qsCutNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.cutTime5,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.qsCutNumericMin,
-                    maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                    step: widget.settingsRepository.qsCutNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.cutTime6,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.qsCutNumericMin,
-                    maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                    step: widget.settingsRepository.qsCutNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.cutTime7,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.qsCutNumericMin,
-                    maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                    step: widget.settingsRepository.qsCutNumericStep),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: NumericSettingWidget(
-                    setting: widget.settingsRepository.cutTime8,
-                    notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.qsCutNumericMin,
-                    maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                    step: widget.settingsRepository.qsCutNumericStep),
-              ),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.cutTime2,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.qsCutNumericMin,
+                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
+                  step: widget.settingsRepository.qsCutNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.cutTime3,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.qsCutNumericMin,
+                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
+                  step: widget.settingsRepository.qsCutNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.cutTime4,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.qsCutNumericMin,
+                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
+                  step: widget.settingsRepository.qsCutNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.cutTime5,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.qsCutNumericMin,
+                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
+                  step: widget.settingsRepository.qsCutNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.cutTime6,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.qsCutNumericMin,
+                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
+                  step: widget.settingsRepository.qsCutNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.cutTime7,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.qsCutNumericMin,
+                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
+                  step: widget.settingsRepository.qsCutNumericStep),
+              NumericSettingWidget(
+                  setting: widget.settingsRepository.cutTime8,
+                  notifyParent: widget.notifyParent,
+                  minAllowed: widget.settingsRepository.qsCutNumericMin,
+                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
+                  step: widget.settingsRepository.qsCutNumericStep),
             ],
-            // children: List.from(settingsMap.values.map((e) => NumericSettingWidget(setting: e, notifyParent: notifyParent, minAllowed: 0.5, maxAllowed: 5, step: 0.5))),
           ),
         ),
       ],
@@ -325,9 +279,4 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
   Future<void> cutCommandCall() async {
     widget.sendCutCommand();
   }
-
-// void cutCommandCall() async {
-//   widget.sendCutCommand;
-// }
-
 }
