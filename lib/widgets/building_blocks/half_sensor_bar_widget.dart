@@ -4,13 +4,12 @@ import 'package:qs_ds_app/model/settings_repository.dart';
 class HalfSensorBarWidget extends StatelessWidget {
   const HalfSensorBarWidget({
     Key? key,
-    required this.settingsRepository,
     required this.quarterTurns,
     required this.reverse,
-    required this.isPush, required this.color,
+    required this.isPush,
+    required this.color,
   }) : super(key: key);
 
-  final SettingsRepository settingsRepository;
   final int quarterTurns;
   final bool reverse;
   final bool isPush;
@@ -35,8 +34,8 @@ class HalfSensorBarWidget extends StatelessWidget {
                   backgroundColor: Colors.black26,
                   value: (reverse ? -1 : 1) *
                       ((double.tryParse(
-                          settingsRepository.sensorReading.value) ??
-                          2000) -
+                                  SettingsRepository().sensorReading.value) ??
+                              2000) -
                           2000) /
                       2000,
                 ),
@@ -47,15 +46,15 @@ class HalfSensorBarWidget extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 (isPush
-                    ? (double.tryParse(
-                    settingsRepository.sensorReading.value) ??
-                    2000) <
-                    2000
-                    : (double.tryParse(
-                    settingsRepository.sensorReading.value) ??
-                    2000) >
-                    2000)
-                    ? '${isPush ? 'Push' : 'Pull'} : ${((reverse ? -1 : 1) * ((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000)).toStringAsFixed(0)}'
+                        ? (double.tryParse(
+                                    SettingsRepository().sensorReading.value) ??
+                                2000) <
+                            2000
+                        : (double.tryParse(
+                                    SettingsRepository().sensorReading.value) ??
+                                2000) >
+                            2000)
+                    ? '${isPush ? 'Push' : 'Pull'} : ${((reverse ? -1 : 1) * ((double.tryParse(SettingsRepository().sensorReading.value) ?? 2000) - 2000)).toStringAsFixed(0)}'
                     : '',
                 style: const TextStyle(color: Colors.white, fontSize: 25),
               )),

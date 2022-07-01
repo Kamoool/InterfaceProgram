@@ -4,11 +4,8 @@ import 'package:qs_ds_app/widgets/building_blocks/numeric_setting_widget.dart';
 
 class GeneralWidget extends StatelessWidget {
   final Function() notifyParent;
-  final SettingsRepository settingsRepository;
 
-  const GeneralWidget(
-      {Key? key, required this.settingsRepository, required this.notifyParent})
-      : super(key: key);
+  const GeneralWidget({Key? key, required this.notifyParent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +22,11 @@ class GeneralWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     NumericSetting(
-                        setting: settingsRepository.pulses,
+                        setting: SettingsRepository().pulses,
                         notifyParent: notifyParent,
-                        minAllowed: settingsRepository.pulsesNumericMin,
-                        maxAllowed: settingsRepository.pulsesNumericMax,
-                        step: getPulsesStep(settingsRepository.pulses.value)),
+                        minAllowed: SettingsRepository().pulsesNumericMin,
+                        maxAllowed: SettingsRepository().pulsesNumericMax,
+                        step: getPulsesStep(SettingsRepository().pulses.value)),
                   ],
                 ),
               ),
@@ -39,7 +36,7 @@ class GeneralWidget extends StatelessWidget {
         Align(
           alignment: Alignment.topRight,
           child: Text(
-              'Ver. ${settingsRepository.majorVersion.value}.${settingsRepository.minorVersion.value}'),
+              'Ver. ${SettingsRepository().majorVersion.value}.${SettingsRepository().minorVersion.value}'),
         ),
       ],
     );

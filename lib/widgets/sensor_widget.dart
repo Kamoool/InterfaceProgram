@@ -54,14 +54,12 @@ class SensorWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               HalfSensorBarWidget(
-                settingsRepository: settingsRepository,
                 quarterTurns: -2,
                 reverse: true,
                 isPush: true,
                 color: const Color(0xFF622D5D),
               ),
               HalfSensorBarWidget(
-                settingsRepository: settingsRepository,
                 quarterTurns: 0,
                 reverse: false,
                 isPush: false,

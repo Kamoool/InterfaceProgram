@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model/setting.dart';
 
 class SettingsRepository {
+  static final SettingsRepository instance = SettingsRepository.internal();
   late final List<Setting> settingsList;
   late final List<Setting> readingsList;
 
@@ -82,7 +83,11 @@ class SettingsRepository {
   final Setting postDelayQS = Setting(SettingType.PostDelayQS, '500');
   final Setting postDelayDS = Setting(SettingType.PostDelayDS, '500');
 
-  SettingsRepository() {
+  factory SettingsRepository(){
+    return instance;
+  }
+
+  SettingsRepository.internal() {
     // settingsMap = {
     //   SettingType.RPM: Setting(SettingType.RPM, '1234'),
     //   SettingType.Sensor: Setting(SettingType.Sensor, '120'),

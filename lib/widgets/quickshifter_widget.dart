@@ -7,19 +7,14 @@ import 'package:unicons/unicons.dart';
 
 class QuickshifterWidget extends StatefulWidget {
   final Function() notifyParent;
-  final SettingsRepository settingsRepository;
   final Function() sendCutCommand;
 
   const QuickshifterWidget(
-      {Key? key,
-      required this.settingsRepository,
-      required this.notifyParent,
-      required this.sendCutCommand})
+      {Key? key, required this.notifyParent, required this.sendCutCommand})
       : super(key: key);
 
   @override
-  State<QuickshifterWidget> createState() =>
-      _QuickshifterWidgetState();
+  State<QuickshifterWidget> createState() => _QuickshifterWidgetState();
 }
 
 class _QuickshifterWidgetState extends State<QuickshifterWidget> {
@@ -39,7 +34,7 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     AnimatedToggleSwitch<bool>.dual(
-                      current: widget.settingsRepository.qsEnable.value == '1',
+                      current: SettingsRepository().qsEnable.value == '1',
                       first: false,
                       second: true,
                       dif: 80.0,
@@ -56,8 +51,8 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                         ),
                       ],
                       onChanged: (b) => setState(() => b
-                          ? widget.settingsRepository.qsEnable.value = '1'
-                          : widget.settingsRepository.qsEnable.value = '0'),
+                          ? SettingsRepository().qsEnable.value = '1'
+                          : SettingsRepository().qsEnable.value = '0'),
                       colorBuilder: (b) => b ? Colors.red : Colors.green,
                       iconBuilder: (value) => value
                           ? const Icon(
@@ -83,8 +78,7 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                             )),
                     ),
                     AnimatedToggleSwitch<bool>.dual(
-                      current:
-                          widget.settingsRepository.pushCheckQS.value == '1',
+                      current: SettingsRepository().pushCheckQS.value == '1',
                       first: true,
                       second: false,
                       dif: 80.0,
@@ -101,8 +95,8 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                         ),
                       ],
                       onChanged: (b) => setState(() => b
-                          ? widget.settingsRepository.pushCheckQS.value = '1'
-                          : widget.settingsRepository.pushCheckQS.value = '0'),
+                          ? SettingsRepository().pushCheckQS.value = '1'
+                          : SettingsRepository().pushCheckQS.value = '0'),
                       colorBuilder: (b) =>
                           b ? const Color(0xFF622D5D) : const Color(0xFF2D3C62),
                       iconBuilder: (value) => value
@@ -173,29 +167,29 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                   ),
                 ),
                 NumericSetting(
-                    setting: widget.settingsRepository.qsForce,
+                    setting: SettingsRepository().qsForce,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.sensorNumericMin,
-                    maxAllowed: widget.settingsRepository.sensorNumericMax,
-                    step: widget.settingsRepository.sensorNumericStep),
+                    minAllowed: SettingsRepository().sensorNumericMin,
+                    maxAllowed: SettingsRepository().sensorNumericMax,
+                    step: SettingsRepository().sensorNumericStep),
                 NumericSetting(
-                    setting: widget.settingsRepository.minRPMQS,
+                    setting: SettingsRepository().minRPMQS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.minRPMNumericMin,
-                    maxAllowed: widget.settingsRepository.minRPMNumericMax,
-                    step: widget.settingsRepository.minRPMNumericStep),
+                    minAllowed: SettingsRepository().minRPMNumericMin,
+                    maxAllowed: SettingsRepository().minRPMNumericMax,
+                    step: SettingsRepository().minRPMNumericStep),
                 NumericSetting(
-                    setting: widget.settingsRepository.preDelayQS,
+                    setting: SettingsRepository().preDelayQS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.preDelayNumericMin,
-                    maxAllowed: widget.settingsRepository.preDelayNumericMax,
-                    step: widget.settingsRepository.preDelayNumericStep),
+                    minAllowed: SettingsRepository().preDelayNumericMin,
+                    maxAllowed: SettingsRepository().preDelayNumericMax,
+                    step: SettingsRepository().preDelayNumericStep),
                 NumericSetting(
-                    setting: widget.settingsRepository.postDelayQS,
+                    setting: SettingsRepository().postDelayQS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.postDelayNumericMin,
-                    maxAllowed: widget.settingsRepository.postDelayNumericMax,
-                    step: widget.settingsRepository.postDelayNumericStep),
+                    minAllowed: SettingsRepository().postDelayNumericMin,
+                    maxAllowed: SettingsRepository().postDelayNumericMax,
+                    step: SettingsRepository().postDelayNumericStep),
               ],
             ),
           ),
@@ -221,54 +215,54 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 34, 0, 0),
                 child: NumericSetting(
-                    setting: widget.settingsRepository.cutTime1,
+                    setting: SettingsRepository().cutTime1,
                     notifyParent: widget.notifyParent,
-                    minAllowed: widget.settingsRepository.qsCutNumericMin,
-                    maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                    step: widget.settingsRepository.qsCutNumericStep),
+                    minAllowed: SettingsRepository().qsCutNumericMin,
+                    maxAllowed: SettingsRepository().qsCutNumericMax,
+                    step: SettingsRepository().qsCutNumericStep),
               ),
               NumericSetting(
-                  setting: widget.settingsRepository.cutTime2,
+                  setting: SettingsRepository().cutTime2,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.qsCutNumericMin,
-                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                  step: widget.settingsRepository.qsCutNumericStep),
+                  minAllowed: SettingsRepository().qsCutNumericMin,
+                  maxAllowed: SettingsRepository().qsCutNumericMax,
+                  step: SettingsRepository().qsCutNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.cutTime3,
+                  setting: SettingsRepository().cutTime3,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.qsCutNumericMin,
-                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                  step: widget.settingsRepository.qsCutNumericStep),
+                  minAllowed: SettingsRepository().qsCutNumericMin,
+                  maxAllowed: SettingsRepository().qsCutNumericMax,
+                  step: SettingsRepository().qsCutNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.cutTime4,
+                  setting: SettingsRepository().cutTime4,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.qsCutNumericMin,
-                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                  step: widget.settingsRepository.qsCutNumericStep),
+                  minAllowed: SettingsRepository().qsCutNumericMin,
+                  maxAllowed: SettingsRepository().qsCutNumericMax,
+                  step: SettingsRepository().qsCutNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.cutTime5,
+                  setting: SettingsRepository().cutTime5,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.qsCutNumericMin,
-                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                  step: widget.settingsRepository.qsCutNumericStep),
+                  minAllowed: SettingsRepository().qsCutNumericMin,
+                  maxAllowed: SettingsRepository().qsCutNumericMax,
+                  step: SettingsRepository().qsCutNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.cutTime6,
+                  setting: SettingsRepository().cutTime6,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.qsCutNumericMin,
-                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                  step: widget.settingsRepository.qsCutNumericStep),
+                  minAllowed: SettingsRepository().qsCutNumericMin,
+                  maxAllowed: SettingsRepository().qsCutNumericMax,
+                  step: SettingsRepository().qsCutNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.cutTime7,
+                  setting: SettingsRepository().cutTime7,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.qsCutNumericMin,
-                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                  step: widget.settingsRepository.qsCutNumericStep),
+                  minAllowed: SettingsRepository().qsCutNumericMin,
+                  maxAllowed: SettingsRepository().qsCutNumericMax,
+                  step: SettingsRepository().qsCutNumericStep),
               NumericSetting(
-                  setting: widget.settingsRepository.cutTime8,
+                  setting: SettingsRepository().cutTime8,
                   notifyParent: widget.notifyParent,
-                  minAllowed: widget.settingsRepository.qsCutNumericMin,
-                  maxAllowed: widget.settingsRepository.qsCutNumericMax,
-                  step: widget.settingsRepository.qsCutNumericStep),
+                  minAllowed: SettingsRepository().qsCutNumericMin,
+                  maxAllowed: SettingsRepository().qsCutNumericMax,
+                  step: SettingsRepository().qsCutNumericStep),
             ],
           ),
         ),
