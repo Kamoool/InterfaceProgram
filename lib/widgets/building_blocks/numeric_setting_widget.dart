@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter/rendering.dart';
 
 import 'package:flutter_spinbox/cupertino.dart';
 import '../../model/setting.dart';
 
-class NumericSettingWidget extends StatefulWidget {
+class NumericSetting extends StatefulWidget {
   final Setting setting;
   final Function() notifyParent;
   final double minAllowed;
   final double maxAllowed;
   final double step;
 
-  const NumericSettingWidget(
+  const NumericSetting(
       {Key? key,
       required this.setting,
       required this.notifyParent,
@@ -21,10 +20,10 @@ class NumericSettingWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<NumericSettingWidget> createState() => _NumericSettingWidgetState();
+  State<NumericSetting> createState() => _NumericSettingState();
 }
 
-class _NumericSettingWidgetState extends State<NumericSettingWidget> {
+class _NumericSettingState extends State<NumericSetting> {
   @override
   Widget build(BuildContext context) {
     return Padding(

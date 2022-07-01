@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:qs_ds_app/model/settings_repository.dart';
-import 'package:qs_ds_app/screens/additional_widgets/numeric_setting_widget.dart';
+import 'package:qs_ds_app/widgets/building_blocks/numeric_setting_widget.dart';
 
-class GeneralScreenWidget extends StatelessWidget {
+class GeneralWidget extends StatelessWidget {
   final Function() notifyParent;
   final SettingsRepository settingsRepository;
 
-  const GeneralScreenWidget(
+  const GeneralWidget(
       {Key? key, required this.settingsRepository, required this.notifyParent})
       : super(key: key);
 
@@ -24,7 +24,7 @@ class GeneralScreenWidget extends StatelessWidget {
                 width: 480,
                 child: Column(
                   children: [
-                    NumericSettingWidget(
+                    NumericSetting(
                         setting: settingsRepository.pulses,
                         notifyParent: notifyParent,
                         minAllowed: settingsRepository.pulsesNumericMin,

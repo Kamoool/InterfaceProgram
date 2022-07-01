@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:qs_ds_app/model/settings_repository.dart';
-import 'package:qs_ds_app/screens/additional_widgets/numeric_setting_widget.dart';
+import 'package:qs_ds_app/widgets/building_blocks/numeric_setting_widget.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:tap_debouncer/tap_debouncer.dart';
 import 'package:unicons/unicons.dart';
 
-class QuickshifterScreenWidget extends StatefulWidget {
+class QuickshifterWidget extends StatefulWidget {
   final Function() notifyParent;
   final SettingsRepository settingsRepository;
   final Function() sendCutCommand;
 
-  const QuickshifterScreenWidget(
+  const QuickshifterWidget(
       {Key? key,
       required this.settingsRepository,
       required this.notifyParent,
@@ -18,11 +18,11 @@ class QuickshifterScreenWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<QuickshifterScreenWidget> createState() =>
-      _QuickshifterScreenWidgetState();
+  State<QuickshifterWidget> createState() =>
+      _QuickshifterWidgetState();
 }
 
-class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
+class _QuickshifterWidgetState extends State<QuickshifterWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -172,25 +172,25 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
                     ),
                   ),
                 ),
-                NumericSettingWidget(
+                NumericSetting(
                     setting: widget.settingsRepository.qsForce,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.sensorNumericMin,
                     maxAllowed: widget.settingsRepository.sensorNumericMax,
                     step: widget.settingsRepository.sensorNumericStep),
-                NumericSettingWidget(
+                NumericSetting(
                     setting: widget.settingsRepository.minRPMQS,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.minRPMNumericMin,
                     maxAllowed: widget.settingsRepository.minRPMNumericMax,
                     step: widget.settingsRepository.minRPMNumericStep),
-                NumericSettingWidget(
+                NumericSetting(
                     setting: widget.settingsRepository.preDelayQS,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.preDelayNumericMin,
                     maxAllowed: widget.settingsRepository.preDelayNumericMax,
                     step: widget.settingsRepository.preDelayNumericStep),
-                NumericSettingWidget(
+                NumericSetting(
                     setting: widget.settingsRepository.postDelayQS,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.postDelayNumericMin,
@@ -220,50 +220,50 @@ class _QuickshifterScreenWidgetState extends State<QuickshifterScreenWidget> {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 34, 0, 0),
-                child: NumericSettingWidget(
+                child: NumericSetting(
                     setting: widget.settingsRepository.cutTime1,
                     notifyParent: widget.notifyParent,
                     minAllowed: widget.settingsRepository.qsCutNumericMin,
                     maxAllowed: widget.settingsRepository.qsCutNumericMax,
                     step: widget.settingsRepository.qsCutNumericStep),
               ),
-              NumericSettingWidget(
+              NumericSetting(
                   setting: widget.settingsRepository.cutTime2,
                   notifyParent: widget.notifyParent,
                   minAllowed: widget.settingsRepository.qsCutNumericMin,
                   maxAllowed: widget.settingsRepository.qsCutNumericMax,
                   step: widget.settingsRepository.qsCutNumericStep),
-              NumericSettingWidget(
+              NumericSetting(
                   setting: widget.settingsRepository.cutTime3,
                   notifyParent: widget.notifyParent,
                   minAllowed: widget.settingsRepository.qsCutNumericMin,
                   maxAllowed: widget.settingsRepository.qsCutNumericMax,
                   step: widget.settingsRepository.qsCutNumericStep),
-              NumericSettingWidget(
+              NumericSetting(
                   setting: widget.settingsRepository.cutTime4,
                   notifyParent: widget.notifyParent,
                   minAllowed: widget.settingsRepository.qsCutNumericMin,
                   maxAllowed: widget.settingsRepository.qsCutNumericMax,
                   step: widget.settingsRepository.qsCutNumericStep),
-              NumericSettingWidget(
+              NumericSetting(
                   setting: widget.settingsRepository.cutTime5,
                   notifyParent: widget.notifyParent,
                   minAllowed: widget.settingsRepository.qsCutNumericMin,
                   maxAllowed: widget.settingsRepository.qsCutNumericMax,
                   step: widget.settingsRepository.qsCutNumericStep),
-              NumericSettingWidget(
+              NumericSetting(
                   setting: widget.settingsRepository.cutTime6,
                   notifyParent: widget.notifyParent,
                   minAllowed: widget.settingsRepository.qsCutNumericMin,
                   maxAllowed: widget.settingsRepository.qsCutNumericMax,
                   step: widget.settingsRepository.qsCutNumericStep),
-              NumericSettingWidget(
+              NumericSetting(
                   setting: widget.settingsRepository.cutTime7,
                   notifyParent: widget.notifyParent,
                   minAllowed: widget.settingsRepository.qsCutNumericMin,
                   maxAllowed: widget.settingsRepository.qsCutNumericMax,
                   step: widget.settingsRepository.qsCutNumericStep),
-              NumericSettingWidget(
+              NumericSetting(
                   setting: widget.settingsRepository.cutTime8,
                   notifyParent: widget.notifyParent,
                   minAllowed: widget.settingsRepository.qsCutNumericMin,

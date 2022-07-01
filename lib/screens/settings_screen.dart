@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'dart:async';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:qs_ds_app/screens/downshifter_screen.dart';
-import 'package:qs_ds_app/screens/general_screen.dart';
-import 'package:qs_ds_app/screens/quickshifter_screen.dart';
+import 'package:qs_ds_app/widgets/downshifter_widget.dart';
+import 'package:qs_ds_app/widgets/general_widget.dart';
+import 'package:qs_ds_app/widgets/quickshifter_widget.dart';
 import 'package:qs_ds_app/model/settings_repository.dart';
+import 'package:qs_ds_app/widgets/sensor_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
   final SerialPort? serialPort;
@@ -185,7 +186,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   controller: scrollControllerHorizontal,
                   scrollbarOrientation: ScrollbarOrientation.bottom,
                   thumbVisibility: true,
-                  thickness: 10,
                   notificationPredicate: (notif) => notif.depth == 1,
                   trackVisibility: true,
                   child: SingleChildScrollView(
@@ -212,12 +212,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 children:
                                     settingsRepository.getTabs().map((Tab tab) {
                                   if (tab.text == 'General') {
-                                    return GeneralScreenWidget(
+                                    return GeneralWidget(
                                         settingsRepository: settingsRepository,
                                         notifyParent: refresh);
                                   }
                                   if (tab.text == 'Quickshifter') {
-                                    return QuickshifterScreenWidget(
+                                    return QuickshifterWidget(
                                       settingsRepository: settingsRepository,
                                       notifyParent: refresh,
                                       sendCutCommand: sendCutCommand,
@@ -225,7 +225,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   }
                                   if (tab.text == 'Downshifter') {
                                     {
-                                      return DownshifterScreenWidget(
+                                      return DownshifterWidget(
                                         settingsRepository: settingsRepository,
                                         notifyParent: refresh,
                                         sendBlipCommand: sendBlipCommand,
@@ -248,167 +248,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 width: MediaQuery.of(context).size.width,
                                 height: 94,
                                 // width: 1000,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 0, 0, 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            width: 70,
-                                            child: Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0, 0, 0, 0),
-                                              child: Text(
-                                                'RPM : ',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 80,
-                                            child: Text(
-                                              (double.tryParse(
-                                                              settingsRepository
-                                                                  .rpm.value) ??
-                                                          0.0) <
-                                                      100000
-                                                  ? (double.tryParse(
-                                                              settingsRepository
-                                                                  .rpm.value) ??
-                                                          0.0)
-                                                      .toStringAsFixed(0)
-                                                  : '0',
-                                              textAlign: TextAlign.center,
-                                              style: const TextStyle(
-                                                  fontSize: 25,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          80, 0, 80, 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: Stack(
-                                              children: [
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  child: RotatedBox(
-                                                    quarterTurns: -2,
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .only(
-                                                              topRight: Radius
-                                                                  .circular(20),
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          20)),
-                                                      child:
-                                                          LinearProgressIndicator(
-                                                        minHeight: 40,
-                                                        color: const Color(
-                                                            0xFF622D5D),
-                                                        backgroundColor:
-                                                            Colors.black26,
-                                                        value: -((double.tryParse(settingsRepository
-                                                                        .sensorReading
-                                                                        .value) ??
-                                                                    2000) -
-                                                                2000) /
-                                                            2000,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      (double.tryParse(settingsRepository
-                                                                      .sensorReading
-                                                                      .value) ??
-                                                                  2000) <
-                                                              2000
-                                                          ? 'Push : ${(-((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000)).toStringAsFixed(0)}'
-                                                          : '',
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 25),
-                                                    )),
-                                              ],
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Stack(
-                                              children: [
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        const BorderRadius.only(
-                                                      topRight:
-                                                          Radius.circular(20),
-                                                      bottomRight:
-                                                          Radius.circular(20),
-                                                    ),
-                                                    child:
-                                                        LinearProgressIndicator(
-                                                      minHeight: 40,
-                                                      color: const Color(
-                                                          0xFF2D3C62),
-                                                      backgroundColor:
-                                                          Colors.black26,
-                                                      value: ((double.tryParse(
-                                                                      settingsRepository
-                                                                          .sensorReading
-                                                                          .value) ??
-                                                                  2000) -
-                                                              2000) /
-                                                          2000,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      (double.tryParse(settingsRepository
-                                                                      .sensorReading
-                                                                      .value) ??
-                                                                  2000) >
-                                                              2000
-                                                          ? 'Pull : ${((double.tryParse(settingsRepository.sensorReading.value) ?? 2000) - 2000).toStringAsFixed(0)}'
-                                                          : '',
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 25),
-                                                    )),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                child: SensorWidget(settingsRepository: settingsRepository),
                               ),
                             ),
                           ],
@@ -425,3 +265,5 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
+
+
