@@ -244,7 +244,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 width: MediaQuery.of(context).size.width,
                                 height: 94,
                                 // width: 1000,
-                                child: const SensorWidget(),
+                                child: SensorWidget(),
                               ),
                             ),
                           ],

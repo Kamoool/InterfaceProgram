@@ -49,7 +49,7 @@ class SensorWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               HalfSensorBarWidget(
                 quarterTurns: -2,
                 reverse: true,
