@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qs_ds_app/model/serial_utils.dart';
 import 'package:qs_ds_app/model/settings_repository.dart';
 import 'package:qs_ds_app/widgets/building_blocks/numeric_setting_widget.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
@@ -7,10 +8,8 @@ import 'package:unicons/unicons.dart';
 
 class QuickshifterWidget extends StatefulWidget {
   final Function() notifyParent;
-  final Function() sendCutCommand;
 
-  const QuickshifterWidget(
-      {Key? key, required this.notifyParent, required this.sendCutCommand})
+  const QuickshifterWidget({Key? key, required this.notifyParent})
       : super(key: key);
 
   @override
@@ -271,6 +270,6 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
   }
 
   Future<void> cutCommandCall() async {
-    widget.sendCutCommand();
+    SerialPortUtils().sendString('C');
   }
 }
