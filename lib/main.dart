@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Quick - Down - Shifter APP',
       theme: ThemeData(
         scrollbarTheme: const ScrollbarThemeData(),
         appBarTheme: const AppBarTheme(
