@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../model/setting.dart';
 
 class SettingsRepository {
-  static final SettingsRepository instance = SettingsRepository.internal();
+  static SettingsRepository? instance;
   late final List<Setting> settingsList;
   late final List<Setting> readingsList;
 
@@ -82,8 +82,11 @@ class SettingsRepository {
   final Setting postDelayQS = Setting(SettingType.PostDelayQS, '500');
   final Setting postDelayDS = Setting(SettingType.PostDelayDS, '500');
 
-  factory SettingsRepository() {
-    return instance;
+  factory SettingsRepository({bool? newSettings}) {
+    if (newSettings == true || instance == null) {
+      instance = SettingsRepository.internal();
+    }
+    return instance!;
   }
 
   SettingsRepository.internal() {

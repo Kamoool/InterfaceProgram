@@ -21,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     super.initState();
-    SettingsRepository();
+    SettingsRepository(newSettings: true);
     SerialPortUtils().setNotify(() => refresh());
   }
 
