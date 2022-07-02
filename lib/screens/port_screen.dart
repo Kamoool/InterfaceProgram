@@ -17,8 +17,8 @@ class PortScreen extends StatefulWidget {
 class _PortScreenState extends State<PortScreen>
     with SingleTickerProviderStateMixin {
   final ScrollController scrollControllerHorizontal = ScrollController();
-  String? dropdownValue;
-  List<String> availablePorts = [];
+  SerialPort? dropdownValue;
+  List<SerialPort> availablePorts = [];
   late AnimationController animationController;
   bool refreshPressed = false;
 
@@ -35,7 +35,10 @@ class _PortScreenState extends State<PortScreen>
 
   void initPorts() {
     setState(() {
-      availablePorts = SerialPort.availablePorts;
+      availablePorts.clear();
+      for (final address in SerialPort.availablePorts) {
+        availablePorts.add(SerialPort(address));
+      }
       dropdownValue = null;
     });
   }
@@ -123,10 +126,10 @@ class _PortScreenState extends State<PortScreen>
                         ],
                       ),
                       items: availablePorts
-                          .map((item) => DropdownMenuItem<String>(
+                          .map((item) => DropdownMenuItem<SerialPort>(
                                 value: item,
                                 child: Text(
-                                  item,
+                                  item.description ?? 'Unknown',
                                   style: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -136,9 +139,9 @@ class _PortScreenState extends State<PortScreen>
                               ))
                           .toList(),
                       value: dropdownValue,
-                      onChanged: (String? value) {
+                      onChanged: (SerialPort? value) {
                         setState(() {
-                          dropdownValue = value ?? '';
+                          dropdownValue = value ?? SerialPort('COM0');
                         });
                       },
                       icon: const Icon(
@@ -233,9 +236,10 @@ class _PortScreenState extends State<PortScreen>
 
   Future<void> establishConnection() async {
     if (dropdownValue != null) {
-      SerialPortUtils(serialPort: SerialPort(dropdownValue ?? 'COM0'));
-      Navigator.push(
+      SerialPortUtils(serialPort: dropdownValue);
+      await Navigator.push(
           context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+      initPorts();
     }
   }
 }

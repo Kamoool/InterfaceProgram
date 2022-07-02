@@ -133,16 +133,10 @@ class SettingsRepository {
     List<String> values = string.split(',');
     if (values[0] == 'V' && values.length == readingsList.length + 1) {
       for (int i = 1; i < values.length; i++) {
-        // if(i == values.length - 1){
-        //   values[i] = values[i].substring(0, values[i].length - 1);
-        // }
         readingsList[i - 1].value = values[i];
       }
     } else if (values[0] == 'T' && values.length == settingsList.length + 1) {
       for (int i = 1; i < values.length; i++) {
-        // if(i == values.length - 1){
-        //   values[i] = values[i].substring(0, values[i].length - 1);
-        // }
         settingsList[i - 1].value = values[i];
       }
     }
@@ -159,9 +153,6 @@ class SettingsRepository {
 
   List<Tab> getTabs() {
     List<Tab> tabs = <Tab>[];
-    // tabs.add(Tab(text: 'Quickshifter',));
-    // tabs.add(Tab(text: 'Downshifter',));
-    // return tabs;
     if (qsType.value != '0' || dsType.value != '0') {
       tabs.add(const Tab(
         text: 'General',
