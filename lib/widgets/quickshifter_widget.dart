@@ -123,46 +123,86 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                     ),
                   ],
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 35),
-                    child: TapDebouncer(
-                      cooldown: const Duration(milliseconds: 500),
-                      onTap: () async => await cutCommandCall(),
-                      builder: (BuildContext context, TapDebouncerFunc? onTap) {
-                        return ElevatedButton(
-                          onPressed: onTap,
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(150, 55),
-                            primary: Colors.white38,
-                            onPrimary: Colors.black12,
-                            onSurface: Colors.red,
-                            shadowColor: Colors.black,
-                            elevation: 3,
-                            side: const BorderSide(
-                                color: Colors.transparent,
-                                width: 2,
-                                style: BorderStyle.solid),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 35),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      TapDebouncer(
+                        cooldown: const Duration(milliseconds: 500),
+                        onTap: () async => await cutCommandCall(),
+                        builder:
+                            (BuildContext context, TapDebouncerFunc? onTap) {
+                          return ElevatedButton(
+                            onPressed: onTap,
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(150, 55),
+                              primary: Colors.white38,
+                              onPrimary: Colors.black12,
+                              onSurface: Colors.red,
+                              shadowColor: Colors.black,
+                              elevation: 3,
+                              side: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 2,
+                                  style: BorderStyle.solid),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              tapTargetSize: MaterialTapTargetSize.padded,
                             ),
-                            tapTargetSize: MaterialTapTargetSize.padded,
-                          ),
-                          child: onTap == null
-                              ? const Text(
-                                  'Wait',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
-                                )
-                              : const Text(
-                                  'Cut',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
-                                ),
-                        );
-                      },
-                    ),
+                            child: onTap == null
+                                ? const Text(
+                                    'Wait',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
+                                  )
+                                : const Text(
+                                    'Cut',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
+                                  ),
+                          );
+                        },
+                      ),
+                      TapDebouncer(
+                        cooldown: const Duration(milliseconds: 100),
+                        onTap: () async => await setSensor(),
+                        builder:
+                            (BuildContext context, TapDebouncerFunc? onTap) {
+                          return ElevatedButton(
+                            onPressed: onTap,
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(150, 55),
+                              primary: Colors.white38,
+                              onPrimary: Colors.black12,
+                              onSurface: Colors.red,
+                              shadowColor: Colors.black,
+                              elevation: 3,
+                              side: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 2,
+                                  style: BorderStyle.solid),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              tapTargetSize: MaterialTapTargetSize.padded,
+                            ),
+                            child: onTap == null
+                                ? const Text(
+                                    'Wait',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
+                                  )
+                                : const Text(
+                                    'Set sensor',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
+                                  ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 NumericSetting(
@@ -271,5 +311,21 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
 
   Future<void> cutCommandCall() async {
     SerialPortUtils().cut();
+  }
+
+  Future<void> setSensor() async {
+    if (double.tryParse(SettingsRepository().sensorReading.value)! != 2000) {
+      SettingsRepository().qsForce.value =
+          (((double.tryParse(SettingsRepository().sensorReading.value)! > 2000)
+                      ? 1
+                      : -1) *
+                  (double.tryParse(SettingsRepository().sensorReading.value)! -
+                      2000))
+              .toString();
+      SettingsRepository().pushCheckQS.value =
+          (double.tryParse(SettingsRepository().sensorReading.value)! > 2000)
+              ? '0'
+              : '1';
+    }
   }
 }
