@@ -193,7 +193,7 @@ class _PortScreenState extends State<PortScreen>
                       onTap: () async => await establishConnection(),
                       builder: (BuildContext context, TapDebouncerFunc? onTap) {
                         return ElevatedButton(
-                          onPressed: onTap,
+                          onPressed: dropdownValue != null ? onTap : null,
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(150, 55),
                             primary: Colors.grey.shade200,

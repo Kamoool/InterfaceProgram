@@ -124,7 +124,7 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 35),
+                  padding: const EdgeInsets.fromLTRB(0, 35, 0, 30),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -171,7 +171,12 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                         builder:
                             (BuildContext context, TapDebouncerFunc? onTap) {
                           return ElevatedButton(
-                            onPressed: onTap,
+                            onPressed: (double.tryParse(SettingsRepository()
+                                        .sensorReading
+                                        .value) !=
+                                    2000)
+                                ? onTap
+                                : null,
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(150, 55),
                               primary: Colors.white38,
