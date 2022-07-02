@@ -38,6 +38,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       home: const PortScreen(),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => PortScreen(),
+      //   '/settingsScreen': (context) => SettingsScreen(),
+      // },
     );
   }
 }
