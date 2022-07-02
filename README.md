@@ -16,3 +16,4 @@ Logo: macos/Runner/Assets.xcassets/AppIcon.appiconset
 Add in: /macos/Runner/DebugProfile.entitlements    /macos/Runner/Release.entitlements:
 <key>com.apple.security.device.serial</key>
 <true/>
+PRODUCT_NAME: /macos/Runner/Configs/AppInfo.xcconfig

@@ -6,7 +6,7 @@ import 'dart:io' show Platform;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowTitle('Quick - Down - Shifter APP');
+    setWindowTitle('Quick-Down-Shifter App');
     setWindowFrame(const Rect.fromLTWH(100, 100, 1200, 730));
     setWindowMinSize(const Size(100, 100));
 
@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Quick - Down - Shifter APP',
+      title: 'Quick-Down-Shifter App',
       theme: ThemeData(
         scrollbarTheme: const ScrollbarThemeData(),
         appBarTheme: const AppBarTheme(
