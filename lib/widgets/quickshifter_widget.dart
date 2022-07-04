@@ -34,8 +34,8 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                   children: [
                     AnimatedToggleSwitch<bool>.dual(
                       current: SettingsRepository().qsEnable.value == '1',
-                      first: false,
-                      second: true,
+                      first: true,
+                      second: false,
                       dif: 80.0,
                       borderColor: Colors.transparent,
                       borderWidth: 1.0,
@@ -52,26 +52,26 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                       onChanged: (b) => setState(() => b
                           ? SettingsRepository().qsEnable.value = '1'
                           : SettingsRepository().qsEnable.value = '0'),
-                      colorBuilder: (b) => b ? Colors.red : Colors.green,
+                      colorBuilder: (b) => b ? Colors.green : Colors.red,
                       iconBuilder: (value) => value
                           ? const Icon(
-                              Icons.cancel_outlined,
+                              Icons.task_alt_outlined,
                               color: Colors.white,
                             )
                           : const Icon(
-                              Icons.task_alt_outlined,
+                              Icons.cancel_outlined,
                               color: Colors.white,
                             ),
                       textBuilder: (value) => value
                           ? const Center(
                               child: Text(
-                              'Disabled',
+                              'Enabled',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 25),
                             ))
                           : const Center(
                               child: Text(
-                              'Enabled',
+                              'Disabled',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 25),
                             )),

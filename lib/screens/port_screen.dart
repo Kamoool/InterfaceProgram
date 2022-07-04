@@ -129,7 +129,7 @@ class _PortScreenState extends State<PortScreen>
                           .map((item) => DropdownMenuItem<SerialPort>(
                                 value: item,
                                 child: Text(
-                                  item.description ?? 'Unknown',
+                                  item.productName ?? 'Unknown',
                                   style: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.black,

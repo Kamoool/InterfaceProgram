@@ -34,8 +34,8 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                   children: [
                     AnimatedToggleSwitch<bool>.dual(
                       current: SettingsRepository().dsEnable.value == '1',
-                      first: false,
-                      second: true,
+                      first: true,
+                      second: false,
                       dif: 80.0,
                       borderColor: Colors.transparent,
                       borderWidth: 1.0,
@@ -55,23 +55,23 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                       colorBuilder: (b) => b ? Colors.red : Colors.green,
                       iconBuilder: (value) => value
                           ? const Icon(
-                              Icons.cancel_outlined,
+                              Icons.task_alt_outlined,
                               color: Colors.white,
                             )
                           : const Icon(
-                              Icons.task_alt_outlined,
+                              Icons.cancel_outlined,
                               color: Colors.white,
                             ),
                       textBuilder: (value) => value
                           ? const Center(
                               child: Text(
-                              'Disabled',
+                              'Enabled',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 25),
                             ))
                           : const Center(
                               child: Text(
-                              'Enabled',
+                              'Disabled',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 25),
                             )),
