@@ -43,7 +43,16 @@ enum SettingType {
   MinRPMDS,
   MaxRPMDS,
   PostDelayQS,
-  PostDelayDS
+  PostDelayDS,
+  UnlockPassword,
+  AverageReadingsSensor,
+  SensorAllowedChange,
+  SensorBelowAdjust,
+  SensorAboveAdjust,
+  AverageRPM,
+  DACAdjustmentValue,
+  ReadingDAC,
+  ReadingDACConnected,
 }
 
 String generateLabel(SettingType settingType) {
@@ -117,6 +126,24 @@ String generateLabel(SettingType settingType) {
     return 'Post-delay';
   } else if (settingType == SettingType.PostDelayDS) {
     return 'Post-delay';
+  } else if (settingType == SettingType.UnlockPassword) {
+    return 'Unlock password';
+  }else if (settingType == SettingType.AverageReadingsSensor) {
+    return 'Average sensor';
+  }else if (settingType == SettingType.SensorAllowedChange) {
+    return 'Sensor allowed';
+  }else if (settingType == SettingType.SensorAboveAdjust) {
+    return 'Sensor above';
+  }else if (settingType == SettingType.SensorBelowAdjust) {
+    return 'Sensor below';
+  }else if (settingType == SettingType.AverageRPM) {
+    return 'Average RPM';
+  }else if (settingType == SettingType.DACAdjustmentValue) {
+    return 'DAC Adjustment';
+  }else if (settingType == SettingType.ReadingDAC) {
+    return 'Readings DAC';
+  }else if (settingType == SettingType.ReadingDACConnected) {
+    return 'Readings connected';
   } else {
     return 'Wrong Type';
   }

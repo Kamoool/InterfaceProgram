@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qs_ds_app/model/serial_utils.dart';
+import 'package:qs_ds_app/model/constants_repository.dart';
+import 'package:qs_ds_app/model/serial_port_utils.dart';
 import 'package:qs_ds_app/model/settings_repository.dart';
 import 'package:qs_ds_app/widgets/building_blocks/numeric_setting_widget.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
@@ -9,8 +10,7 @@ import 'package:unicons/unicons.dart';
 class QuickshifterWidget extends StatefulWidget {
   final Function() notifyParent;
 
-  const QuickshifterWidget({Key? key, required this.notifyParent})
-      : super(key: key);
+  const QuickshifterWidget({Key? key, required this.notifyParent}) : super(key: key);
 
   @override
   State<QuickshifterWidget> createState() => _QuickshifterWidgetState();
@@ -66,14 +66,12 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                           ? const Center(
                               child: Text(
                               'Enabled',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                              style: TextStyle(color: Colors.white, fontSize: 25),
                             ))
                           : const Center(
                               child: Text(
                               'Disabled',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                              style: TextStyle(color: Colors.white, fontSize: 25),
                             )),
                     ),
                     AnimatedToggleSwitch<bool>.dual(
@@ -96,8 +94,7 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                       onChanged: (b) => setState(() => b
                           ? SettingsRepository().pushCheckQS.value = '1'
                           : SettingsRepository().pushCheckQS.value = '0'),
-                      colorBuilder: (b) =>
-                          b ? const Color(0xFF622D5D) : const Color(0xFF2D3C62),
+                      colorBuilder: (b) => b ? const Color(0xFF622D5D) : const Color(0xFF2D3C62),
                       iconBuilder: (value) => value
                           ? const Icon(
                               UniconsLine.compress_alt,
@@ -111,14 +108,12 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                           ? const Center(
                               child: Text(
                               'Push',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                              style: TextStyle(color: Colors.white, fontSize: 25),
                             ))
                           : const Center(
                               child: Text(
                               'Pull',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                              style: TextStyle(color: Colors.white, fontSize: 25),
                             )),
                     ),
                   ],
@@ -131,8 +126,7 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                       TapDebouncer(
                         cooldown: const Duration(milliseconds: 500),
                         onTap: () async => await cutCommandCall(),
-                        builder:
-                            (BuildContext context, TapDebouncerFunc? onTap) {
+                        builder: (BuildContext context, TapDebouncerFunc? onTap) {
                           return ElevatedButton(
                             onPressed: onTap,
                             style: ElevatedButton.styleFrom(
@@ -143,9 +137,7 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                               shadowColor: Colors.black,
                               elevation: 3,
                               side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 2,
-                                  style: BorderStyle.solid),
+                                  color: Colors.transparent, width: 2, style: BorderStyle.solid),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -154,13 +146,11 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                             child: onTap == null
                                 ? const Text(
                                     'Wait',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                    style: TextStyle(color: Colors.white, fontSize: 25),
                                   )
                                 : const Text(
                                     'Cut',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                    style: TextStyle(color: Colors.white, fontSize: 25),
                                   ),
                           );
                         },
@@ -168,15 +158,12 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                       TapDebouncer(
                         cooldown: const Duration(milliseconds: 100),
                         onTap: () async => await setSensor(),
-                        builder:
-                            (BuildContext context, TapDebouncerFunc? onTap) {
+                        builder: (BuildContext context, TapDebouncerFunc? onTap) {
                           return ElevatedButton(
-                            onPressed: (double.tryParse(SettingsRepository()
-                                        .sensorReading
-                                        .value) !=
-                                    2000)
-                                ? onTap
-                                : null,
+                            onPressed:
+                                (double.tryParse(SettingsRepository().sensorReading.value) != 2000)
+                                    ? onTap
+                                    : null,
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(150, 55),
                               primary: Colors.white38,
@@ -185,9 +172,7 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                               shadowColor: Colors.black,
                               elevation: 3,
                               side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 2,
-                                  style: BorderStyle.solid),
+                                  color: Colors.transparent, width: 2, style: BorderStyle.solid),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -196,13 +181,11 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                             child: onTap == null
                                 ? const Text(
                                     'Wait',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                    style: TextStyle(color: Colors.white, fontSize: 25),
                                   )
                                 : const Text(
                                     'Set sensor',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                    style: TextStyle(color: Colors.white, fontSize: 25),
                                   ),
                           );
                         },
@@ -213,27 +196,27 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                 NumericSetting(
                     setting: SettingsRepository().qsForce,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().sensorNumericMin,
-                    maxAllowed: SettingsRepository().sensorNumericMax,
-                    step: SettingsRepository().sensorNumericStep),
+                    minAllowed: ConstantsRepository().sensorNumericMin,
+                    maxAllowed: ConstantsRepository().sensorNumericMax,
+                    step: ConstantsRepository().sensorNumericStep),
                 NumericSetting(
                     setting: SettingsRepository().minRPMQS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().minRPMNumericMin,
-                    maxAllowed: SettingsRepository().minRPMNumericMax,
-                    step: SettingsRepository().minRPMNumericStep),
+                    minAllowed: ConstantsRepository().minRPMNumericMin,
+                    maxAllowed: ConstantsRepository().minRPMNumericMax,
+                    step: ConstantsRepository().minRPMNumericStep),
                 NumericSetting(
                     setting: SettingsRepository().preDelayQS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().preDelayNumericMin,
-                    maxAllowed: SettingsRepository().preDelayNumericMax,
-                    step: SettingsRepository().preDelayNumericStep),
+                    minAllowed: ConstantsRepository().preDelayNumericMin,
+                    maxAllowed: ConstantsRepository().preDelayNumericMax,
+                    step: ConstantsRepository().preDelayNumericStep),
                 NumericSetting(
                     setting: SettingsRepository().postDelayQS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().postDelayNumericMin,
-                    maxAllowed: SettingsRepository().postDelayNumericMax,
-                    step: SettingsRepository().postDelayNumericStep),
+                    minAllowed: ConstantsRepository().postDelayNumericMin,
+                    maxAllowed: ConstantsRepository().postDelayNumericMax,
+                    step: ConstantsRepository().postDelayNumericStep),
               ],
             ),
           ),
@@ -261,52 +244,52 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
                 child: NumericSetting(
                     setting: SettingsRepository().cutTime1,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().qsCutNumericMin,
-                    maxAllowed: SettingsRepository().qsCutNumericMax,
-                    step: SettingsRepository().qsCutNumericStep),
+                    minAllowed: ConstantsRepository().qsCutNumericMin,
+                    maxAllowed: ConstantsRepository().qsCutNumericMax,
+                    step: ConstantsRepository().qsCutNumericStep),
               ),
               NumericSetting(
                   setting: SettingsRepository().cutTime2,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().qsCutNumericMin,
-                  maxAllowed: SettingsRepository().qsCutNumericMax,
-                  step: SettingsRepository().qsCutNumericStep),
+                  minAllowed: ConstantsRepository().qsCutNumericMin,
+                  maxAllowed: ConstantsRepository().qsCutNumericMax,
+                  step: ConstantsRepository().qsCutNumericStep),
               NumericSetting(
                   setting: SettingsRepository().cutTime3,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().qsCutNumericMin,
-                  maxAllowed: SettingsRepository().qsCutNumericMax,
-                  step: SettingsRepository().qsCutNumericStep),
+                  minAllowed: ConstantsRepository().qsCutNumericMin,
+                  maxAllowed: ConstantsRepository().qsCutNumericMax,
+                  step: ConstantsRepository().qsCutNumericStep),
               NumericSetting(
                   setting: SettingsRepository().cutTime4,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().qsCutNumericMin,
-                  maxAllowed: SettingsRepository().qsCutNumericMax,
-                  step: SettingsRepository().qsCutNumericStep),
+                  minAllowed: ConstantsRepository().qsCutNumericMin,
+                  maxAllowed: ConstantsRepository().qsCutNumericMax,
+                  step: ConstantsRepository().qsCutNumericStep),
               NumericSetting(
                   setting: SettingsRepository().cutTime5,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().qsCutNumericMin,
-                  maxAllowed: SettingsRepository().qsCutNumericMax,
-                  step: SettingsRepository().qsCutNumericStep),
+                  minAllowed: ConstantsRepository().qsCutNumericMin,
+                  maxAllowed: ConstantsRepository().qsCutNumericMax,
+                  step: ConstantsRepository().qsCutNumericStep),
               NumericSetting(
                   setting: SettingsRepository().cutTime6,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().qsCutNumericMin,
-                  maxAllowed: SettingsRepository().qsCutNumericMax,
-                  step: SettingsRepository().qsCutNumericStep),
+                  minAllowed: ConstantsRepository().qsCutNumericMin,
+                  maxAllowed: ConstantsRepository().qsCutNumericMax,
+                  step: ConstantsRepository().qsCutNumericStep),
               NumericSetting(
                   setting: SettingsRepository().cutTime7,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().qsCutNumericMin,
-                  maxAllowed: SettingsRepository().qsCutNumericMax,
-                  step: SettingsRepository().qsCutNumericStep),
+                  minAllowed: ConstantsRepository().qsCutNumericMin,
+                  maxAllowed: ConstantsRepository().qsCutNumericMax,
+                  step: ConstantsRepository().qsCutNumericStep),
               NumericSetting(
                   setting: SettingsRepository().cutTime8,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().qsCutNumericMin,
-                  maxAllowed: SettingsRepository().qsCutNumericMax,
-                  step: SettingsRepository().qsCutNumericStep),
+                  minAllowed: ConstantsRepository().qsCutNumericMin,
+                  maxAllowed: ConstantsRepository().qsCutNumericMax,
+                  step: ConstantsRepository().qsCutNumericStep),
             ],
           ),
         ),
@@ -321,16 +304,11 @@ class _QuickshifterWidgetState extends State<QuickshifterWidget> {
   Future<void> setSensor() async {
     if (double.tryParse(SettingsRepository().sensorReading.value)! != 2000) {
       SettingsRepository().qsForce.value =
-          (((double.tryParse(SettingsRepository().sensorReading.value)! > 2000)
-                      ? 1
-                      : -1) *
-                  (double.tryParse(SettingsRepository().sensorReading.value)! -
-                      2000))
+          (((double.tryParse(SettingsRepository().sensorReading.value)! > 2000) ? 1 : -1) *
+                  (double.tryParse(SettingsRepository().sensorReading.value)! - 2000))
               .toString();
       SettingsRepository().pushCheckQS.value =
-          (double.tryParse(SettingsRepository().sensorReading.value)! > 2000)
-              ? '0'
-              : '1';
+          (double.tryParse(SettingsRepository().sensorReading.value)! > 2000) ? '0' : '1';
     }
   }
 }
