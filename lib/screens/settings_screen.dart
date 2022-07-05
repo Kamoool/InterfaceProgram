@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:qs_ds_app/model/serial_utils.dart';
+import 'package:qs_ds_app/model/serial_port_utils.dart';
 import 'package:qs_ds_app/widgets/downshifter_widget.dart';
 import 'package:qs_ds_app/widgets/general_widget.dart';
 import 'package:qs_ds_app/widgets/quickshifter_widget.dart';
 import 'package:qs_ds_app/model/settings_repository.dart';
 import 'package:qs_ds_app/widgets/sensor_widget.dart';
+import 'package:qs_ds_app/widgets/system_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -23,6 +26,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     SettingsRepository(newSettings: true);
     SerialPortUtils().setNotify(() => refresh());
+    SerialPortUtils().readData();
+    double progress = 0;
+    Timer timer = Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
+      EasyLoading.showProgress(progress, status: '${(progress * 100).toStringAsFixed(0)}%');
+      progress += 0.03;
+
+      if (progress >= 1) {
+        timer.cancel();
+        EasyLoading.dismiss();
+      }
+    });
+
+    EasyLoading.dismiss();
   }
 
   void refresh() {
@@ -51,8 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: DefaultTabController(
           length: SettingsRepository().getTabs().length,
           child: Builder(builder: (BuildContext context) {
-            final TabController tabController =
-                DefaultTabController.of(context)!;
+            final TabController tabController = DefaultTabController.of(context)!;
             tabController.addListener(() {
               if (!tabController.indexIsChanging) {}
             });
@@ -60,9 +75,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               backgroundColor: Colors.transparent,
               appBar: AppBar(
                 bottom: TabBar(
-                  indicator: BoxDecoration(
-                      color: Colors.white60,
-                      borderRadius: BorderRadius.circular(20)),
+                  indicator:
+                      BoxDecoration(color: Colors.white60, borderRadius: BorderRadius.circular(20)),
                   indicatorColor: Colors.red,
                   indicatorWeight: 3,
                   labelStyle: const TextStyle(fontSize: 25),
@@ -71,8 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   tabs: SettingsRepository().getTabs(),
                 ),
               ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.endFloat,
+              floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
               floatingActionButton: SpeedDial(
                 backgroundColor: Colors.black,
                 overlayColor: Colors.black,
@@ -118,6 +131,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         SerialPortUtils().disconnect();
                         Navigator.pop(context);
                       }),
+                  if (SettingsRepository().systemUnlocked)
+                    SpeedDialChild(
+                      child: const Icon(Icons.get_app),
+                      label: "Read system",
+                      labelStyle: const TextStyle(fontSize: 20),
+                      labelBackgroundColor: Colors.cyanAccent,
+                      backgroundColor: Colors.cyanAccent,
+                      onTap: () {
+                        SerialPortUtils().readSystemData();
+                      },
+                    ),
+                  if (SettingsRepository().systemUnlocked)
+                    SpeedDialChild(
+                      child: const Icon(Icons.save),
+                      label: "Save system",
+                      labelStyle: const TextStyle(fontSize: 20),
+                      labelBackgroundColor: Colors.cyanAccent,
+                      backgroundColor: Colors.cyanAccent,
+                      onTap: () {
+                        SerialPortUtils().saveSystemSettings();
+                      },
+                    ),
+                  if (SettingsRepository().systemUnlocked)
+                    SpeedDialChild(
+                      child: const Icon(Icons.restart_alt),
+                      label: "Reset system",
+                      labelStyle: const TextStyle(fontSize: 20),
+                      labelBackgroundColor: Colors.cyanAccent,
+                      backgroundColor: Colors.cyanAccent,
+                      onTap: () {
+                        SerialPortUtils().resetSystemSettings();
+                      },
+                    ),
+                  if (SettingsRepository().systemUnlocked)
+                    SpeedDialChild(
+                      child: const Icon(Icons.close),
+                      label: "Lock system",
+                      labelStyle: const TextStyle(fontSize: 20),
+                      labelBackgroundColor: Colors.cyanAccent,
+                      backgroundColor: Colors.cyanAccent,
+                      onTap: () {
+                        SerialPortUtils().lockSession();
+                      },
+                    ),
                 ],
               ),
               body: Scrollbar(
@@ -139,21 +196,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         width: MediaQuery.of(context).size.width > 1110
                             ? MediaQuery.of(context).size.width
                             : 1110,
-                        // width: 1100,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             SizedBox(
-                              height:
-                                  (MediaQuery.of(context).size.height - 153) >
-                                          540
-                                      ? MediaQuery.of(context).size.height - 153
-                                      : 540,
+                              height: (MediaQuery.of(context).size.height - 153) > 540
+                                  ? MediaQuery.of(context).size.height - 153
+                                  : 540,
                               child: TabBarView(
-                                children: SettingsRepository()
-                                    .getTabs()
-                                    .map((Tab tab) {
+                                children: SettingsRepository().getTabs().map((Tab tab) {
                                   if (tab.text == 'General') {
                                     return GeneralWidget(notifyParent: refresh);
                                   }
@@ -163,17 +215,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     );
                                   }
                                   if (tab.text == 'Downshifter') {
-                                    {
-                                      return DownshifterWidget(
-                                        notifyParent: refresh,
-                                      );
-                                    }
+                                    return DownshifterWidget(
+                                      notifyParent: refresh,
+                                    );
+                                  }
+                                  if (tab.text == 'System') {
+                                    return SystemWidget(
+                                      notifyParent: refresh,
+                                    );
                                   }
                                   return const Center(
                                     child: Text(
-                                      'READ DATA FIRST',
-                                      style: TextStyle(
-                                          fontSize: 50, color: Colors.white),
+                                      '',
+                                      style: TextStyle(fontSize: 50, color: Colors.white),
                                     ),
                                   );
                                 }).toList(),

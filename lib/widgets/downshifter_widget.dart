@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qs_ds_app/model/serial_utils.dart';
+import 'package:qs_ds_app/model/constants_repository.dart';
+import 'package:qs_ds_app/model/serial_port_utils.dart';
 import 'package:qs_ds_app/model/settings_repository.dart';
 import 'package:qs_ds_app/widgets/building_blocks/numeric_setting_widget.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
@@ -9,8 +10,7 @@ import 'package:unicons/unicons.dart';
 class DownshifterWidget extends StatefulWidget {
   final Function() notifyParent;
 
-  const DownshifterWidget({Key? key, required this.notifyParent})
-      : super(key: key);
+  const DownshifterWidget({Key? key, required this.notifyParent}) : super(key: key);
 
   @override
   State<DownshifterWidget> createState() => _DownshifterWidgetState();
@@ -66,14 +66,12 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                           ? const Center(
                               child: Text(
                               'Enabled',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                              style: TextStyle(color: Colors.white, fontSize: 25),
                             ))
                           : const Center(
                               child: Text(
                               'Disabled',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                              style: TextStyle(color: Colors.white, fontSize: 25),
                             )),
                     ),
                     AnimatedToggleSwitch<bool>.dual(
@@ -96,8 +94,7 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                       onChanged: (b) => setState(() => b
                           ? SettingsRepository().pushCheckQS.value = '0'
                           : SettingsRepository().pushCheckQS.value = '1'),
-                      colorBuilder: (b) =>
-                          b ? const Color(0xFF622D5D) : const Color(0xFF2D3C62),
+                      colorBuilder: (b) => b ? const Color(0xFF622D5D) : const Color(0xFF2D3C62),
                       iconBuilder: (value) => value
                           ? const Icon(
                               UniconsLine.compress_alt,
@@ -111,14 +108,12 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                           ? const Center(
                               child: Text(
                               'Push',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                              style: TextStyle(color: Colors.white, fontSize: 25),
                             ))
                           : const Center(
                               child: Text(
                               'Pull',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                              style: TextStyle(color: Colors.white, fontSize: 25),
                             )),
                     ),
                   ],
@@ -131,8 +126,7 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                       TapDebouncer(
                         cooldown: const Duration(milliseconds: 500),
                         onTap: () async => await blipCommandCall(),
-                        builder:
-                            (BuildContext context, TapDebouncerFunc? onTap) {
+                        builder: (BuildContext context, TapDebouncerFunc? onTap) {
                           return ElevatedButton(
                             onPressed: onTap,
                             style: ElevatedButton.styleFrom(
@@ -143,9 +137,7 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                               shadowColor: Colors.black,
                               elevation: 3,
                               side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 2,
-                                  style: BorderStyle.solid),
+                                  color: Colors.transparent, width: 2, style: BorderStyle.solid),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -154,13 +146,11 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                             child: onTap == null
                                 ? const Text(
                                     'Wait',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                    style: TextStyle(color: Colors.white, fontSize: 25),
                                   )
                                 : const Text(
                                     'Blip',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                    style: TextStyle(color: Colors.white, fontSize: 25),
                                   ),
                           );
                         },
@@ -168,15 +158,12 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                       TapDebouncer(
                         cooldown: const Duration(milliseconds: 100),
                         onTap: () async => await setSensor(),
-                        builder:
-                            (BuildContext context, TapDebouncerFunc? onTap) {
+                        builder: (BuildContext context, TapDebouncerFunc? onTap) {
                           return ElevatedButton(
-                            onPressed: (double.tryParse(SettingsRepository()
-                                        .sensorReading
-                                        .value) !=
-                                    2000)
-                                ? onTap
-                                : null,
+                            onPressed:
+                                (double.tryParse(SettingsRepository().sensorReading.value) != 2000)
+                                    ? onTap
+                                    : null,
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(150, 55),
                               primary: Colors.white38,
@@ -185,9 +172,7 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                               shadowColor: Colors.black,
                               elevation: 3,
                               side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 2,
-                                  style: BorderStyle.solid),
+                                  color: Colors.transparent, width: 2, style: BorderStyle.solid),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -196,13 +181,11 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                             child: onTap == null
                                 ? const Text(
                                     'Wait',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                    style: TextStyle(color: Colors.white, fontSize: 25),
                                   )
                                 : const Text(
                                     'Set sensor',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                    style: TextStyle(color: Colors.white, fontSize: 25),
                                   ),
                           );
                         },
@@ -213,39 +196,37 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                 NumericSetting(
                     setting: SettingsRepository().dsForce,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().sensorNumericMin,
-                    maxAllowed: SettingsRepository().sensorNumericMax,
-                    step: SettingsRepository().sensorNumericStep),
+                    minAllowed: ConstantsRepository().sensorNumericMin,
+                    maxAllowed: ConstantsRepository().sensorNumericMax,
+                    step: ConstantsRepository().sensorNumericStep),
                 NumericSetting(
                     setting: SettingsRepository().minRPMDS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().minRPMNumericMin,
-                    maxAllowed:
-                        (double.tryParse(SettingsRepository().maxRPMDS.value) ??
-                                SettingsRepository().maxRPMNumericMax) -
-                            500,
-                    step: SettingsRepository().minRPMNumericStep),
+                    minAllowed: ConstantsRepository().minRPMNumericMin,
+                    maxAllowed: (double.tryParse(SettingsRepository().maxRPMDS.value) ??
+                            ConstantsRepository().maxRPMNumericMax) -
+                        500,
+                    step: ConstantsRepository().minRPMNumericStep),
                 NumericSetting(
                     setting: SettingsRepository().maxRPMDS,
                     notifyParent: widget.notifyParent,
-                    minAllowed:
-                        (double.tryParse(SettingsRepository().minRPMDS.value) ??
-                                SettingsRepository().minRPMNumericMin) +
-                            500,
-                    maxAllowed: SettingsRepository().maxRPMNumericMax,
-                    step: SettingsRepository().maxRPMNumericStep),
+                    minAllowed: (double.tryParse(SettingsRepository().minRPMDS.value) ??
+                            ConstantsRepository().minRPMNumericMin) +
+                        500,
+                    maxAllowed: ConstantsRepository().maxRPMNumericMax,
+                    step: ConstantsRepository().maxRPMNumericStep),
                 NumericSetting(
                     setting: SettingsRepository().preDelayDS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().preDelayNumericMin,
-                    maxAllowed: SettingsRepository().preDelayNumericMax,
-                    step: SettingsRepository().preDelayNumericStep),
+                    minAllowed: ConstantsRepository().preDelayNumericMin,
+                    maxAllowed: ConstantsRepository().preDelayNumericMax,
+                    step: ConstantsRepository().preDelayNumericStep),
                 NumericSetting(
                     setting: SettingsRepository().postDelayDS,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().postDelayNumericMin,
-                    maxAllowed: SettingsRepository().postDelayNumericMax,
-                    step: SettingsRepository().postDelayNumericStep),
+                    minAllowed: ConstantsRepository().postDelayNumericMin,
+                    maxAllowed: ConstantsRepository().postDelayNumericMax,
+                    step: ConstantsRepository().postDelayNumericStep),
               ],
             ),
           ),
@@ -273,52 +254,52 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                 child: NumericSetting(
                     setting: SettingsRepository().blipTime1,
                     notifyParent: widget.notifyParent,
-                    minAllowed: SettingsRepository().dsBlipNumericMin,
-                    maxAllowed: SettingsRepository().dsBlipNumericMax,
-                    step: SettingsRepository().dsBlipNumericStep),
+                    minAllowed: ConstantsRepository().dsBlipNumericMin,
+                    maxAllowed: ConstantsRepository().dsBlipNumericMax,
+                    step: ConstantsRepository().dsBlipNumericStep),
               ),
               NumericSetting(
                   setting: SettingsRepository().blipTime2,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().dsBlipNumericMin,
-                  maxAllowed: SettingsRepository().dsBlipNumericMax,
-                  step: SettingsRepository().dsBlipNumericStep),
+                  minAllowed: ConstantsRepository().dsBlipNumericMin,
+                  maxAllowed: ConstantsRepository().dsBlipNumericMax,
+                  step: ConstantsRepository().dsBlipNumericStep),
               NumericSetting(
                   setting: SettingsRepository().blipTime3,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().dsBlipNumericMin,
-                  maxAllowed: SettingsRepository().dsBlipNumericMax,
-                  step: SettingsRepository().dsBlipNumericStep),
+                  minAllowed: ConstantsRepository().dsBlipNumericMin,
+                  maxAllowed: ConstantsRepository().dsBlipNumericMax,
+                  step: ConstantsRepository().dsBlipNumericStep),
               NumericSetting(
                   setting: SettingsRepository().blipTime4,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().dsBlipNumericMin,
-                  maxAllowed: SettingsRepository().dsBlipNumericMax,
-                  step: SettingsRepository().dsBlipNumericStep),
+                  minAllowed: ConstantsRepository().dsBlipNumericMin,
+                  maxAllowed: ConstantsRepository().dsBlipNumericMax,
+                  step: ConstantsRepository().dsBlipNumericStep),
               NumericSetting(
                   setting: SettingsRepository().blipTime5,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().dsBlipNumericMin,
-                  maxAllowed: SettingsRepository().dsBlipNumericMax,
-                  step: SettingsRepository().dsBlipNumericStep),
+                  minAllowed: ConstantsRepository().dsBlipNumericMin,
+                  maxAllowed: ConstantsRepository().dsBlipNumericMax,
+                  step: ConstantsRepository().dsBlipNumericStep),
               NumericSetting(
                   setting: SettingsRepository().blipTime6,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().dsBlipNumericMin,
-                  maxAllowed: SettingsRepository().dsBlipNumericMax,
-                  step: SettingsRepository().dsBlipNumericStep),
+                  minAllowed: ConstantsRepository().dsBlipNumericMin,
+                  maxAllowed: ConstantsRepository().dsBlipNumericMax,
+                  step: ConstantsRepository().dsBlipNumericStep),
               NumericSetting(
                   setting: SettingsRepository().blipTime7,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().dsBlipNumericMin,
-                  maxAllowed: SettingsRepository().dsBlipNumericMax,
-                  step: SettingsRepository().dsBlipNumericStep),
+                  minAllowed: ConstantsRepository().dsBlipNumericMin,
+                  maxAllowed: ConstantsRepository().dsBlipNumericMax,
+                  step: ConstantsRepository().dsBlipNumericStep),
               NumericSetting(
                   setting: SettingsRepository().blipTime8,
                   notifyParent: widget.notifyParent,
-                  minAllowed: SettingsRepository().dsBlipNumericMin,
-                  maxAllowed: SettingsRepository().dsBlipNumericMax,
-                  step: SettingsRepository().dsBlipNumericStep),
+                  minAllowed: ConstantsRepository().dsBlipNumericMin,
+                  maxAllowed: ConstantsRepository().dsBlipNumericMax,
+                  step: ConstantsRepository().dsBlipNumericStep),
             ],
           ),
         ),
@@ -333,16 +314,11 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
   Future<void> setSensor() async {
     if (double.tryParse(SettingsRepository().sensorReading.value)! != 2000) {
       SettingsRepository().dsForce.value =
-          (((double.tryParse(SettingsRepository().sensorReading.value)! > 2000)
-                      ? 1
-                      : -1) *
-                  (double.tryParse(SettingsRepository().sensorReading.value)! -
-                      2000))
+          (((double.tryParse(SettingsRepository().sensorReading.value)! > 2000) ? 1 : -1) *
+                  (double.tryParse(SettingsRepository().sensorReading.value)! - 2000))
               .toString();
       SettingsRepository().pushCheckQS.value =
-          (double.tryParse(SettingsRepository().sensorReading.value)! > 2000)
-              ? '1'
-              : '0';
+          (double.tryParse(SettingsRepository().sensorReading.value)! > 2000) ? '1' : '0';
     }
   }
 }

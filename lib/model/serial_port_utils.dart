@@ -35,30 +35,58 @@ class SerialPortUtils {
 
   void disconnect() {
     stopListener = true;
-    sendString('E');
+    sendString('X');
     serialPort.close();
     serialPort.dispose();
     instance = null;
   }
 
-  void cut(){
+  void cut() {
     sendString('C');
   }
 
-  void blip(){
+  void blip() {
     sendString('B');
   }
 
-  void readData(){
+  void readData() {
     sendString('R');
   }
 
-  void saveSettings(){
-    sendString(SettingsRepository().generateSaveSettings());
+  void readSystemData() {
+    if (SettingsRepository().systemUnlocked) {
+      unlockSession();
+    }
   }
 
-  void resetSettings(){
-    sendString('W');
+  void unlockSession() {
+    sendString('K,${SettingsRepository().unlockPassword.value}');
+  }
+
+  void lockSession() {
+    SettingsRepository().systemUnlocked = false;
+    SettingsRepository().unlockPassword.value = '0';
+    sendString('N');
+  }
+
+  void saveSettings() {
+    sendString('S,${SettingsRepository().generateSaveSettings()}');
+  }
+
+  void saveSystemSettings() {
+    if (SettingsRepository().systemUnlocked) {
+      sendString('L,${SettingsRepository().generateSaveSystemSettings()}');
+    }
+  }
+
+  void resetSettings() {
+    sendString('T');
+  }
+
+  void resetSystemSettings() {
+    if (SettingsRepository().systemUnlocked) {
+      sendString('M,${SettingsRepository().unlockPassword.value}');
+    }
   }
 
   void sendString(String string) {
@@ -71,8 +99,7 @@ class SerialPortUtils {
     reader.stream.listen((Uint8List data) {
       b.add(data);
       if (String.fromCharCodes(b.toBytes()).contains('\r\n')) {
-        List<String> stringList =
-            String.fromCharCodes(b.toBytes()).split('\r\n');
+        List<String> stringList = String.fromCharCodes(b.toBytes()).split('\r\n');
         b.clear();
         if (stringList[stringList.length - 1] == '') {
           for (int i = 0; i < stringList.length - 1; i++) {
@@ -80,8 +107,7 @@ class SerialPortUtils {
             notify!();
           }
         } else {
-          b.add(
-              Uint8List.fromList(stringList[stringList.length - 1].codeUnits));
+          b.add(Uint8List.fromList(stringList[stringList.length - 1].codeUnits));
           for (int i = 0; i < stringList.length - 1; i++) {
             SettingsRepository().parseValues(stringList[i]);
             notify!();

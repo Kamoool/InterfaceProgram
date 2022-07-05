@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:qs_ds_app/screens/port_screen.dart';
 import 'package:window_size/window_size.dart';
 import 'dart:io' show Platform;
@@ -37,6 +38,7 @@ class _MyAppState extends State<MyApp> {
           toolbarHeight: 0,
         ),
       ),
+      builder: EasyLoading.init(),
       home: const PortScreen(),
     );
   }
