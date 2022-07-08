@@ -41,8 +41,11 @@ class GeneralWidget extends StatelessWidget {
             onPressed: () {},
             onLongPress: () async {
               if (!SettingsRepository().systemUnlocked) {
-                await Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => UnlockScreen()));
+                await showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const UnlockScreen();
+                    });
               }
               notifyParent();
             },
