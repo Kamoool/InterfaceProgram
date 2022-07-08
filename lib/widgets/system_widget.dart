@@ -43,14 +43,20 @@ class _SystemWidgetState extends State<SystemWidget> {
                   NumericSetting(
                       setting: SettingsRepository().sensorAboveAdjust,
                       notifyParent: widget.notifyParent,
-                      minAllowed: ConstantsRepository().sensorAboveNumericMin,
+                      // minAllowed: ConstantsRepository().sensorAboveNumericMin,
+                      minAllowed: (double.tryParse(SettingsRepository().sensorBelowAdjust.value) ??
+                              ConstantsRepository().sensorAboveNumericMin) +
+                          1,
                       maxAllowed: ConstantsRepository().sensorAboveNumericMax,
                       step: ConstantsRepository().sensorAboveNumericStep),
                   NumericSetting(
                       setting: SettingsRepository().sensorBelowAdjust,
                       notifyParent: widget.notifyParent,
                       minAllowed: ConstantsRepository().sensorBelowNumericMin,
-                      maxAllowed: ConstantsRepository().sensorBelowNumericMax,
+                      // maxAllowed: ConstantsRepository().sensorBelowNumericMax,
+                      maxAllowed: (double.tryParse(SettingsRepository().sensorAboveAdjust.value) ??
+                              ConstantsRepository().sensorBelowNumericMax) -
+                          1,
                       step: ConstantsRepository().sensorBelowNumericStep),
                 ],
               ),
