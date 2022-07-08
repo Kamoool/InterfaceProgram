@@ -27,39 +27,33 @@ class UnlockScreen extends StatelessWidget {
         child: Center(
           child: SizedBox(
             width: 200,
-            // height: 100,
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    style: TextStyle(fontSize: 20),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white12,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(
-                            color: Colors.transparent,
-                            width: 2,
-                          )),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.red.withOpacity(0.5),
-                            width: 2,
-                          )),
-                      hintText: 'System password',
-                    ),
-                    onSubmitted: (password) async {
-                      SettingsRepository().unlockPassword.value = password;
-                      SerialPortUtils().unlockSession();
-                      Navigator.pop(context);
-                    },
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp("[0-9a-zA-Z]")),
-                    ],
-                  ),
-                ),
+            child: TextField(
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white12,
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 2,
+                    )),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.red.withOpacity(0.5),
+                      width: 2,
+                    )),
+                hintText: 'System password',
+              ),
+              onSubmitted: (password) async {
+                SettingsRepository().unlockPassword.value = password;
+                SerialPortUtils().unlockSession();
+                Navigator.pop(context);
+              },
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp("[0-9a-zA-Z]")),
               ],
             ),
           ),
