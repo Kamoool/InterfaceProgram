@@ -3,7 +3,7 @@ import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'dart:async';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:animated_icon_button/animated_icon_button.dart';
-import 'package:qs_ds_app/model/serial_utils.dart';
+import 'package:qs_ds_app/model/serial_port_utils.dart';
 import 'package:qs_ds_app/screens/settings_screen.dart';
 import 'package:tap_debouncer/tap_debouncer.dart';
 
@@ -14,8 +14,7 @@ class PortScreen extends StatefulWidget {
   State<PortScreen> createState() => _PortScreenState();
 }
 
-class _PortScreenState extends State<PortScreen>
-    with SingleTickerProviderStateMixin {
+class _PortScreenState extends State<PortScreen> with SingleTickerProviderStateMixin {
   final ScrollController scrollControllerHorizontal = ScrollController();
   SerialPort? dropdownValue;
   List<SerialPort> availablePorts = [];
@@ -44,8 +43,7 @@ class _PortScreenState extends State<PortScreen>
   }
 
   Future<void> revertRefresh() {
-    return Future.delayed(
-        const Duration(seconds: 2), () => animationController.reverse());
+    return Future.delayed(const Duration(seconds: 2), () => animationController.reverse());
   }
 
   @override
@@ -60,9 +58,8 @@ class _PortScreenState extends State<PortScreen>
           controller: scrollControllerHorizontal,
           scrollDirection: Axis.horizontal,
           child: Container(
-            width: MediaQuery.of(context).size.width > 540
-                ? MediaQuery.of(context).size.width
-                : 540,
+            width:
+                MediaQuery.of(context).size.width > 540 ? MediaQuery.of(context).size.width : 540,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                   colors: [
@@ -202,9 +199,7 @@ class _PortScreenState extends State<PortScreen>
                             shadowColor: Colors.black,
                             elevation: 3,
                             side: const BorderSide(
-                                color: Colors.transparent,
-                                width: 2,
-                                style: BorderStyle.solid),
+                                color: Colors.transparent, width: 2, style: BorderStyle.solid),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
@@ -213,13 +208,11 @@ class _PortScreenState extends State<PortScreen>
                           child: onTap == null
                               ? const Text(
                                   'Wait',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 20),
+                                  style: TextStyle(color: Colors.black, fontSize: 20),
                                 )
                               : const Text(
                                   'Connect',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 20),
+                                  style: TextStyle(color: Colors.black, fontSize: 20),
                                 ),
                         );
                       },
@@ -237,8 +230,7 @@ class _PortScreenState extends State<PortScreen>
   Future<void> establishConnection() async {
     if (dropdownValue != null) {
       SerialPortUtils(serialPort: dropdownValue);
-      await Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+      await Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
       initPorts();
     }
   }

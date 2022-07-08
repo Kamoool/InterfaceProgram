@@ -1,50 +1,12 @@
 import 'package:flutter/material.dart';
-import '../model/setting.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:qs_ds_app/model/setting.dart';
 
 class SettingsRepository {
   static SettingsRepository? instance;
   late final List<Setting> settingsList;
+  late final List<Setting> systemSettingsList;
   late final List<Setting> readingsList;
-
-  //General tab pulses numeric
-  final double pulsesNumericMin = 0.5;
-  final double pulsesNumericMax = 10;
-  final double pulsesNumericStep = 0.5;
-
-  //QS cut times numerics
-  final double qsCutNumericMin = 30;
-  final double qsCutNumericMax = 150;
-  final double qsCutNumericStep = 1;
-
-  //Sensor threshold numerics
-  final double sensorNumericMin = 1;
-  final double sensorNumericMax = 2000;
-  final double sensorNumericStep = 1;
-
-  //MinRPM numerics
-  final double minRPMNumericMin = 0;
-  final double minRPMNumericMax = 15500;
-  final double minRPMNumericStep = 100;
-
-  //MaxRPM numerics
-  final double maxRPMNumericMin = 500;
-  final double maxRPMNumericMax = 16000;
-  final double maxRPMNumericStep = 100;
-
-  //PreDelay numerics
-  final double preDelayNumericMin = 0;
-  final double preDelayNumericMax = 100;
-  final double preDelayNumericStep = 1;
-
-  //PostDelay numerics
-  final double postDelayNumericMin = 300;
-  final double postDelayNumericMax = 10000;
-  final double postDelayNumericStep = 10;
-
-  //DS blip times numerics
-  final double dsBlipNumericMin = 30;
-  final double dsBlipNumericMax = 300;
-  final double dsBlipNumericStep = 1;
 
   final Setting rpm = Setting(SettingType.RPM, '0');
   final Setting sensorReading = Setting(SettingType.Sensor, '2000');
@@ -81,6 +43,22 @@ class SettingsRepository {
   final Setting maxRPMDS = Setting(SettingType.MaxRPMDS, '10000');
   final Setting postDelayQS = Setting(SettingType.PostDelayQS, '500');
   final Setting postDelayDS = Setting(SettingType.PostDelayDS, '500');
+  final Setting unlockPassword = Setting(SettingType.UnlockPassword, '0');
+  final Setting averageReadingsSensor = Setting(SettingType.AverageReadingsSensor, '1');
+  final Setting sensorAllowedChange = Setting(SettingType.SensorAllowedChange, '500');
+  final Setting sensorAboveAdjust = Setting(SettingType.SensorAboveAdjust, '2072');
+  final Setting sensorBelowAdjust = Setting(SettingType.SensorBelowAdjust, '2024');
+  final Setting averageRPM = Setting(SettingType.AverageRPM, '1');
+  final Setting dacAdjustmentValue = Setting(SettingType.DACAdjustmentValue, '2');
+  final Setting readingDAC = Setting(SettingType.ReadingDAC, '10000');
+  final Setting readingDACConnected = Setting(SettingType.ReadingDACConnected, '50000');
+
+  final Tab generalTab = const Tab(text: 'General');
+  final Tab qsTab = const Tab(text: 'Quickshifter');
+  final Tab dsTab = const Tab(text: 'Downshifter');
+  final Tab systemTab = const Tab(text: 'System');
+
+  bool systemUnlocked = false;
 
   factory SettingsRepository({bool? newSettings}) {
     if (newSettings == true || instance == null) {
@@ -125,25 +103,47 @@ class SettingsRepository {
       postDelayQS,
       postDelayDS
     ];
-
+    systemSettingsList = [
+      averageReadingsSensor,
+      sensorAllowedChange,
+      sensorAboveAdjust,
+      sensorBelowAdjust,
+      averageRPM,
+      dacAdjustmentValue,
+      readingDAC,
+      readingDACConnected
+    ];
     readingsList = [rpm, sensorReading];
   }
 
   void parseValues(String string) {
     List<String> values = string.split(',');
-    if (values[0] == 'V' && values.length == readingsList.length + 1) {
+    if (values[0] == 'A') {
+      EasyLoading.showSuccess('Settings saved', duration: const Duration(milliseconds: 1000));
+    } else if (values[0] == 'B') {
+      EasyLoading.showSuccess('Settings reset', duration: const Duration(milliseconds: 1000));
+    } else if (values[0] == 'K' && values.length == systemSettingsList.length + 1) {
+      systemUnlocked = true;
       for (int i = 1; i < values.length; i++) {
-        readingsList[i - 1].value = values[i];
+        systemSettingsList[i - 1].value = values[i];
       }
+    } else if (values[0] == 'L') {
+      EasyLoading.showError('Wrong master password!', duration: const Duration(milliseconds: 1000));
+    } else if (values[0] == 'M') {
+      EasyLoading.showError('Wrong settings!', duration: const Duration(milliseconds: 1000));
     } else if (values[0] == 'T' && values.length == settingsList.length + 1) {
       for (int i = 1; i < values.length; i++) {
         settingsList[i - 1].value = values[i];
+      }
+    } else if (values[0] == 'V' && values.length == readingsList.length + 1) {
+      for (int i = 1; i < values.length; i++) {
+        readingsList[i - 1].value = values[i];
       }
     }
   }
 
   String generateSaveSettings() {
-    String result = 'S,';
+    String result = '';
     for (int i = 4; i < settingsList.length; i++) {
       result += '${settingsList[i].value},';
     }
@@ -151,26 +151,28 @@ class SettingsRepository {
     return result;
   }
 
+  String generateSaveSystemSettings() {
+    String result = '';
+    for (int i = 0; i < systemSettingsList.length; i++) {
+      result += '${systemSettingsList[i].value},';
+    }
+    result = result.substring(0, result.length - 1);
+    return result;
+  }
+
   List<Tab> getTabs() {
     List<Tab> tabs = <Tab>[];
-    if (qsType.value != '0' || dsType.value != '0') {
-      tabs.add(const Tab(
-        text: 'General',
-      ));
+    if (qsType.value != '0' || dsType.value != '0' || systemUnlocked) {
+      tabs.add(generalTab);
       if (qsType.value != '0') {
-        tabs.add(const Tab(
-          text: 'Quickshifter',
-        ));
+        tabs.add(qsTab);
       }
       if (dsType.value != '0') {
-        tabs.add(const Tab(
-          text: 'Downshifter',
-        ));
+        tabs.add(dsTab);
       }
-    } else {
-      tabs.add(const Tab(
-        text: 'READ DATA FIRST',
-      ));
+      if (systemUnlocked) {
+        tabs.add(systemTab);
+      }
     }
     return tabs;
   }

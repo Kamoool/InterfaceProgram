@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_spinbox/cupertino.dart';
-import '../../model/setting.dart';
+import 'package:qs_ds_app/model/setting.dart';
 
 class NumericSetting extends StatefulWidget {
   final Setting setting;
