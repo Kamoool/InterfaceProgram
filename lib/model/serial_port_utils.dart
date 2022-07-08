@@ -34,6 +34,9 @@ class SerialPortUtils {
   }
 
   void disconnect() {
+    if (SettingsRepository().systemUnlocked) {
+      lockSession();
+    }
     stopListener = true;
     sendString('X');
     serialPort.close();
