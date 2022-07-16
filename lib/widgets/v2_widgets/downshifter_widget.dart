@@ -52,7 +52,7 @@ class _DownshifterWidgetState extends State<DownshifterWidget> {
                       onChanged: (b) => setState(() => b
                           ? SettingsRepository().dsEnable.value = '1'
                           : SettingsRepository().dsEnable.value = '0'),
-                      colorBuilder: (b) => b ? Colors.red : Colors.green,
+                      colorBuilder: (b) => b ? Colors.green : Colors.red,
                       iconBuilder: (value) => value
                           ? const Icon(
                               Icons.task_alt_outlined,

@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:qs_ds_app/model/serial_port_utils.dart';
-import 'package:qs_ds_app/widgets/downshifter_widget.dart';
-import 'package:qs_ds_app/widgets/general_widget.dart';
-import 'package:qs_ds_app/widgets/quickshifter_widget.dart';
+
 import 'package:qs_ds_app/model/settings_repository.dart';
-import 'package:qs_ds_app/widgets/sensor_widget.dart';
-import 'package:qs_ds_app/widgets/system_widget.dart';
+import 'package:qs_ds_app/widgets/version_parser.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -91,91 +88,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 overlayColor: Colors.black,
                 overlayOpacity: 0.4,
                 animatedIcon: AnimatedIcons.menu_close,
-                children: [
-                  SpeedDialChild(
-                    child: const Icon(Icons.get_app),
-                    label: "Read",
-                    labelStyle: const TextStyle(fontSize: 20),
-                    labelBackgroundColor: Colors.yellow,
-                    backgroundColor: Colors.yellow,
-                    onTap: () {
-                      SerialPortUtils().readData();
-                    },
-                  ),
-                  SpeedDialChild(
-                    child: const Icon(Icons.save),
-                    label: "Save",
-                    labelStyle: const TextStyle(fontSize: 20),
-                    labelBackgroundColor: Colors.green,
-                    backgroundColor: Colors.green,
-                    onTap: () {
-                      SerialPortUtils().saveSettings();
-                    },
-                  ),
-                  SpeedDialChild(
-                      child: const Icon(Icons.restart_alt),
-                      label: "Reset",
-                      labelStyle: const TextStyle(fontSize: 20),
-                      labelBackgroundColor: Colors.blue,
-                      backgroundColor: Colors.blue,
-                      onTap: () {
-                        SerialPortUtils().resetSettings();
-                      }),
-                  SpeedDialChild(
-                      child: const Icon(Icons.exit_to_app),
-                      label: "Disconnect",
-                      labelStyle: const TextStyle(fontSize: 20),
-                      labelBackgroundColor: Colors.red,
-                      backgroundColor: Colors.red,
-                      onTap: () {
-                        SerialPortUtils().disconnect();
-                        Navigator.pop(context);
-                      }),
-                  if (SettingsRepository().systemUnlocked)
-                    SpeedDialChild(
-                      child: const Icon(Icons.get_app),
-                      label: "Read system",
-                      labelStyle: const TextStyle(fontSize: 20),
-                      labelBackgroundColor: Colors.cyanAccent,
-                      backgroundColor: Colors.cyanAccent,
-                      onTap: () {
-                        SerialPortUtils().readSystemData();
-                      },
-                    ),
-                  if (SettingsRepository().systemUnlocked)
-                    SpeedDialChild(
-                      child: const Icon(Icons.save),
-                      label: "Save system",
-                      labelStyle: const TextStyle(fontSize: 20),
-                      labelBackgroundColor: Colors.cyanAccent,
-                      backgroundColor: Colors.cyanAccent,
-                      onTap: () {
-                        SerialPortUtils().saveSystemSettings();
-                      },
-                    ),
-                  if (SettingsRepository().systemUnlocked)
-                    SpeedDialChild(
-                      child: const Icon(Icons.restart_alt),
-                      label: "Reset system",
-                      labelStyle: const TextStyle(fontSize: 20),
-                      labelBackgroundColor: Colors.cyanAccent,
-                      backgroundColor: Colors.cyanAccent,
-                      onTap: () {
-                        SerialPortUtils().resetSystemSettings();
-                      },
-                    ),
-                  if (SettingsRepository().systemUnlocked)
-                    SpeedDialChild(
-                      child: const Icon(Icons.close),
-                      label: "Lock system",
-                      labelStyle: const TextStyle(fontSize: 20),
-                      labelBackgroundColor: Colors.cyanAccent,
-                      backgroundColor: Colors.cyanAccent,
-                      onTap: () {
-                        SerialPortUtils().lockSession();
-                      },
-                    ),
-                ],
+                children: VersionParser().getActionButtons(context),
               ),
               body: Scrollbar(
                 controller: scrollControllerVertical,
@@ -206,30 +119,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   : 540,
                               child: TabBarView(
                                 children: SettingsRepository().getTabs().map((Tab tab) {
-                                  if (tab.text == 'General') {
-                                    return GeneralWidget(notifyParent: refresh);
-                                  }
-                                  if (tab.text == 'Quickshifter') {
-                                    return QuickshifterWidget(
-                                      notifyParent: refresh,
-                                    );
-                                  }
-                                  if (tab.text == 'Downshifter') {
-                                    return DownshifterWidget(
-                                      notifyParent: refresh,
-                                    );
-                                  }
-                                  if (tab.text == 'System') {
-                                    return SystemWidget(
-                                      notifyParent: refresh,
-                                    );
-                                  }
-                                  return const Center(
-                                    child: Text(
-                                      '',
-                                      style: TextStyle(fontSize: 50, color: Colors.white),
-                                    ),
-                                  );
+                                  return VersionParser()
+                                      .getTabContent(tab.text ?? '', refresh);
                                 }).toList(),
                               ),
                             ),
@@ -238,8 +129,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 height: 94,
-                                // width: 1000,
-                                child: SensorWidget(),
+                                child: VersionParser().getSensorsWidget(),
                               ),
                             ),
                           ],

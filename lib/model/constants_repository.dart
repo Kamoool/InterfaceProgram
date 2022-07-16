@@ -1,5 +1,7 @@
 class ConstantsRepository {
-  static ConstantsRepository instance = ConstantsRepository.internal();
+
+  //Versions for app type
+  final List<String> supportedVersions = ['2'];
 
   //General tab pulses numeric
   final double pulsesNumericMin = 0.5;
@@ -76,9 +78,4 @@ class ConstantsRepository {
   final double readingDACNumericMax = 500000;
   final double readingDACNumericStep = 1000;
 
-  factory ConstantsRepository() {
-    return instance;
-  }
-
-  ConstantsRepository.internal();
 }

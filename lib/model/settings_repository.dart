@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:qs_ds_app/model/setting.dart';
+import 'package:qs_ds_app/widgets/version_parser.dart';
 
 class SettingsRepository {
   static SettingsRepository? instance;
@@ -57,8 +58,12 @@ class SettingsRepository {
   final Tab qsTab = const Tab(text: 'Quickshifter');
   final Tab dsTab = const Tab(text: 'Downshifter');
   final Tab systemTab = const Tab(text: 'System');
+  final Tab wrongVersionTab = const Tab(text: 'Wrong version');
 
   bool systemUnlocked = false;
+
+  late List<String> lastData;
+  late List<String> lastSystemData;
 
   factory SettingsRepository({bool? newSettings}) {
     if (newSettings == true || instance == null) {
@@ -114,37 +119,57 @@ class SettingsRepository {
       readingDACConnected
     ];
     readingsList = [rpm, sensorReading];
+    lastData = [];
+    lastSystemData = [];
+
+    for (Setting element in settingsList) {
+      lastData.add(element.value);
+    }
+    for (Setting element in systemSettingsList) {
+      lastSystemData.add(element.value);
+    }
   }
 
   void parseValues(String string) {
     List<String> values = string.split(',');
-    if (values[0] == 'A') {
-      EasyLoading.showSuccess('Settings saved', duration: const Duration(milliseconds: 1000));
-    } else if (values[0] == 'B') {
-      EasyLoading.showSuccess('Settings reset', duration: const Duration(milliseconds: 1000));
-    } else if (values[0] == 'K' && values.length == systemSettingsList.length + 1) {
-      systemUnlocked = true;
-      for (int i = 1; i < values.length; i++) {
-        systemSettingsList[i - 1].value = values[i];
+    int charOccurrence = 0;
+    for (var value in values) {
+      if (RegExp(r'[A-Za-z]').hasMatch(value)) {
+        charOccurrence++;
       }
-    } else if (values[0] == 'L') {
-      EasyLoading.showError('Wrong master password!', duration: const Duration(milliseconds: 1000));
-    } else if (values[0] == 'M') {
-      EasyLoading.showError('Wrong settings!', duration: const Duration(milliseconds: 1000));
-    } else if (values[0] == 'T' && values.length == settingsList.length + 1) {
-      for (int i = 1; i < values.length; i++) {
-        settingsList[i - 1].value = values[i];
-      }
-    } else if (values[0] == 'V' && values.length == readingsList.length + 1) {
-      for (int i = 1; i < values.length; i++) {
-        readingsList[i - 1].value = values[i];
+    }
+    if (!(charOccurrence > 1)) {
+      if (values[0] == 'A') {
+        EasyLoading.showSuccess('Settings saved', duration: const Duration(milliseconds: 1000));
+      } else if (values[0] == 'B') {
+        EasyLoading.showSuccess('Settings reset', duration: const Duration(milliseconds: 1000));
+      } else if (values[0] == 'K' && values.length <= systemSettingsList.length + 1) {
+        systemUnlocked = true;
+        lastSystemData = values.sublist(1);
+        for (int i = 1; i < values.length; i++) {
+          systemSettingsList[i - 1].value = values[i];
+        }
+      } else if (values[0] == 'L') {
+        EasyLoading.showError('Wrong master password!',
+            duration: const Duration(milliseconds: 1000));
+      } else if (values[0] == 'M') {
+        EasyLoading.showError('Wrong settings!', duration: const Duration(milliseconds: 1000));
+      } else if (values[0] == 'T' && values.length <= settingsList.length + 1) {
+        lastData = values.sublist(1);
+        for (int i = 1; i < values.length; i++) {
+          settingsList[i - 1].value = values[i];
+        }
+      } else if (values[0] == 'V' && values.length <= readingsList.length + 1) {
+        for (int i = 0; i < values.length; i++) {
+          readingsList[i - 1].value = values[i + 1];
+        }
       }
     }
   }
 
   String generateSaveSettings() {
     String result = '';
-    for (int i = 4; i < settingsList.length; i++) {
+    for (int i = 4; i < lastData.length; i++) {
       result += '${settingsList[i].value},';
     }
     result = result.substring(0, result.length - 1);
@@ -153,7 +178,7 @@ class SettingsRepository {
 
   String generateSaveSystemSettings() {
     String result = '';
-    for (int i = 0; i < systemSettingsList.length; i++) {
+    for (int i = 0; i < lastSystemData.length; i++) {
       result += '${systemSettingsList[i].value},';
     }
     result = result.substring(0, result.length - 1);
@@ -162,18 +187,24 @@ class SettingsRepository {
 
   List<Tab> getTabs() {
     List<Tab> tabs = <Tab>[];
-    if (qsType.value != '0' || dsType.value != '0' || systemUnlocked) {
-      tabs.add(generalTab);
-      if (qsType.value != '0') {
-        tabs.add(qsTab);
+
+    if (VersionParser().isSupported) {
+      if (qsType.value != '0' || dsType.value != '0' || systemUnlocked) {
+        tabs.add(generalTab);
+        if (qsType.value != '0') {
+          tabs.add(qsTab);
+        }
+        if (dsType.value != '0') {
+          tabs.add(dsTab);
+        }
+        if (systemUnlocked) {
+          tabs.add(systemTab);
+        }
       }
-      if (dsType.value != '0') {
-        tabs.add(dsTab);
-      }
-      if (systemUnlocked) {
-        tabs.add(systemTab);
-      }
+    } else {
+      tabs.add(wrongVersionTab);
     }
+
     return tabs;
   }
 }
