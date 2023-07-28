@@ -160,8 +160,8 @@ class SettingsRepository {
           settingsList[i - 1].value = values[i];
         }
       } else if (values[0] == 'V' && values.length <= readingsList.length + 1) {
-        for (int i = 0; i < values.length; i++) {
-          readingsList[i - 1].value = values[i + 1];
+        for (int i = 1; i < values.length; i++) {
+          readingsList[i - 1].value = values[i];
         }
       }
     }
