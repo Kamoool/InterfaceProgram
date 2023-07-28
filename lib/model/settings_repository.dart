@@ -122,6 +122,7 @@ class SettingsRepository {
     lastData = [];
     lastSystemData = [];
 
+    //Used to keep track of received settings and then return correct string size
     for (Setting element in settingsList) {
       lastData.add(element.value);
     }
@@ -159,6 +160,7 @@ class SettingsRepository {
         for (int i = 1; i < values.length; i++) {
           settingsList[i - 1].value = values[i];
         }
+        VersionParser().versionChecked = true;
       } else if (values[0] == 'V' && values.length <= readingsList.length + 1) {
         for (int i = 1; i < values.length; i++) {
           readingsList[i - 1].value = values[i];
@@ -201,7 +203,7 @@ class SettingsRepository {
           tabs.add(systemTab);
         }
       }
-    } else {
+    } else if (VersionParser().versionChecked && !VersionParser().isSupported){
       tabs.add(wrongVersionTab);
     }
 

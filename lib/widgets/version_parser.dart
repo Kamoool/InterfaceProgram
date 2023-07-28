@@ -9,6 +9,7 @@ class VersionParser {
   bool isSupported = ConstantsRepository()
       .supportedVersions
       .any((element) => element.contains(SettingsRepository().majorVersion.value));
+  bool versionChecked = false;
 
   List<SpeedDialChild> getActionButtons(BuildContext context) {
     List<SpeedDialChild> buttons = [];
@@ -53,6 +54,7 @@ class VersionParser {
       backgroundColor: Colors.red,
       onTap: () {
         SerialPortUtils().disconnect();
+        VersionParser().versionChecked = false;
         Navigator.pop(context);
       },
     ));
@@ -132,11 +134,18 @@ class VersionParser {
           notifyParent: refresh,
         );
       }
+    } else if (VersionParser().versionChecked && !VersionParser().isSupported) {
+      return Center(
+        child: Text(
+          'Unsupported module version! Your module version is ${SettingsRepository().majorVersion.value}.${SettingsRepository().minorVersion.value}',
+          style: const TextStyle(fontSize: 50, color: Colors.white),
+        ),
+      );
     }
-    return Center(
+    return const Center(
       child: Text(
-        'Unsupported module version! Your module version is ${SettingsRepository().majorVersion.value}.${SettingsRepository().minorVersion.value}',
-        style: const TextStyle(fontSize: 50, color: Colors.white),
+        '',
+        style: TextStyle(fontSize: 50, color: Colors.white),
       ),
     );
   }
